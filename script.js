@@ -30,6 +30,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     onEachFeature: (feature, layer) => { layer.bindPopup(feature.properties.Name); },
   });
 
+  twentyTwentyLayer.addTo(map);
+
   const baseLayers = {
     2006: twoThousandSixLayer,
     2011: twoThousandElevenLayer,
@@ -47,6 +49,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     console.log(address.data.results[0]);
     const coordinates = address.data.results[0];
     const addressMarker = L.marker([coordinates.LATITUDE, coordinates.LONGITUDE]);
+    addressMarker.bindPopup(coordinates.SEARCHVAL);
     addressMarker.addTo(map);
   });
 });
