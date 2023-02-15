@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', async () => {
   const twoThousandElevenLayer = L.geoJson(twoThousandEleven.data).addTo(map);
 
   const twentyFifteen = await axios.get('data/electoral-boundary-2015/electoral-boundary-2015-geojson.geojson');
-  console.log(twentyFifteen.data);
   const twentyFifteenLayer = L.geoJson(twentyFifteen.data).addTo(map);
 
   const twentyTwentyKML = await axios.get('data/electoral-boundary_2020/doc.kml');
@@ -27,6 +26,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   twentyTwenty.addTo(twentyTwentyKMLLayer);
   twentyTwentyKMLLayer.addTo(map);
 
+  const convertedData = await axios.get('data/electoral-boundary_2020/doc.geojson');
+  const convertedLayer = L.geoJson(convertedData.data).addTo(map);
+
   const twentyTwentyGEOJson = kml(KMLdata);
   console.log(twentyTwentyGEOJson);
   const twentyTwentyGEOJsonLayer = L.geoJson(twentyTwentyGEOJson).addTo(map);
@@ -35,11 +37,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     2006: twoThousandSixLayer,
     2011: twoThousandElevenLayer,
     2015: twentyFifteenLayer,
-    2020: twentyTwentyKMLLayer,
-    2021: twentyTwentyGEOJsonLayer,
+    KML: twentyTwentyKMLLayer,
+    GEOJson: twentyTwentyGEOJsonLayer,
   };
 
   const overlays = {
+    converted: convertedLayer,
   };
   L.control.layers(baseLayers, overlays).addTo(map);
 });
