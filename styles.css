@@ -1,3 +1,7 @@
 body {
   background-color: pink;
 }
+
+#map {
+  height: 90vh;
+}
