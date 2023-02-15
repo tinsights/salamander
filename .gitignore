@@ -112,3 +112,5 @@ dist
 
 package-lock.json
 package.json
+
+*.txt
