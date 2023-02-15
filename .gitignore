@@ -107,3 +107,8 @@ dist
 
 .eslintrc.js
 .eslintrc.json
+
+.vscode/
+
+package-lock.json
+package.json
