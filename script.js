@@ -7,20 +7,23 @@ window.addEventListener('DOMContentLoaded', async () => {
   }).addTo(map);
 
   const twoThousandSix = await axios.get('data/electoral-boundary-2006/electoral-boundary-2006-geojson.geojson');
-  console.table(twoThousandSix.data);
   const twoThousandSixLayer = L.geoJson(twoThousandSix.data).addTo(map);
 
   const twoThousandEleven = await axios.get('data/electoral-boundary-2011/electoral-boundary-2011-geojson.geojson');
-  console.table(twoThousandEleven.data);
   const twoThousandElevenLayer = L.geoJson(twoThousandEleven.data).addTo(map);
 
   const twentyFifteen = await axios.get('data/electoral-boundary-2015/electoral-boundary-2015-geojson.geojson');
-  console.table(twentyFifteen.data);
   const twentyFifteenLayer = L.geoJson(twentyFifteen.data).addTo(map);
 
-  const twentyTwenty = await axios.get('data/electoral-boundary_2020/doc.geojson');
-  console.table(twentyTwenty.data);
-  const twentyTwentyLayer = L.geoJson(twentyTwenty.data).addTo(map);
+  const twentyTwenty = await axios.get('data/electoral-boundary_2020/doc.kml');
+  console.log(twentyTwenty);
+  const parser = new DOMParser();
+  const kml = parser.parseFromString(twentyTwenty.data, 'text/xml');
+  const boundaries = new L.KML(kml);
+  const twentyTwentyLayer = L.layerGroup();
+  boundaries.addTo(twentyTwentyLayer);
+  twentyTwentyLayer.addTo(map);
+  // const twentyTwentyLayer = L.geoJson(twentyTwenty.data).addTo(map);
 
   const baseLayers = {
     2006: twoThousandSixLayer,
