@@ -1,3 +1,5 @@
+import { kml } from 'https://unpkg.com/@tmcw/togeojson?module';
+
 window.addEventListener('DOMContentLoaded', async () => {
   const map = L.map('map').setView([1.3521, 103.8198], 13);
 
@@ -13,23 +15,28 @@ window.addEventListener('DOMContentLoaded', async () => {
   const twoThousandElevenLayer = L.geoJson(twoThousandEleven.data).addTo(map);
 
   const twentyFifteen = await axios.get('data/electoral-boundary-2015/electoral-boundary-2015-geojson.geojson');
+  console.log(twentyFifteen.data);
   const twentyFifteenLayer = L.geoJson(twentyFifteen.data).addTo(map);
 
-  const twentyTwenty = await axios.get('data/electoral-boundary_2020/doc.kml');
-  console.log(twentyTwenty);
+  const twentyTwentyKML = await axios.get('data/electoral-boundary_2020/doc.kml');
   const parser = new DOMParser();
-  const kml = parser.parseFromString(twentyTwenty.data, 'text/xml');
-  const boundaries = new L.KML(kml);
-  const twentyTwentyLayer = L.layerGroup();
-  boundaries.addTo(twentyTwentyLayer);
-  twentyTwentyLayer.addTo(map);
-  // const twentyTwentyLayer = L.geoJson(twentyTwenty.data).addTo(map);
+  const KMLdata = parser.parseFromString(twentyTwentyKML.data, 'text/xml');
+  const twentyTwenty = new L.KML(KMLdata);
+  console.log(twentyTwenty);
+  const twentyTwentyKMLLayer = L.layerGroup();
+  twentyTwenty.addTo(twentyTwentyKMLLayer);
+  twentyTwentyKMLLayer.addTo(map);
+
+  const twentyTwentyGEOJson = kml(KMLdata);
+  console.log(twentyTwentyGEOJson);
+  const twentyTwentyGEOJsonLayer = L.geoJson(twentyTwentyGEOJson).addTo(map);
 
   const baseLayers = {
     2006: twoThousandSixLayer,
     2011: twoThousandElevenLayer,
     2015: twentyFifteenLayer,
-    2020: twentyTwentyLayer,
+    2020: twentyTwentyKMLLayer,
+    2021: twentyTwentyGEOJsonLayer,
   };
 
   const overlays = {
