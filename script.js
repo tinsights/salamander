@@ -1,11 +1,21 @@
+/* eslint-disable no-use-before-define */
 window.addEventListener('DOMContentLoaded', async () => {
+  const map = initMap();
+  await addLayersToMap(map);
+  await addEvents(map);
+});
+
+function initMap() {
   const map = L.map('map').setView([1.3521, 103.8198], 13);
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
+  return map;
+}
 
+async function addLayersToMap(map) {
   const twoThousandSix = await axios.get('data/electoral-boundary-2006/electoral-boundary-2006-geojson.geojson');
   console.table(twoThousandSix.data);
   const twoThousandSixLayer = L.geoJson(twoThousandSix.data, {
@@ -24,7 +34,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     onEachFeature: (feature, layer) => { layer.bindPopup(feature.properties.Description); },
   });
 
-  const twentyTwenty = await axios.get('data/electoral-boundary_2020/electoral-boundary-2020-geojson.geojson');
+  const twentyTwenty = await axios.get('data/electoral-boundary-2020/electoral-boundary-2020-geojson.geojson');
   console.table(twentyTwenty.data);
   const twentyTwentyLayer = L.geoJson(twentyTwenty.data, {
     onEachFeature: (feature, layer) => { layer.bindPopup(feature.properties.Name); },
@@ -38,11 +48,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     2015: twentyFifteenLayer,
     2020: twentyTwentyLayer,
   };
+  L.control.layers(baseLayers).addTo(map);
+  return null;
+}
 
-  const overlays = {
-  };
-  L.control.layers(baseLayers, overlays).addTo(map);
-
+async function addEvents(map) {
   const postalCodeBtn = document.getElementById('postalCodeBtn');
   postalCodeBtn.addEventListener('click', async () => {
     const address = await axios.get(`https://developers.onemap.sg/commonapi/search?searchVal=${postalCodeSelector.value}&returnGeom=Y&getAddrDetails=N`);
@@ -52,4 +62,4 @@ window.addEventListener('DOMContentLoaded', async () => {
     addressMarker.bindPopup(coordinates.SEARCHVAL);
     addressMarker.addTo(map);
   });
-});
+}
