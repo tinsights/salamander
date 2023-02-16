@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     onEachFeature: (feature, layer) => { layer.bindPopup(feature.properties.Description); },
   });
 
-  const twentyTwenty = await axios.get('data/electoral-boundary_2020/doc.geojson');
+  const twentyTwenty = await axios.get('data/electoral-boundary_2020/electoral-boundary-2020-geojson.geojson');
   console.table(twentyTwenty.data);
   const twentyTwentyLayer = L.geoJson(twentyTwenty.data, {
     onEachFeature: (feature, layer) => { layer.bindPopup(feature.properties.Name); },
