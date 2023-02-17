@@ -4,6 +4,36 @@ window.addEventListener('DOMContentLoaded', async () => {
   const map = initMap();
   addLayersToMap(map);
   addPostalSearchEvent(map);
+  const response = await axios.get('https://developers.onemap.sg/privateapi/popapi/getAllPlanningarea?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk4NjksInVzZXJfaWQiOjk4NjksImVtYWlsIjoiYWoudGluYWVzQGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY3NjQ1MDI0MywiZXhwIjoxNjc2ODgyMjQzLCJuYmYiOjE2NzY0NTAyNDMsImp0aSI6IjJiNDRkYTNjZDdjMTY3ZDllNjg5YzJkOWVlMTk0MDY3In0.UizmvugFgVgzuna0ronsd9YF1tYIe9dotB0ujy1g2z0&year=2020');
+  const planningGeoJSON = {
+    type: 'FeatureCollection',
+    features: [],
+  };
+
+  response.data.forEach((area) => {
+    planningGeoJSON.features.push(
+      {
+        type: 'Feature',
+        geometry: JSON.parse(area.geojson),
+        properties: {
+          name: area.pln_area_n,
+        },
+      },
+    );
+  });
+  console.log(planningGeoJSON);
+  const myStyle = {
+    color: '#ff7800',
+    weight: 5,
+    opacity: 0.65,
+  };
+  L.geoJson(planningGeoJSON, {
+    style: myStyle,
+  }).addTo(map);
+
+  // const test = await axios.get('data/test.geojson');
+  // console.log(test.data);
+  // L.geoJson(test.data).addTo(map);
 });
 
 function initMap() {
@@ -24,9 +54,10 @@ async function addLayersToMap(map) {
     twentyTwentyLayer,
   ] = await Promise.all([createLayer(2006), createLayer(2011), createLayer(2015), createLayer(2020)]);
 
-  twentyTwentyLayer.addTo(map);
+  // twentyTwentyLayer.addTo(map);
 
   const baseLayers = {
+    clear: L.layerGroup(),
     2006: twoThousandSixLayer,
     2011: twoThousandElevenLayer,
     2015: twentyFifteenLayer,
