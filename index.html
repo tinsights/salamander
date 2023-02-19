@@ -23,14 +23,19 @@
     <link rel="stylesheet" href="styles.css" />
     <title>Salamander</title>
   </head>
+  <!-- TODO: rename divs to semantic HTML -->
   <body>
-    <h1>Hello, world!</h1>
-
-    <div id="map"></div>
-    <label for="postalCodeSelector">Postal Code</label>
-    <input type="number" id="postalCodeSelector" />
-    <button id="postalCodeBtn">Submit</button>
-
+    <main class="container-lg">
+      <h1>Salamander</h1>
+      <div id="map-container" class="container-fluid">
+        <div id="map"></div>
+      </div>
+      <div class="contianer-md d-flex justify-content-center">
+        <label for="postalCodeSelector">Postal Code</label>
+        <input type="number" id="postalCodeSelector" />
+        <button id="postalCodeBtn">Submit</button>
+      </div>
+    </main>
     <!-- EXTERNAL SCRIPTS -->
     <!-- AXIOS CDN -->
     <script
