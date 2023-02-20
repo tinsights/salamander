@@ -89,7 +89,7 @@ async function electionBoundaries(year) {
   const yearBoundariesResponse = await axios.get(`data/electoral-boundary-${year}/electoral-boundary-${year}-kml.geojson`);
   const yearBoundaries = yearBoundariesResponse.data;
   if (year === 2006) {
-    yearBoundaries.features.forEach((feature, idx) => {
+    yearBoundaries.features.forEach((feature) => {
       feature.properties.ED_DESC = feature.properties.ED_DESC.trim().replace(' - ', '-');
     });
   }

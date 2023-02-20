@@ -12,6 +12,8 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
     <!-- LEAFLET CSS -->
     <link
       rel="stylesheet"
@@ -26,14 +28,21 @@
   <!-- TODO: rename divs to semantic HTML -->
   <body>
     <main class="container-lg">
-      <h1 class="text-center">Salamander</h1>
+      <h1 class="text-center display-3">Salamander</h1>
       <div id="map-container" class="container-fluid">
         <div id="map"></div>
       </div>
-      <div class="contianer-md d-flex justify-content-center">
-        <label for="postalCodeSelector">Postal Code</label>
-        <input type="number" id="postalCodeSelector" />
-        <button id="postalCodeBtn">Submit</button>
+      <div class="container-md mt-3">
+        <div class="row">
+          <div class="col-12 text-center">
+            <i class="bi bi-houses"></i>
+            <label for="postalCodeSelector">Postal Code:</label>
+          </div>
+          <div class="col-12 text-center">
+            <input type="number" id="postalCodeSelector" />
+            <button id="postalCodeBtn" class="btn btn-dark">Submit</button>
+          </div>
+        </div>
       </div>
     </main>
     <!-- EXTERNAL SCRIPTS -->
