@@ -66,6 +66,18 @@ async function createLayer(year) {
       const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === constituencyName);
       layer.bindPopup(JSON.stringify(constituencyResults));
     },
+    style: (feature) => {
+      console.log(feature.properties.ED_DESC.toUpperCase());
+      switch (feature.properties.ED_DESC) {
+        case 'ALJUNIED': {
+          return {
+            color: 'FF0000',
+            fillColor: 'red',
+          };
+        }
+        default: return { color: 'blue' };
+      }
+    },
   });
   return yearLayer;
 }
