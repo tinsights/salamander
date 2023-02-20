@@ -67,7 +67,6 @@ async function createLayer(year) {
       layer.bindPopup(JSON.stringify(constituencyResults));
     },
     style: (feature) => {
-      console.log(feature.properties.ED_DESC.toUpperCase());
       switch (feature.properties.ED_DESC) {
         case 'ALJUNIED': {
           return {
@@ -88,15 +87,24 @@ async function getYearLayerData(year) {
   return Promise.all([yearResultsReq, yearBoundariesReq]);
 }
 
+/**
+ * requests General election results data from data.gov.sg API
+ * @returns {Object} in JSON
+ */
 async function electionResults(year) {
   const yearResultsResponse = await axios.get(`https://data.gov.sg/api/action/datastore_search?resource_id=4706f2cb-a909-4cc0-bd3d-f366c34cf6af&q=${year}`);
   const yearResults = yearResultsResponse.data.result.records;
   if (year === 2006) {
     console.log(yearResults);
   }
+  console.log(typeof yearResults);
   return yearResults;
 }
 
+/**
+ * reads electoral boundary data for a specific year
+ * @returns {Object} in geoJSON format
+ */
 async function electionBoundaries(year) {
   const yearBoundariesResponse = await axios.get(`data/electoral-boundary-${year}/electoral-boundary-${year}-kml.geojson`);
   const yearBoundaries = yearBoundariesResponse.data;
