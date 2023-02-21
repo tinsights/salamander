@@ -98,9 +98,22 @@ function initMap() {
 function addLayersToMap(model, view) {
   const baseLayers = model;
   const years = Object.keys(model);
-  model[years[years.length - 1]].addTo(view);
-  L.control.layers(baseLayers).addTo(view);
+  L.control.timelineSlider({
+    timelineItems: years,
+    extraChangeMapParams: { model },
+    changeMap: timelineFunction,
+  })
+    .addTo(view);
   return null;
+}
+
+function timelineFunction({
+  label, value, map, model,
+}) {
+  Object.keys(model).forEach((year) => {
+    map.removeLayer(model[year]);
+  });
+  model[label].addTo(map);
 }
 
 async function addPostalSearchEvent(model, view) {
@@ -117,6 +130,7 @@ async function addPostalSearchEvent(model, view) {
     const history = getHistory(layers, point);
     addressMarker.bindPopup(JSON.stringify(history));
     addressMarker.addTo(view);
+    view.flyTo([point.lat, point.lng], 15);
   });
 }
 
