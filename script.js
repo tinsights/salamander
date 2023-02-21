@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
+const globalLayers = [];
 window.addEventListener('DOMContentLoaded', async () => {
   const map = initMap();
   addLayersToMap(map);
@@ -23,7 +24,6 @@ async function addLayersToMap(map) {
     twentyFifteenLayer,
     twentyTwentyLayer,
   ] = await Promise.all([createLayer(2006), createLayer(2011), createLayer(2015), createLayer(2020)]);
-
   twentyTwentyLayer.addTo(map);
 
   const baseLayers = {
@@ -44,8 +44,27 @@ async function addPostalSearchEvent(map) {
     const coordinates = address.data.results[0];
     const addressMarker = L.marker([coordinates.LATITUDE, coordinates.LONGITUDE]);
     addressMarker.bindPopup(coordinates.SEARCHVAL);
+    findConstituencies(addressMarker);
     addressMarker.addTo(map);
   });
+}
+
+function findConstituencies(addressMarker) {
+  console.log(addressMarker);
+  console.log(globalLayers);
+  const polygon = L.polygon([
+    [1, 100, 0],
+    [1, 105, 0],
+    [1.5, 105, 0],
+    [1.5, 100, 0],
+  ]);
+  console.log(polygon);
+  console.log(polygon.contains(addressMarker.getLatLng()));
+  globalLayers.forEach((yearLayer) => yearLayer.eachLayer((sublayer) => {
+    if (sublayer.contains(addressMarker.getLatLng())) {
+      console.log(sublayer.feature.properties);
+    }
+  }));
 }
 async function createLayer(year) {
   const layerData = await getYearLayerData(year);
@@ -61,12 +80,10 @@ async function createLayer(year) {
           winner = result.vote_percentage > 0.5 ? result : winner;
         });
       } else {
-        console.log(results);
         [winner] = results;
-        console.log(winner);
         winner.vote_percentage = 1;
       }
-      console.log(winner.party);
+      // console.log(winner.party);
       switch (winner.party) {
         case 'PAP': {
           return {
@@ -84,6 +101,7 @@ async function createLayer(year) {
       }
     },
   });
+  globalLayers.push(yearLayer);
   return yearLayer;
 }
 
