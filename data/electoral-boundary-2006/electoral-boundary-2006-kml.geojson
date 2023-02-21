@@ -430,7 +430,7 @@
         "name": "kml_1",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>WE</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>WEST COAST                                        </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>0FDBB6560D96A644                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "WE",
-        "ED_DESC": "WEST COAST                                        ",
+        "ED_DESC": "WEST COAST",
         "INC_CRC": "0FDBB6560D96A644                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -693,7 +693,7 @@
         "name": "kml_2",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>PN</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>PASIR RIS - PUNGGOL                               </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>4863B2A964FCA9AD                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "PN",
-        "ED_DESC": "PASIR RIS - PUNGGOL                               ",
+        "ED_DESC": "PASIR RIS-PUNGGOL",
         "INC_CRC": "4863B2A964FCA9AD                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -787,7 +787,7 @@
         "name": "kml_3",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>NC</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>NEE SOON CENTRAL                                  </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>9B9BE379C720CE64                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "NC",
-        "ED_DESC": "NEE SOON CENTRAL                                  ",
+        "ED_DESC": "NEE SOON CENTRAL",
         "INC_CRC": "9B9BE379C720CE64                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -1054,7 +1054,7 @@
         "name": "kml_4",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>EC</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>EAST COAST                                        </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>2CDAD57922F2D684                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "EC",
-        "ED_DESC": "EAST COAST                                        ",
+        "ED_DESC": "EAST COAST",
         "INC_CRC": "2CDAD57922F2D684                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -1569,7 +1569,7 @@
         "name": "kml_5",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>AM</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>ANG MO KIO                                        </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>DAF0BC6663862002                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "AM",
-        "ED_DESC": "ANG MO KIO                                        ",
+        "ED_DESC": "ANG MO KIO",
         "INC_CRC": "DAF0BC6663862002                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -2147,7 +2147,7 @@
         "name": "kml_6",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>HH</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>HONG KAH                                          </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>6E37D4C7A068E0FE                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "HH",
-        "ED_DESC": "HONG KAH                                          ",
+        "ED_DESC": "HONG KAH",
         "INC_CRC": "6E37D4C7A068E0FE                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -2417,7 +2417,7 @@
         "name": "kml_7",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>SB</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>SEMBAWANG                                         </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>EB09F40B8E79400A                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "SB",
-        "ED_DESC": "SEMBAWANG                                         ",
+        "ED_DESC": "SEMBAWANG",
         "INC_CRC": "EB09F40B8E79400A                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -3189,7 +3189,7 @@
         "name": "kml_8",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>HT</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>HOLLAND - BUKIT TIMAH                             </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>2E961C555005BF46                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "HT",
-        "ED_DESC": "HOLLAND - BUKIT TIMAH                             ",
+        "ED_DESC": "HOLLAND-BUKIT TIMAH",
         "INC_CRC": "2E961C555005BF46                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -3294,7 +3294,7 @@
         "name": "kml_9",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>YK</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>YIO CHU KANG                                      </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>60FDD5B85CD33B89                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "YK",
-        "ED_DESC": "YIO CHU KANG                                      ",
+        "ED_DESC": "YIO CHU KANG",
         "INC_CRC": "60FDD5B85CD33B89                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -3426,7 +3426,7 @@
         "name": "kml_10",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>NE</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>NEE SOON EAST                                     </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>14E7FE7A913098D2                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "NE",
-        "ED_DESC": "NEE SOON EAST                                     ",
+        "ED_DESC": "NEE SOON EAST",
         "INC_CRC": "14E7FE7A913098D2                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -3821,7 +3821,7 @@
         "name": "kml_11",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>AJ</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>ALJUNIED                                          </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>1D52C5640231852C                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "AJ",
-        "ED_DESC": "ALJUNIED                                          ",
+        "ED_DESC": "ALJUNIED",
         "INC_CRC": "1D52C5640231852C                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -3959,7 +3959,7 @@
         "name": "kml_12",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>JC</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>JOO CHIAT                                         </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>6E9B56FD18739765                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "JC",
-        "ED_DESC": "JOO CHIAT                                         ",
+        "ED_DESC": "JOO CHIAT",
         "INC_CRC": "6E9B56FD18739765                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -4043,7 +4043,7 @@
         "name": "kml_13",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>MP</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>MACPHERSON                                        </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>3259488B29FB982A                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "MP",
-        "ED_DESC": "MACPHERSON                                        ",
+        "ED_DESC": "MACPHERSON",
         "INC_CRC": "3259488B29FB982A                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -4480,7 +4480,7 @@
         "name": "kml_14",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>JB</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>JALAN BESAR                                       </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>5DF067F5D952C2DD                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "JB",
-        "ED_DESC": "JALAN BESAR                                       ",
+        "ED_DESC": "JALAN BESAR",
         "INC_CRC": "5DF067F5D952C2DD                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -4613,7 +4613,7 @@
         "name": "kml_15",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>PS</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>POTONG PASIR                                      </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>A4B6E3EE60CF5423                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "PS",
-        "ED_DESC": "POTONG PASIR                                      ",
+        "ED_DESC": "POTONG PASIR",
         "INC_CRC": "A4B6E3EE60CF5423                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -4922,7 +4922,7 @@
         "name": "kml_16",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>JR</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>JURONG                                            </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>FE6B116C93F7BE0C                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "JR",
-        "ED_DESC": "JURONG                                            ",
+        "ED_DESC": "JURONG",
         "INC_CRC": "FE6B116C93F7BE0C                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -5392,7 +5392,7 @@
         "name": "kml_17",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>TP</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>TANJONG PAGAR                                     </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>EBA8881786C33D9B                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "TP",
-        "ED_DESC": "TANJONG PAGAR                                     ",
+        "ED_DESC": "TANJONG PAGAR",
         "INC_CRC": "EBA8881786C33D9B                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -5694,7 +5694,7 @@
         "name": "kml_18",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>BS</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>BISHAN - TOA PAYOH                                </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>B6FEA533DE380295                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "BS",
-        "ED_DESC": "BISHAN - TOA PAYOH                                ",
+        "ED_DESC": "BISHAN-TOA PAYOH",
         "INC_CRC": "B6FEA533DE380295                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -5830,7 +5830,7 @@
         "name": "kml_19",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>TM</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>TAMPINES                                          </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>E079084D2D526EF4                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "TM",
-        "ED_DESC": "TAMPINES                                          ",
+        "ED_DESC": "TAMPINES",
         "INC_CRC": "E079084D2D526EF4                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -5926,7 +5926,7 @@
         "name": "kml_20",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>HG</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>HOUGANG                                           </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>76D398F0F0A072C8                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "HG",
-        "ED_DESC": "HOUGANG                                           ",
+        "ED_DESC": "HOUGANG",
         "INC_CRC": "76D398F0F0A072C8                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -6409,7 +6409,7 @@
         "name": "kml_21",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>MA</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>MARINE PARADE                                     </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>5ACA0AC16E0135D1                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "MA",
-        "ED_DESC": "MARINE PARADE                                     ",
+        "ED_DESC": "MARINE PARADE",
         "INC_CRC": "5ACA0AC16E0135D1                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -6498,7 +6498,7 @@
         "name": "kml_22",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>BP</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>BUKIT PANJANG                                     </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>8420ABE388E8CC1E                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "BP",
-        "ED_DESC": "BUKIT PANJANG                                     ",
+        "ED_DESC": "BUKIT PANJANG",
         "INC_CRC": "8420ABE388E8CC1E                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },
@@ -6634,7 +6634,7 @@
         "name": "kml_23",
         "description": "<center><table><tr><th colspan='2' align='center'><em>Attributes</em></th></tr><tr bgcolor=\"#E3E3F3\">\n<th>ED_CODE</th>\n<td>CK</td>\n</tr><tr bgcolor=\"\">\n<th>ED_DESC</th>\n<td>CHUA CHU KANG                                     </td>\n</tr><tr bgcolor=\"#E3E3F3\">\n<th>INC_CRC</th>\n<td>2E7D1BEB3A7C1210                                                                                                                                                                                                                                              </td>\n</tr><tr bgcolor=\"\">\n<th>FMEL_UPD_D</th>\n<td>20090428105814</td>\n</tr></table></center>",
         "ED_CODE": "CK",
-        "ED_DESC": "CHUA CHU KANG                                     ",
+        "ED_DESC": "CHUA CHU KANG",
         "INC_CRC": "2E7D1BEB3A7C1210                                                                                                                                                                                                                                              ",
         "FMEL_UPD_D": "20090428105814"
       },

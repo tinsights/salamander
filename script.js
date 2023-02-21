@@ -47,34 +47,40 @@ async function addPostalSearchEvent(map) {
     addressMarker.addTo(map);
   });
 }
-
-// function htmlTableToJson(htmlTable) {
-//   const e = document.createElement('div');
-//   e.innerHTML = htmlTable;
-//   const ths = Array.from(e.querySelectorAll('th'));
-//   const tds = Array.from(e.querySelectorAll('td'));
-//   const constituencyDescription = Object.fromEntries(tds.map((td, idx) => [ths[idx + 1].innerText, td.innerText]));
-//   return constituencyDescription;
-// }
-
 async function createLayer(year) {
-  const [yearResults, yearBoundaries] = await getYearLayerData(year);
-  const yearLayer = L.geoJson(yearBoundaries, {
+  const layerData = await getYearLayerData(year);
+  const yearLayer = L.geoJson(layerData, {
     onEachFeature: (feature, layer) => {
-      // console.log(feature.properties);
-      const constituencyName = feature.properties.ED_DESC;
-      const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === constituencyName);
-      layer.bindPopup(JSON.stringify(constituencyResults));
+      layer.bindPopup(JSON.stringify(feature.properties.results));
     },
     style: (feature) => {
-      switch (feature.properties.ED_DESC) {
-        case 'ALJUNIED': {
+      let winner = {};
+      const { results } = feature.properties;
+      if (results.length > 1) {
+        feature.properties.results.forEach((result) => {
+          winner = result.vote_percentage > 0.5 ? result : winner;
+        });
+      } else {
+        console.log(results);
+        [winner] = results;
+        console.log(winner);
+        winner.vote_percentage = 1;
+      }
+      console.log(winner.party);
+      switch (winner.party) {
+        case 'PAP': {
           return {
-            color: 'FF0000',
-            fillColor: 'red',
+            color: 'blue', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+            fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+            fillOpacity: +winner.vote_percentage * 0.7,
           };
         }
-        default: return { color: 'blue' };
+        default: return {
+          color: 'red', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+          fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
+          fillOpacity: +winner.vote_percentage * 0.7,
+
+        };
       }
     },
   });
@@ -84,7 +90,15 @@ async function createLayer(year) {
 async function getYearLayerData(year) {
   const yearResultsReq = electionResults(year);
   const yearBoundariesReq = electionBoundaries(year);
-  return Promise.all([yearResultsReq, yearBoundariesReq]);
+
+  return Promise.all([yearResultsReq, yearBoundariesReq])
+    .then(([yearResultsResponse, yearBoundariesResponse]) => {
+      const layerData = yearBoundariesResponse;
+      yearBoundariesResponse.features.forEach((feature, idx) => {
+        layerData.features[idx].properties.results = yearResultsResponse.filter((result) => result.constituency.toUpperCase() === feature.properties.ED_DESC);
+      });
+      return layerData;
+    });
 }
 
 /**
@@ -94,10 +108,6 @@ async function getYearLayerData(year) {
 async function electionResults(year) {
   const yearResultsResponse = await axios.get(`https://data.gov.sg/api/action/datastore_search?resource_id=4706f2cb-a909-4cc0-bd3d-f366c34cf6af&q=${year}`);
   const yearResults = yearResultsResponse.data.result.records;
-  if (year === 2006) {
-    console.log(yearResults);
-  }
-  console.log(typeof yearResults);
   return yearResults;
 }
 
@@ -108,10 +118,5 @@ async function electionResults(year) {
 async function electionBoundaries(year) {
   const yearBoundariesResponse = await axios.get(`data/electoral-boundary-${year}/electoral-boundary-${year}-kml.geojson`);
   const yearBoundaries = yearBoundariesResponse.data;
-  if (year === 2006) {
-    yearBoundaries.features.forEach((feature) => {
-      feature.properties.ED_DESC = feature.properties.ED_DESC.trim().replace(' - ', '-');
-    });
-  }
   return yearBoundaries;
 }
