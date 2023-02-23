@@ -1,25 +1,51 @@
-const CSS_COLOR_NAMES = {
-  Crimson: '#d72638',
-  'Steel blue': '#3f88c5',
-  'Carrot orange': '#f49d37',
-  'Dark purple': '#140f2d',
-  'Red (CMYK)': '#f22b29',
-  'Prussian blue': '#002642',
-  Claret: '#840032',
-  Gamboge: '#e59500',
-  Timberwolf: '#e5dada',
-  'Rich black': '#02040f',
-  'Dark green': '#042a2b',
-  Moonstone: '#5eb1bf',
-  'Light cyan': '#cdedf6',
-  'Orange (Crayola)': '#ef7b45',
-  'Chili red': '#d84727',
-  'Prussian blue': '#003049',
-  'Fire engine red': '#d62828',
-  'Orange (wheel)': '#f77f00',
-  Xanthous: '#fcbf49',
-  Vanilla: '#eae2b7',
-};
+const CSS_COLOR_NAMES = [
+  '#d72638',
+  '#3f88c5',
+  '#f49d37',
+  '#140f2d',
+  '#f22b29',
+  '#002642',
+  '#840032',
+  '#e59500',
+  '#02040f',
+  '#042a2b',
+  '#5eb1bf',
+  '#ef7b45',
+  '#d84727',
+  '#003049',
+  '#d62828',
+  '#f77f00',
+  '#fcbf49',
+  'darkorange',
+  'darkblue',
+  'greenyellow',
+  'darkgoldenrod',
+  'steelblue',
+  'magenta',
+  'chartreuse',
+  'turqoise',
+  'crimson',
+  'Maroon',
+  'MediumBlue',
+  'SeaGreen',
+  'GreenYellow',
+  'Purple',
+  'darkorange',
+  'darkblue',
+  'greenyellow',
+  'darkgoldenrod',
+  'steelblue',
+  'magenta',
+  'chartreuse',
+  'turqoise',
+  'crimson',
+  'Maroon',
+  'MediumBlue',
+  'SeaGreen',
+  'GreenYellow',
+  'Purple',
+
+];
 
 window.addEventListener('DOMContentLoaded', async () => {
   const view = initMap();
@@ -62,14 +88,16 @@ async function generateModel(years) {
   function createModel([yearResults, yearBoundaries]) {
     const { year } = yearResults[0];
     yearBoundaries.features.forEach((feature) => {
-    // if new constituency,
-    // create a new key in model
-    // add results and boundaries of current year
       const currConstituency = feature.properties.ED_DESC;
+      const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
+      const constituencyBoundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
+      // if new constituency,
+      // create a new key in model
+      // add results and boundaries of current year
+      const constituencyStyle = generateConsituencyStyle(constituencyResults);
       if (!newModel.CONSTITUENCIES[currConstituency]) {
-        const randColor = randomColor();
         newModel.CONSTITUENCIES[currConstituency] = {
-          style: { color: randColor },
+          style: constituencyStyle,
         };
       }
       // else if constituency already exists, add
@@ -77,12 +105,42 @@ async function generateModel(years) {
         results: {},
         boundaries: {},
       };
-      newModel.CONSTITUENCIES[currConstituency][year].results = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
-      newModel.CONSTITUENCIES[currConstituency][year].boundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
+      newModel.CONSTITUENCIES[currConstituency][year].results = constituencyResults;
+      newModel.CONSTITUENCIES[currConstituency][year].boundaries = constituencyBoundaries;
     });
   }
+
+  function generateConsituencyStyle(constituencyResults) {
+    // console.log(constituencyResults);
+    let winner = {};
+    if (constituencyResults.length > 1) {
+      constituencyResults.forEach((result) => {
+        winner = result.vote_percentage > 0.5 ? result : winner;
+      });
+    } else {
+      [winner] = constituencyResults;
+      winner.vote_percentage = 1;
+    }
+    // console.log(winner.party);
+    const randColor = randomColor();
+    switch (winner.party) {
+      case 'PAP': {
+        return {
+          color: 'darkblue', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+          fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+          fillOpacity: Math.min(winner.vote_percentage, 0.7),
+        };
+      }
+      default: return {
+        color: 'darkred', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+        fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
+        fillOpacity: Math.min(winner.vote_percentage, 0.7),
+
+      };
+    }
+  }
   function randomColor() {
-    return Object.values(CSS_COLOR_NAMES).splice(Math.round(Math.random() * Object.keys(CSS_COLOR_NAMES).length), 1)[0];
+    return CSS_COLOR_NAMES.splice(1, 1)[0];
   }
 }
 
@@ -160,7 +218,11 @@ function addLayersToMap(model, view) {
         if (constituency[year]) {
           L.geoJSON(constituency[year].boundaries, {
             style: constituency.style,
-          }).addTo(yearLayer);
+          }).bindPopup(JSON.stringify(
+            {
+              constituency: constituency[year].boundaries[0].properties.ED_DESC,
+            },
+          )).addTo(yearLayer);
           // console.log(constituency.style);
         }
       });
