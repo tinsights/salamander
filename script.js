@@ -96,12 +96,12 @@ function initMap() {
 }
 
 function addLayersToMap(model, view) {
-  const baseLayers = model;
   const years = Object.keys(model);
   L.control.timelineSlider({
     timelineItems: years,
     extraChangeMapParams: { model },
     changeMap: timelineFunction,
+    position: 'bottomleft',
   })
     .addTo(view);
   return null;
