@@ -48,11 +48,18 @@ const CSS_COLOR_NAMES = [
 ];
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const view = initMap();
+  const map = initMap();
+
   // addPostalSearchEvent(model, view);
   const model = await generateModel([2006, 2011, 2015, 2020]);
+  const layers = createLayers(model);
+  const view = {
+    map,
+    layers,
+  };
   console.log(model);
   addLayersToMap(model, view);
+  // toggleButton(model, view);
 });
 
 /**
@@ -91,10 +98,11 @@ async function generateModel(years) {
       const currConstituency = feature.properties.ED_DESC;
       const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
       const constituencyBoundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
+      const constituencyStyle = generateConstituencyStyle();
       // if new constituency,
       // create a new key in model
       // add results and boundaries of current year
-      const constituencyStyle = generateConsituencyStyle(constituencyResults);
+      const resultStyle = generateResultStyle(constituencyResults);
       if (!newModel.CONSTITUENCIES[currConstituency]) {
         newModel.CONSTITUENCIES[currConstituency] = {
           style: constituencyStyle,
@@ -104,13 +112,14 @@ async function generateModel(years) {
       newModel.CONSTITUENCIES[currConstituency][year] = {
         results: {},
         boundaries: {},
+        resultStyle,
       };
       newModel.CONSTITUENCIES[currConstituency][year].results = constituencyResults;
       newModel.CONSTITUENCIES[currConstituency][year].boundaries = constituencyBoundaries;
     });
   }
 
-  function generateConsituencyStyle(constituencyResults) {
+  function generateResultStyle(constituencyResults) {
     // console.log(constituencyResults);
     let winner = {};
     if (constituencyResults.length > 1) {
@@ -122,7 +131,6 @@ async function generateModel(years) {
       winner.vote_percentage = 1;
     }
     // console.log(winner.party);
-    const randColor = randomColor();
     switch (winner.party) {
       case 'PAP': {
         return {
@@ -139,8 +147,9 @@ async function generateModel(years) {
       };
     }
   }
-  function randomColor() {
-    return CSS_COLOR_NAMES.splice(1, 1)[0];
+  function generateConstituencyStyle() {
+    const randColor = CSS_COLOR_NAMES.splice(1, 1)[0];
+    return { color: randColor };
   }
 }
 
@@ -150,43 +159,6 @@ async function generateModel(years) {
  * relevant election data is contained in properties of each constituency
  * @returns {Object}
  */
-async function createLayer(year) {
-  const layerData = await getYearLayerData(year);
-  const yearLayer = L.geoJson(layerData, {
-    onEachFeature: (feature, layer) => {
-      layer.bindPopup(JSON.stringify(feature.properties.results));
-    },
-    style: (feature) => {
-      let winner = {};
-      const { results } = feature.properties;
-      if (results.length > 1) {
-        feature.properties.results.forEach((result) => {
-          winner = result.vote_percentage > 0.5 ? result : winner;
-        });
-      } else {
-        [winner] = results;
-        winner.vote_percentage = 1;
-      }
-      // console.log(winner.party);
-      switch (winner.party) {
-        case 'PAP': {
-          return {
-            color: 'blue', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
-            fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
-            fillOpacity: Math.min(winner.vote_percentage, 0.7),
-          };
-        }
-        default: return {
-          color: 'red', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
-          fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
-          fillOpacity: Math.min(winner.vote_percentage, 0.7),
-
-        };
-      }
-    },
-  });
-  return yearLayer;
-}
 
 function initMap() {
   const map = L.map('map').setView([1.3521, 103.8198], 13);
@@ -198,46 +170,43 @@ function initMap() {
 }
 
 function addLayersToMap(model, view) {
-  const yearLayers = newCreateLayer(model);
-
-  const years = Object.keys(yearLayers);
+  const years = Object.keys(view.layers);
   L.control.timelineSlider({
     timelineItems: years,
-    extraChangeMapParams: { yearLayers },
+    extraChangeMapParams: view.layers,
     changeMap: timelineFunction,
     position: 'bottomleft',
   })
-    .addTo(view);
+    .addTo(view.map);
   return null;
-
-  function newCreateLayer(m) {
-    const results = {};
-    m.YEARS.forEach((year) => {
-      const yearLayer = L.featureGroup();
-      Object.values(m.CONSTITUENCIES).forEach((constituency) => {
-        if (constituency[year]) {
-          L.geoJSON(constituency[year].boundaries, {
-            style: constituency.style,
-          }).bindPopup(JSON.stringify(
-            {
-              constituency: constituency[year].boundaries[0].properties.ED_DESC,
-            },
-          )).addTo(yearLayer);
-          // console.log(constituency.style);
-        }
-      });
-      results[year] = yearLayer;
-    });
-    return results;
-  }
   function timelineFunction({
-    label, value, map, yearLayers,
+    label,
   }) {
-    Object.keys(yearLayers).forEach((year) => {
-      map.removeLayer(yearLayers[year]);
+    Object.values(view.layers).forEach((layer) => {
+      view.map.removeLayer(layer);
     });
-    yearLayers[label].addTo(map);
+    view.layers[label].addTo(view.map);
   }
+}
+function createLayers(model) {
+  const results = {};
+  model.YEARS.forEach((year) => {
+    const yearLayer = L.featureGroup();
+    Object.values(model.CONSTITUENCIES).forEach((constituency) => {
+      if (constituency[year]) {
+        L.geoJSON(constituency[year].boundaries, {
+          style: constituency.style,
+        }).bindPopup(JSON.stringify(
+          {
+            constituency: constituency[year].boundaries[0].properties.ED_DESC,
+          },
+        )).addTo(yearLayer);
+        // console.log(constituency.style);
+      }
+    });
+    results[year] = yearLayer;
+  });
+  return results;
 }
 
 async function addPostalSearchEvent(model, view) {
