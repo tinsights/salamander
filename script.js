@@ -1,8 +1,11 @@
+const newModel = {};
+
 window.addEventListener('DOMContentLoaded', async () => {
   const view = initMap();
   const model = await generateModel([2006, 2011, 2015, 2020]);
-  addLayersToMap(model, view);
-  addPostalSearchEvent(model, view);
+  // addLayersToMap(model, view);
+  // addPostalSearchEvent(model, view);
+  console.table(newModel);
 });
 
 /**
@@ -65,13 +68,37 @@ async function getYearLayerData(year) {
   const yearBoundariesReq = getElectionBoundaries(year);
 
   return Promise.all([yearResultsReq, yearBoundariesReq])
-    .then(([yearResultsResponse, yearBoundariesResponse]) => {
-      const layerData = yearBoundariesResponse;
-      yearBoundariesResponse.features.forEach((feature, idx) => {
-        layerData.features[idx].properties.results = yearResultsResponse.filter((result) => result.constituency.toUpperCase() === feature.properties.ED_DESC);
+    .then(([yearResults, yearBoundaries]) => {
+      const layerData = yearBoundaries;
+      yearBoundaries.features.forEach((feature, idx) => {
+        layerData.features[idx].properties.results = yearResults.filter((result) => result.constituency.toUpperCase() === feature.properties.ED_DESC);
       });
+
+      generateNewModel(yearResults, yearBoundaries);
       return layerData;
     });
+}
+
+function generateNewModel(yearResults, yearBoundaries) {
+  // console.log(yearResults);
+  // console.log(yearBoundaries);
+  const currYear = yearResults[0].year;
+  console.log(currYear);
+  yearBoundaries.features.forEach((feature) => {
+    // if new constituency,
+    // create a new key in model
+    // add results and boundaries of current year
+    if (!newModel[feature.properties.ED_DESC]) {
+      newModel[feature.properties.ED_DESC] = {};
+    }
+    // else if constituency already exists, add
+    newModel[feature.properties.ED_DESC][currYear] = {
+      results: {},
+      boundaries: {},
+    };
+    newModel[feature.properties.ED_DESC][currYear].results = yearResults;
+    newModel[feature.properties.ED_DESC][currYear].boundaries = yearBoundaries;
+  });
 }
 
 async function getElectionResults(year) {
