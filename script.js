@@ -1,12 +1,10 @@
-const newModel = {};
-
 window.addEventListener('DOMContentLoaded', async () => {
   const view = initMap();
-  const model = await generateModel([2006, 2011, 2015, 2020]);
   // addLayersToMap(model, view);
   // addPostalSearchEvent(model, view);
-  console.table(newModel);
+  const newModel = await generateNewModel([2006, 2011, 2015, 2020]);
   console.log(newModel);
+  addLayersToMap(newModel, view);
 });
 
 /**
@@ -15,9 +13,49 @@ window.addEventListener('DOMContentLoaded', async () => {
  * creates an object with year as keys, Leaflet layer element as value.
  *
  */
-async function generateModel(years) {
-  const layerArr = await Promise.all(years.map((year) => createLayer(year)));
-  return Object.fromEntries(years.map((year, idx) => [year, layerArr[idx]]));
+async function generateNewModel(years) {
+  const newModel = {
+    YEARS: years,
+    CONSTITUENCIES: {},
+  };
+  const yearDataReqs = years.map((year) => Promise.all([getElectionResults(year), getElectionBoundaries(year)]));
+  return Promise.all(yearDataReqs)
+    .then((yearResults) => {
+      yearResults.forEach((yearData) => createModel(yearData));
+      return newModel;
+    });
+
+  async function getElectionResults(year) {
+    const yearResultsResponse = await axios.get(`https://data.gov.sg/api/action/datastore_search?resource_id=4706f2cb-a909-4cc0-bd3d-f366c34cf6af&q=${year}`);
+    const yearResults = yearResultsResponse.data.result.records;
+    return yearResults;
+  }
+
+  async function getElectionBoundaries(year) {
+    const yearBoundariesResponse = await axios.get(`data/electoral-boundary-${year}/electoral-boundary-${year}-kml.geojson`);
+    const yearBoundaries = yearBoundariesResponse.data;
+    return yearBoundaries;
+  }
+
+  function createModel([yearResults, yearBoundaries]) {
+    const { year } = yearResults[0];
+    yearBoundaries.features.forEach((feature) => {
+    // if new constituency,
+    // create a new key in model
+    // add results and boundaries of current year
+      const currConstituency = feature.properties.ED_DESC;
+      if (!newModel.CONSTITUENCIES[currConstituency]) {
+        newModel.CONSTITUENCIES[currConstituency] = {};
+      }
+      // else if constituency already exists, add
+      newModel.CONSTITUENCIES[currConstituency][year] = {
+        results: {},
+        boundaries: {},
+      };
+      newModel.CONSTITUENCIES[currConstituency][year].results = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
+      newModel.CONSTITUENCIES[currConstituency][year].boundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
+    });
+  }
 }
 
 /**
@@ -64,57 +102,6 @@ async function createLayer(year) {
   return yearLayer;
 }
 
-async function getYearLayerData(year) {
-  const yearResultsReq = getElectionResults(year);
-  const yearBoundariesReq = getElectionBoundaries(year);
-
-  return Promise.all([yearResultsReq, yearBoundariesReq])
-    .then(([yearResults, yearBoundaries]) => {
-      const layerData = yearBoundaries;
-      yearBoundaries.features.forEach((feature, idx) => {
-        layerData.features[idx].properties.results = yearResults.filter((result) => result.constituency.toUpperCase() === feature.properties.ED_DESC);
-      });
-
-      generateNewModel(yearResults, yearBoundaries);
-      return layerData;
-    });
-}
-
-function generateNewModel(yearResults, yearBoundaries) {
-  // console.log(yearResults);
-  // console.log(yearBoundaries);
-  const { year } = yearResults[0];
-  console.log(year);
-  yearBoundaries.features.forEach((feature) => {
-    // if new constituency,
-    // create a new key in model
-    // add results and boundaries of current year
-    const currConstituency = feature.properties.ED_DESC;
-    if (!newModel[currConstituency]) {
-      newModel[currConstituency] = {};
-    }
-    // else if constituency already exists, add
-    newModel[currConstituency][year] = {
-      results: {},
-      boundaries: {},
-    };
-    newModel[currConstituency][year].results = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
-    newModel[currConstituency][year].boundaries = yearBoundaries;
-  });
-}
-
-async function getElectionResults(year) {
-  const yearResultsResponse = await axios.get(`https://data.gov.sg/api/action/datastore_search?resource_id=4706f2cb-a909-4cc0-bd3d-f366c34cf6af&q=${year}`);
-  const yearResults = yearResultsResponse.data.result.records;
-  return yearResults;
-}
-
-async function getElectionBoundaries(year) {
-  const yearBoundariesResponse = await axios.get(`data/electoral-boundary-${year}/electoral-boundary-${year}-kml.geojson`);
-  const yearBoundaries = yearBoundariesResponse.data;
-  return yearBoundaries;
-}
-
 function initMap() {
   const map = L.map('map').setView([1.3521, 103.8198], 13);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -125,24 +112,41 @@ function initMap() {
 }
 
 function addLayersToMap(model, view) {
-  const years = Object.keys(model);
+  const yearLayers = newCreateLayer(model);
+
+  const years = Object.keys(yearLayers);
   L.control.timelineSlider({
     timelineItems: years,
-    extraChangeMapParams: { model },
+    extraChangeMapParams: { yearLayers },
     changeMap: timelineFunction,
     position: 'bottomleft',
   })
     .addTo(view);
   return null;
+
+  function newCreateLayer(m) {
+    const results = {};
+    m.YEARS.forEach((year) => {
+      const yearLayer = L.layerGroup();
+      Object.values(m.CONSTITUENCIES).forEach((constituency) => {
+        if (constituency[year]) {
+          L.geoJSON(constituency[year].boundaries).addTo(yearLayer);
+        }
+      });
+      results[year] = yearLayer;
+    });
+    return results;
+  }
 }
 
 function timelineFunction({
-  label, value, map, model,
+  label, value, map, yearLayers,
 }) {
-  Object.keys(model).forEach((year) => {
-    map.removeLayer(model[year]);
+  console.log(yearLayers);
+  Object.keys(yearLayers).forEach((year) => {
+    map.removeLayer(yearLayers[year]);
   });
-  model[label].addTo(map);
+  yearLayers[label].addTo(map);
 }
 
 async function addPostalSearchEvent(model, view) {
