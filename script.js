@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   // addLayersToMap(model, view);
   // addPostalSearchEvent(model, view);
   console.table(newModel);
+  console.log(newModel);
 });
 
 /**
@@ -82,22 +83,23 @@ async function getYearLayerData(year) {
 function generateNewModel(yearResults, yearBoundaries) {
   // console.log(yearResults);
   // console.log(yearBoundaries);
-  const currYear = yearResults[0].year;
-  console.log(currYear);
+  const { year } = yearResults[0];
+  console.log(year);
   yearBoundaries.features.forEach((feature) => {
     // if new constituency,
     // create a new key in model
     // add results and boundaries of current year
-    if (!newModel[feature.properties.ED_DESC]) {
-      newModel[feature.properties.ED_DESC] = {};
+    const currConstituency = feature.properties.ED_DESC;
+    if (!newModel[currConstituency]) {
+      newModel[currConstituency] = {};
     }
     // else if constituency already exists, add
-    newModel[feature.properties.ED_DESC][currYear] = {
+    newModel[currConstituency][year] = {
       results: {},
       boundaries: {},
     };
-    newModel[feature.properties.ED_DESC][currYear].results = yearResults;
-    newModel[feature.properties.ED_DESC][currYear].boundaries = yearBoundaries;
+    newModel[currConstituency][year].results = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
+    newModel[currConstituency][year].boundaries = yearBoundaries;
   });
 }
 
