@@ -98,28 +98,28 @@ async function generateModel(years) {
       const currConstituency = feature.properties.ED_DESC;
       const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
       const constituencyBoundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
-      const constituencyStyle = generateConstituencyStyle();
+      const constituencyStyle = generateConstituencyStyle(constituencyResults);
       // if new constituency,
       // create a new key in model
       // add results and boundaries of current year
-      const resultStyle = generateResultStyle(constituencyResults);
       if (!newModel.CONSTITUENCIES[currConstituency]) {
         newModel.CONSTITUENCIES[currConstituency] = {
-          style: constituencyStyle,
+          boundaryColor: boundaryColorGenerator(),
         };
       }
       // else if constituency already exists, add
+      constituencyStyle.color = newModel.CONSTITUENCIES[currConstituency].boundaryColor;
       newModel.CONSTITUENCIES[currConstituency][year] = {
         results: {},
         boundaries: {},
-        resultStyle,
+        style: constituencyStyle,
       };
       newModel.CONSTITUENCIES[currConstituency][year].results = constituencyResults;
       newModel.CONSTITUENCIES[currConstituency][year].boundaries = constituencyBoundaries;
     });
   }
 
-  function generateResultStyle(constituencyResults) {
+  function generateConstituencyStyle(constituencyResults) {
     // console.log(constituencyResults);
     let winner = {};
     if (constituencyResults.length > 1) {
@@ -130,26 +130,22 @@ async function generateModel(years) {
       [winner] = constituencyResults;
       winner.vote_percentage = 1;
     }
-    // console.log(winner.party);
     switch (winner.party) {
       case 'PAP': {
         return {
-          color: 'darkblue', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
           fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
           fillOpacity: Math.min(winner.vote_percentage, 0.7),
         };
       }
       default: return {
-        color: 'darkred', // `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
         fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
         fillOpacity: Math.min(winner.vote_percentage, 0.7),
 
       };
     }
   }
-  function generateConstituencyStyle() {
-    const randColor = CSS_COLOR_NAMES.splice(1, 1)[0];
-    return { color: randColor };
+  function boundaryColorGenerator() {
+    return CSS_COLOR_NAMES.splice(1, 1);
   }
 }
 
@@ -195,7 +191,7 @@ function createLayers(model) {
     Object.values(model.CONSTITUENCIES).forEach((constituency) => {
       if (constituency[year]) {
         L.geoJSON(constituency[year].boundaries, {
-          style: constituency.style,
+          style: constituency[year].style,
         }).bindPopup(JSON.stringify(
           {
             constituency: constituency[year].boundaries[0].properties.ED_DESC,
