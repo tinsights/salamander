@@ -1,10 +1,32 @@
+const CSS_COLOR_NAMES = {
+  Crimson: '#d72638',
+  'Steel blue': '#3f88c5',
+  'Carrot orange': '#f49d37',
+  'Dark purple': '#140f2d',
+  'Red (CMYK)': '#f22b29',
+  'Prussian blue': '#002642',
+  Claret: '#840032',
+  Gamboge: '#e59500',
+  Timberwolf: '#e5dada',
+  'Rich black': '#02040f',
+  'Dark green': '#042a2b',
+  Moonstone: '#5eb1bf',
+  'Light cyan': '#cdedf6',
+  'Orange (Crayola)': '#ef7b45',
+  'Chili red': '#d84727',
+  'Prussian blue': '#003049',
+  'Fire engine red': '#d62828',
+  'Orange (wheel)': '#f77f00',
+  Xanthous: '#fcbf49',
+  Vanilla: '#eae2b7',
+};
+
 window.addEventListener('DOMContentLoaded', async () => {
   const view = initMap();
-  // addLayersToMap(model, view);
   // addPostalSearchEvent(model, view);
-  const newModel = await generateNewModel([2006, 2011, 2015, 2020]);
-  console.log(newModel);
-  addLayersToMap(newModel, view);
+  const model = await generateModel([2006, 2011, 2015, 2020]);
+  console.log(model);
+  addLayersToMap(model, view);
 });
 
 /**
@@ -13,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async () => {
  * creates an object with year as keys, Leaflet layer element as value.
  *
  */
-async function generateNewModel(years) {
+async function generateModel(years) {
   const newModel = {
     YEARS: years,
     CONSTITUENCIES: {},
@@ -45,7 +67,10 @@ async function generateNewModel(years) {
     // add results and boundaries of current year
       const currConstituency = feature.properties.ED_DESC;
       if (!newModel.CONSTITUENCIES[currConstituency]) {
-        newModel.CONSTITUENCIES[currConstituency] = {};
+        const randColor = randomColor();
+        newModel.CONSTITUENCIES[currConstituency] = {
+          style: { color: randColor },
+        };
       }
       // else if constituency already exists, add
       newModel.CONSTITUENCIES[currConstituency][year] = {
@@ -55,6 +80,9 @@ async function generateNewModel(years) {
       newModel.CONSTITUENCIES[currConstituency][year].results = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
       newModel.CONSTITUENCIES[currConstituency][year].boundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
     });
+  }
+  function randomColor() {
+    return Object.values(CSS_COLOR_NAMES).splice(Math.round(Math.random() * Object.keys(CSS_COLOR_NAMES).length), 1)[0];
   }
 }
 
@@ -127,26 +155,27 @@ function addLayersToMap(model, view) {
   function newCreateLayer(m) {
     const results = {};
     m.YEARS.forEach((year) => {
-      const yearLayer = L.layerGroup();
+      const yearLayer = L.featureGroup();
       Object.values(m.CONSTITUENCIES).forEach((constituency) => {
         if (constituency[year]) {
-          L.geoJSON(constituency[year].boundaries).addTo(yearLayer);
+          L.geoJSON(constituency[year].boundaries, {
+            style: constituency.style,
+          }).addTo(yearLayer);
+          // console.log(constituency.style);
         }
       });
       results[year] = yearLayer;
     });
     return results;
   }
-}
-
-function timelineFunction({
-  label, value, map, yearLayers,
-}) {
-  console.log(yearLayers);
-  Object.keys(yearLayers).forEach((year) => {
-    map.removeLayer(yearLayers[year]);
-  });
-  yearLayers[label].addTo(map);
+  function timelineFunction({
+    label, value, map, yearLayers,
+  }) {
+    Object.keys(yearLayers).forEach((year) => {
+      map.removeLayer(yearLayers[year]);
+    });
+    yearLayers[label].addTo(map);
+  }
 }
 
 async function addPostalSearchEvent(model, view) {
@@ -165,15 +194,15 @@ async function addPostalSearchEvent(model, view) {
     addressMarker.addTo(view);
     view.flyTo([point.lat, point.lng], 15);
   });
-}
 
-function getHistory(layers, point) {
-  const constituencyHistory = [];
-  Object.values(layers).forEach((yearLayer) => yearLayer.eachLayer((sublayer) => {
-    if (sublayer.contains(point)) {
-      constituencyHistory.push(sublayer.feature.properties);
-    }
-  }));
-  console.log(constituencyHistory);
-  return constituencyHistory;
+  function getHistory(layers, point) {
+    const constituencyHistory = [];
+    Object.values(layers).forEach((yearLayer) => yearLayer.eachLayer((sublayer) => {
+      if (sublayer.contains(point)) {
+        constituencyHistory.push(sublayer.feature.properties);
+      }
+    }));
+    console.log(constituencyHistory);
+    return constituencyHistory;
+  }
 }
