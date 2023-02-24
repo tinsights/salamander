@@ -46,7 +46,7 @@ const CSS_COLOR_NAMES = [
   'Purple',
 
 ];
-
+const myFeaturesMap = {};
 window.addEventListener('DOMContentLoaded', async () => {
   const map = initMap();
 
@@ -106,6 +106,7 @@ async function generateModel(years) {
         newModel.CONSTITUENCIES[currConstituency] = {
           boundaryColor: boundaryColorGenerator(),
         };
+        myFeaturesMap[currConstituency] = {};
       }
       // else if constituency already exists, add
       constituencyStyle.color = newModel.CONSTITUENCIES[currConstituency].boundaryColor;
@@ -190,7 +191,7 @@ function addLayersToMap(model, view) {
 function createLayers(model) {
   const results = {};
   model.YEARS.forEach((year) => {
-    const yearLayer = L.featureGroup();
+    const yearLayer = L.layerGroup();
     Object.values(model.CONSTITUENCIES).forEach((constituency) => {
       if (constituency[year]) {
         const geo = L.geoJSON(constituency[year].boundaries, {
@@ -200,6 +201,7 @@ function createLayers(model) {
             constituency: constituency[year].boundaries[0].properties.ED_DESC,
           },
         ));
+        myFeaturesMap[constituency[year].boundaries[0].properties.ED_DESC][year] = geo;
         geo.addTo(yearLayer);
       }
     });
