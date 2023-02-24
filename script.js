@@ -167,6 +167,7 @@ function initMap() {
 
 function addLayersToMap(model, view) {
   const years = Object.keys(view.layers);
+  // console.log(view);
   L.control.timelineSlider({
     timelineItems: years,
     extraChangeMapParams: view.layers,
@@ -178,26 +179,28 @@ function addLayersToMap(model, view) {
   function timelineFunction({
     label,
   }) {
+    // console.log(map);
     Object.values(view.layers).forEach((layer) => {
       view.map.removeLayer(layer);
     });
     view.layers[label].addTo(view.map);
   }
 }
+
 function createLayers(model) {
   const results = {};
   model.YEARS.forEach((year) => {
     const yearLayer = L.featureGroup();
     Object.values(model.CONSTITUENCIES).forEach((constituency) => {
       if (constituency[year]) {
-        L.geoJSON(constituency[year].boundaries, {
+        const geo = L.geoJSON(constituency[year].boundaries, {
           style: constituency[year].style,
         }).bindPopup(JSON.stringify(
           {
             constituency: constituency[year].boundaries[0].properties.ED_DESC,
           },
-        )).addTo(yearLayer);
-        // console.log(constituency.style);
+        ));
+        geo.addTo(yearLayer);
       }
     });
     results[year] = yearLayer;
