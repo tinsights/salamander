@@ -13,7 +13,7 @@ function initView() {
 }
 
 function addLayersToMap(model, view) {
-  const years = model.YEARS;
+  const years = Object.keys(model);
   years.forEach((year) => createLayer(model, year));
   // console.log(view);
   L.control.timelineSlider({
@@ -29,32 +29,27 @@ function timelineFunction({ label, model, view }) {
   console.log(label, model, view);
   Object.values(view.layers).forEach((layer) => view.map.removeLayer(layer));
   view.layers[label].addTo(view.map);
-  const constituencies = Object.values(model.CONSTITUENCIES)
-    .map((constituency) => constituency[label])
-    .filter((e) => e !== undefined);
+  const constituencies = model[label].CONSTITUENCIES;
 
   setView(constituencies, view.currentStyle);
 }
-function setView(yearConstituency, option = 'defaultStyle') {
-  console.log(yearConstituency);
-  yearConstituency.forEach((constituency) => {
+function setView(constituencies, option = 'defaultStyle') {
+  Object.values(constituencies).forEach((constituency) => {
     constituency.feature.setStyle(constituency.style[option]);
   });
 }
 function createLayer(model, year) {
   const yearLayer = L.layerGroup();
-  Object.values(model.CONSTITUENCIES).forEach((constituency) => {
-    if (constituency[year]) {
-      const geo = L.geoJSON(constituency[year].boundaries, {
-        // style: constituency[year].style,
-      }).bindPopup(JSON.stringify(
-        {
-          constituency: constituency[year].boundaries[0].properties.ED_DESC,
-        },
-      ));
-      constituency[year].feature = geo;
-      geo.addTo(yearLayer);
-    }
+  Object.values(model[year].CONSTITUENCIES).forEach((constituency) => {
+    const geo = L.geoJSON(constituency.boundaries, {
+      // style: constituency[year].style,
+    }).bindPopup(JSON.stringify(
+      {
+        constituency: constituency.boundaries.properties,
+      },
+    ));
+    constituency.feature = geo;
+    geo.addTo(yearLayer);
   });
   view.layers[year] = yearLayer;
   return yearLayer;
