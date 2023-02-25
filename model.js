@@ -81,15 +81,17 @@ function generateConstituencyStyle(constituencyResults) {
   switch (winner.party) {
     case 'PAP': {
       return {
-        color: 'darkblue',
+        color: 'black',
         fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
         fillOpacity: Math.min(winner.vote_percentage, 0.7),
+        weight: 3,
       };
     }
     default: return {
-      color: 'darkred',
+      color: 'black',
       fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
       fillOpacity: Math.min(winner.vote_percentage, 0.7),
+      weight: 3,
 
     };
   }
