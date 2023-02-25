@@ -1,4 +1,3 @@
-const myFeaturesMap = {};
 let view = {};
 let model = {};
 window.addEventListener('DOMContentLoaded', async () => {

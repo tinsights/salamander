@@ -30,6 +30,13 @@ function timelineFunction({ label, model, view }) {
   console.log(label, model, view);
   Object.values(view.layers).forEach((layer) => view.map.removeLayer(layer));
   view.layers[label].addTo(view.map);
+  const associateYearLayer = Object.values(model.CONSTITUENCIES)
+    .map((constituency) => constituency[label])
+    .filter((e) => e !== undefined)
+    .forEach((constituency) => {
+      constituency.feature.setStyle(constituency.style.resultStyle);
+    });
+  console.log(associateYearLayer);
 }
 
 function createLayer(model, year) {
@@ -65,11 +72,13 @@ function generateConstituencyStyle(constituencyResults) {
   switch (winner.party) {
     case 'PAP': {
       return {
+        color: 'darkblue',
         fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
         fillOpacity: Math.min(winner.vote_percentage, 0.7),
       };
     }
     default: return {
+      color: 'darkred',
       fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
       fillOpacity: Math.min(winner.vote_percentage, 0.7),
 
@@ -77,5 +86,5 @@ function generateConstituencyStyle(constituencyResults) {
   }
 }
 function boundaryColorGenerator() {
-  return CSS_COLOR_NAMES.splice(1, 1);
+  return CSS_COLOR_NAMES.splice(1, 1)[0];
 }

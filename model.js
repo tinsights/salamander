@@ -34,17 +34,24 @@ async function generateModel(years) {
       const currConstituency = feature.properties.ED_DESC;
       const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
       const constituencyBoundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
+      const resultStyle = generateConstituencyStyle(constituencyResults);
       // if new constituency,
       // create a new key in model
       // add results and boundaries of current year
       if (!newModel.CONSTITUENCIES[currConstituency]) {
-        newModel.CONSTITUENCIES[currConstituency] = {};
-        myFeaturesMap[currConstituency] = {};
+        newModel.CONSTITUENCIES[currConstituency] = {
+          boundaryColor: boundaryColorGenerator(),
+        };
       }
       // else if constituency already exists, add
+      const defaultStyle = { color: newModel.CONSTITUENCIES[currConstituency].boundaryColor };
       newModel.CONSTITUENCIES[currConstituency][year] = {
         results: {},
         boundaries: {},
+        style: {
+          defaultStyle,
+          resultStyle,
+        },
       };
       newModel.CONSTITUENCIES[currConstituency][year].results = constituencyResults;
       newModel.CONSTITUENCIES[currConstituency][year].boundaries = constituencyBoundaries;
