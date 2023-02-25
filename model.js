@@ -35,26 +35,65 @@ async function generateModel(years) {
       const constituencyResults = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
       const constituencyBoundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
       const resultStyle = generateConstituencyStyle(constituencyResults);
+
       // if new constituency,
       // create a new key in model
       // add results and boundaries of current year
       if (!newModel.CONSTITUENCIES[currConstituency]) {
+        const defaultColor = boundaryColorGenerator();
         newModel.CONSTITUENCIES[currConstituency] = {
-          boundaryColor: boundaryColorGenerator(),
+          defaultColor,
         };
       }
+      const { defaultColor } = newModel.CONSTITUENCIES[currConstituency];
+      const defaultStyle = {
+        color: 'black',
+        fillColor: defaultColor,
+        fillOpacity: 0.7,
+        weight: 3,
+      };
       // else if constituency already exists, add
-      const defaultStyle = { color: newModel.CONSTITUENCIES[currConstituency].boundaryColor };
       newModel.CONSTITUENCIES[currConstituency][year] = {
         results: {},
         boundaries: {},
         style: {
-          defaultStyle,
           resultStyle,
+          defaultStyle,
         },
       };
       newModel.CONSTITUENCIES[currConstituency][year].results = constituencyResults;
       newModel.CONSTITUENCIES[currConstituency][year].boundaries = constituencyBoundaries;
     });
   }
+}
+
+function generateConstituencyStyle(constituencyResults) {
+  // console.log(constituencyResults);
+  let winner = {};
+  if (constituencyResults.length > 1) {
+    constituencyResults.forEach((result) => {
+      winner = result.vote_percentage > 0.5 ? result : winner;
+    });
+  } else {
+    [winner] = constituencyResults;
+    winner.vote_percentage = 1;
+  }
+  switch (winner.party) {
+    case 'PAP': {
+      return {
+        color: 'darkblue',
+        fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+        fillOpacity: Math.min(winner.vote_percentage, 0.7),
+      };
+    }
+    default: return {
+      color: 'darkred',
+      fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
+      fillOpacity: Math.min(winner.vote_percentage, 0.7),
+
+    };
+  }
+}
+function boundaryColorGenerator() {
+  return CSS_COLOR_NAMES.splice(1, 1)[0];
 }
