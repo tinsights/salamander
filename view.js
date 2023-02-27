@@ -1,5 +1,5 @@
 function initView() {
-  const map = L.map('map').setView([1.3521, 103.8198], 12);
+  const map = L.map('map').setView([1.3521, 103.8198], 11);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -39,16 +39,22 @@ function setView(constituencies, option = 'defaultStyle') {
   });
 }
 function createLayer(model, year) {
-  const yearLayer = L.layerGroup();
+  const yearLayer = L.featureGroup();
   console.log(model);
   console.log(Object.values(model[year].CONSTITUENCIES));
   Object.values(model[year].CONSTITUENCIES).forEach((constituency) => {
-    // console.log(constituency);
-    const geo = L.geoJSON(constituency.boundaries).bindPopup(JSON.stringify(
-      {
-        constituency: constituency.boundaries.properties,
+    const geo = L.geoJSON(constituency.boundaries, {
+      onEachFeature: (feature, layer) => {
+        const resultsDiv = document.createElement('div');
+        resultsDiv.innerHTML = JSON.stringify(constituency.results);
+        const boundaryDiv = document.createElement('div');
+        boundaryDiv.innerHTML = JSON.stringify(feature.properties);
+        const popup = document.createElement('div');
+        popup.appendChild(boundaryDiv);
+        popup.appendChild(resultsDiv);
+        layer.bindPopup(popup);
       },
-    ));
+    });
     constituency.feature = geo;
     geo.addTo(yearLayer);
   });

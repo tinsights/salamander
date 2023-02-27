@@ -3,7 +3,7 @@ let model = {};
 const allConstituencies = {};
 window.addEventListener('DOMContentLoaded', async () => {
   view = initView();
-  // addPostalSearchEvent(model, view);
+  addPostalSearchEvent(model, view);
   model = await generateModel([2006, 2011, 2015, 2020]);
   console.log(model);
   addLayersToMap(model, view);
@@ -47,6 +47,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         },
       },
       responsive: true,
+      maintainAspectRatio: true,
       interaction: {
         intersect: false,
       },
@@ -76,19 +77,22 @@ async function addPostalSearchEvent(model, view) {
       lng: coordinates.LONGITUDE,
     };
     const addressMarker = L.marker([point.lat, point.lng]);
-    const layers = Object.values(model);
+    const { layers } = view;
     const history = getHistory(layers, point);
     addressMarker.bindPopup(JSON.stringify(history));
-    addressMarker.addTo(view);
-    view.flyTo([point.lat, point.lng], 15);
+    addressMarker.addTo(view.map);
+    view.map.flyTo([point.lat, point.lng], 15);
   });
 
-  function getHistory(layers, point) {
+  function getHistory(mapLayers, point) {
     const constituencyHistory = [];
-    Object.values(layers).forEach((yearLayer) => yearLayer.eachLayer((sublayer) => {
-      if (sublayer.contains(point)) {
-        constituencyHistory.push(sublayer.feature.properties);
-      }
+    Object.entries(mapLayers).forEach(([year, yearLayer]) => yearLayer.eachLayer((geojsonLayer) => {
+      geojsonLayer.eachLayer((polygon) => {
+        if (polygon.contains(point)) {
+          console.log(year, polygon.feature.properties);
+          constituencyHistory.push(polygon.feature.properties);
+        }
+      });
     }));
     console.log(constituencyHistory);
     return constituencyHistory;
