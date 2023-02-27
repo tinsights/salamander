@@ -10,9 +10,7 @@ async function generateModel(yrs) {
   yrs.forEach((yr) => {
     model[yr] = {
       CONSTITUENCIES: {},
-      RESULTS: {
-        voters: 0,
-      },
+      RESULTS: {},
     };
   });
   const oldYearDataReqs = yrs.map((yr) => Promise.all([getElectionResults(yr), getElectionBoundaries(yr)]));
@@ -27,15 +25,8 @@ async function generateModel(yrs) {
       const currConstituency = feature.properties.ED_DESC;
       const boundaries = yearBoundaries.features.filter((boundary) => boundary.properties.ED_DESC === currConstituency);
       const results = yearResults.filter((result) => result.constituency.toUpperCase() === currConstituency);
-
       const resultStyle = generateConstituencyStyle(results);
-      const defaultColor = boundaryColorGenerator();
-      const defaultStyle = {
-        color: 'black',
-        fillColor: defaultColor,
-        fillOpacity: 0.7,
-        weight: 3,
-      };
+
       results.forEach((result) => {
         if (!model[year].RESULTS[result.party]) {
           model[year].RESULTS[result.party] = {
@@ -44,22 +35,35 @@ async function generateModel(yrs) {
         }
         if (result.vote_count !== 'na') {
           model[year].RESULTS[result.party].totalVotes += +result.vote_count;
-          model[year].RESULTS.voters += +result.vote_count;
         }
       });
 
+      if (!allConstituencies[currConstituency]) {
+        const defaultColor = boundaryColorGenerator();
+        const defaultStyle = {
+          color: 'black',
+          opacity: 1,
+          fillColor: defaultColor,
+          fillOpacity: 0.7,
+          weight: 3,
+        };
+        allConstituencies[currConstituency] = {
+          yearsPresent: [],
+          defaultStyle,
+        };
+      }
+      allConstituencies[currConstituency].yearsPresent.push(year);
       model[year].CONSTITUENCIES[currConstituency] = {
         boundaries,
         results,
         style: {
-          defaultStyle,
+          defaultStyle: allConstituencies[currConstituency].defaultStyle,
           resultStyle,
         },
       };
     });
   }
 }
-
 function generateConstituencyStyle(constituencyResults) {
   // console.log(constituencyResults);
   let winner = {};

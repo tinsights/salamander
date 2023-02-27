@@ -40,10 +40,11 @@ function setView(constituencies, option = 'defaultStyle') {
 }
 function createLayer(model, year) {
   const yearLayer = L.layerGroup();
+  console.log(model);
+  console.log(Object.values(model[year].CONSTITUENCIES));
   Object.values(model[year].CONSTITUENCIES).forEach((constituency) => {
-    const geo = L.geoJSON(constituency.boundaries, {
-      // style: constituency[year].style,
-    }).bindPopup(JSON.stringify(
+    // console.log(constituency);
+    const geo = L.geoJSON(constituency.boundaries).bindPopup(JSON.stringify(
       {
         constituency: constituency.boundaries.properties,
       },
