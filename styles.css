@@ -5,3 +5,13 @@ body {
 #map {
   height: 75vh;
 }
+
+#map {
+  position: relative;
+}
+#toggleBtn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 31412;
+}

@@ -31,9 +31,13 @@
   <body>
     <main class="container-lg">
       <h1 class="text-center display-3">Salamander</h1>
-      <div id="map-container" class="container-fluid">
-        <div id="map"></div>
+
+      <div id="map-container" class="container-sm">
+        <div id="map" class="container">
+          <button id="toggleBtn" class="btn btn-dark">Toggle</button>
+        </div>
       </div>
+
       <div class="container-md mt-3">
         <div class="row">
           <div class="col-12 text-center">
@@ -42,17 +46,15 @@
           </div>
           <div class="col-12 text-center">
             <input type="number" id="postalCodeSelector" />
-            <button type="submit" id="postalCodeBtn" class="btn btn-dark p-1 bg-white border-white">
+            <button id="postalCodeBtn" class="btn btn-dark p-1 bg-white border-white">
               <img src="assets/singapore-pin.png" style="height: 30px" class="pb-1" />
             </button>
           </div>
         </div>
       </div>
+
       <div class="container">
-        <button id="toggleBtn" class="btn btn-dark">Toggle</button>
-      </div>
-      <div style="height: 80vh">
-        <div id="chart"></div>
+        <canvas id="myChart"></canvas>
       </div>
     </main>
     <!-- EXTERNAL SCRIPTS -->
@@ -74,8 +76,9 @@
     <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
     <!-- LEAFLET TIMELINE -->
     <script src="leaflet-timeline-slider.min.js"></script>
-    <!-- APEX CHARTS -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- CHARTJS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- END OF EXTERNAL SCRIPTS -->
 
     <!-- PROJECT SCRIPTS -->

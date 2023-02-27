@@ -1,24 +1,53 @@
-const options = {
-  chart: {
-    type: 'line',
-    height: '100%',
-  },
-  // each series represents one set of data
-  series: [
+const labels = [2006, 2011, 2015, 2020];
+const data = {
+  labels,
+  datasets: [
     {
-      name: 'sightings',
-      data: [10, 13, 15, 22, 34, 23, 55, 78, 44],
+      label: 'PAP',
+      data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000],
+      // backgroundColor: Utils.CHART_COLORS.red,
+      stack: 'Stack 0',
+    },
+    {
+      label: 'Dataset 2',
+      data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000],
+      // backgroundColor: Utils.CHART_COLORS.blue,
+      stack: 'Stack 0',
+    },
+    {
+      label: 'Dataset 3',
+      data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000, Math.random() * 1000],
+      // backgroundColor: Utils.CHART_COLORS.green,
+      stack: 'Stack 1',
     },
   ],
-  // what is are the labels along the x-axis (horizontal line)
-  xaxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct'],
-  },
-
 };
 
-// create the chart
-const chart = new ApexCharts(document.querySelector('#chart'), options);
+const config = {
+  type: 'bar',
+  data,
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart - Stacked',
+      },
+    },
+    responsive: true,
+    interaction: {
+      intersect: false,
+    },
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  },
+};
 
-// render the chart
-chart.render();
+const ctx = document.getElementById('myChart');
+
+const chart = new Chart(ctx, config);
