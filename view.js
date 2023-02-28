@@ -44,7 +44,7 @@ function createLayer(model, year) {
     const geo = L.geoJSON(constituency.boundaries, {
       onEachFeature: (feature, layer) => {
         layer.bindPopup(createPopup(constituency), {
-          minWidth: 500,
+          maxWidth: 'max-content',
         });
       },
     });
@@ -56,15 +56,13 @@ function createLayer(model, year) {
 }
 
 function createPopup(constituency) {
-  const popup = document.createElement('div');
-  popup.className = 'container';
   const { results } = constituency;
   const resultsDiv = document.createElement('div');
   resultsDiv.classList = 'row';
   const cardColSz = 12 / results.length;
   results.forEach((result) => {
     const partyCard = document.createElement('div');
-    partyCard.classList.add('card', `col-${cardColSz}`, 'party-card');
+    partyCard.classList.add('card', 'party-card');
 
     const partyImg = document.createElement('img');
     partyImg.src = partyImage(result.party);
@@ -74,13 +72,14 @@ function createPopup(constituency) {
     const partyTitle = document.createElement('h5');
     partyTitle.innerText = result.party;
     partyTitle.classList.add('card-title', 'text-center');
-    cardBody.classList.add('card-body');
+    cardBody.classList.add('card-body', 'px-0');
 
     const candidatesList = document.createElement('ul');
-    candidatesList.classList.add('px-1');
+    candidatesList.classList.add('list-group', 'text-center');
     result.candidates.split(' | ').forEach((candidate) => {
       const listItem = document.createElement('li');
-      listItem.innerText = `${candidate}`;
+      listItem.classList.add('list-group-item');
+      listItem.innerHTML = `<span>${candidate}</span>`;
       candidatesList.appendChild(listItem);
     });
     cardBody.appendChild(candidatesList);
@@ -92,8 +91,7 @@ function createPopup(constituency) {
     resultsDiv.appendChild(partyCard);
   });
 
-  popup.appendChild(resultsDiv);
-  return popup;
+  return resultsDiv;
 }
 
 function partyImage(party) {
