@@ -80,14 +80,16 @@ function generateConstituencyStyle(constituencyResults) {
     case 'PAP': {
       return {
         color: 'black',
-        fillColor: `rgb(${(1 - winner.vote_percentage) * 255}, 0, ${winner.vote_percentage * 255})`,
+        opacity: 1,
+        fillColor: blueShades(winner.vote_percentage),
         fillOpacity: Math.min(winner.vote_percentage, 0.7),
         weight: 3,
       };
     }
     default: return {
       color: 'black',
-      fillColor: `rgb(${winner.vote_percentage * 255}, 0, ${(1 - winner.vote_percentage) * 255})`,
+      opacity: 1,
+      fillColor: redShades(winner.vote_percentage),
       fillOpacity: Math.min(winner.vote_percentage, 0.7),
       weight: 3,
 
@@ -127,4 +129,29 @@ async function getElectionBoundaries(year) {
   const yearBoundariesResponse = await axios.get(`data/electoral-boundary-${year}/electoral-boundary-${year}-kml.geojson`);
   const yearBoundaries = yearBoundariesResponse.data;
   return yearBoundaries;
+}
+
+function blueShades(winpct) {
+  const level = Math.floor((winpct - 0.5) * 10);
+  console.log(level);
+  const shades = ['rgb(147 197 253)',
+    'rgb(96 165 250)',
+    'rgb(59 130 246)',
+    'rgb(37 99 235)',
+    'rgb(29 78 216)',
+    'rgb(30 64 175)'];
+  return shades[level];
+}
+
+function redShades(winpct) {
+  const level = Math.floor((winpct - 0.5) * 10);
+  const shades = [
+    'rgb(253 164 175)',
+    'rgb(251 113 133)',
+    'rgb(244 63 94)',
+    'rgb(225 29 72)',
+    'rgb(190 18 60)',
+    'rgb(159 18 57)',
+  ];
+  return shades[level];
 }

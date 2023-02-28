@@ -2,23 +2,24 @@ body {
   background-color: snow;
 }
 
-#map {
-  height: 80vh;
+#map-container {
+  height: 100vh;
 }
 
 #map {
+  height: 80%;
   position: relative;
 }
 #toggleBtn {
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  top: 20px;
   z-index: 31412;
 }
 
-/* #myChart {
-  height: 30vh;
-} */
+#chart-container {
+  height: 100vh;
+}
 
 .logo {
   width: 100%;
@@ -40,10 +41,8 @@ body {
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
-  background-color: transparent;
   width: 200px;
   height: 200px;
-  border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
