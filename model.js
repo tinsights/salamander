@@ -6,7 +6,7 @@
  */
 async function generateModel(yrs) {
   const model = {};
-
+  const pastelColorIter = pastelColorGenerator();
   yrs.forEach((yr) => {
     model[yr] = {
       CONSTITUENCIES: {},
@@ -19,6 +19,7 @@ async function generateModel(yrs) {
       yearResults.forEach((yearData) => newCreateModel(yearData));
       return model;
     });
+
   function newCreateModel([yearResults, yearBoundaries]) {
     const { year } = yearResults[0];
     yearBoundaries.features.forEach((feature) => {
@@ -39,7 +40,7 @@ async function generateModel(yrs) {
       });
 
       if (!allConstituencies[currConstituency]) {
-        const defaultColor = boundaryColorGenerator();
+        const defaultColor = pastelColorIter.next().value;
         const defaultStyle = {
           color: 'black',
           opacity: 1,
@@ -95,6 +96,23 @@ function generateConstituencyStyle(constituencyResults) {
 }
 function boundaryColorGenerator() {
   return CSS_COLOR_NAMES.splice(1, 1)[0];
+}
+
+function* pastelColorGenerator() {
+  let hue = 0;
+  let counter = 0;
+  const increment = 23;
+  let color = '';
+  while (true) {
+    if (counter % 2 === 0) {
+      color = `hsla(${hue}, 50%,  50%)`;
+    } else {
+      color = `hsla(${hue}, 70%,  70%)`;
+    }
+    hue += increment;
+    counter += 1;
+    yield color;
+  }
 }
 
 async function getElectionResults(year) {

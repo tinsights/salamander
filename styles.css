@@ -25,15 +25,3 @@ body {
   height: 50px;
   object-fit: contain;
 }
-
-/* .party-card {
-  min-width: 150px;
-} */
-/* .popup {
-  display: flex;
-  min-width: ;
-} */
-
-.leaflet-popup-content {
-  min-width: max-content;
-}
