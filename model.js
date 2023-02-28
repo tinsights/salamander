@@ -101,13 +101,15 @@ function boundaryColorGenerator() {
 function* pastelColorGenerator() {
   let hue = 0;
   let counter = 0;
-  const increment = 23;
+  const increment = 37;
   let color = '';
   while (true) {
-    if (counter % 2 === 0) {
-      color = `hsla(${hue}, 50%,  50%)`;
+    if (counter % 3 === 0) {
+      color = `hsla(${hue}, 50%,  80%)`;
+    } else if (counter % 3 === 1) {
+      color = `hsla(${hue}, 65%,  65%)`;
     } else {
-      color = `hsla(${hue}, 70%,  70%)`;
+      color = `hsla(${hue}, 80%,  50%)`;
     }
     hue += increment;
     counter += 1;

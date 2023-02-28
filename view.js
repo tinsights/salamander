@@ -57,41 +57,65 @@ function createLayer(model, year) {
 
 function createPopup(constituency) {
   const { results } = constituency;
+  const popup = document.createElement('div');
+  popup.classList.add('container');
   const resultsDiv = document.createElement('div');
-  resultsDiv.classList = 'row';
-  const cardColSz = 12 / results.length;
+  resultsDiv.classList.add('row', 'gx-3', 'flex-nowrap');
+  const constInfo = document.createElement('div');
+  constInfo.classList.add('container', 'text-center');
+  constInfo.innerHTML = `<h5 class="h5">${results[0].constituency} ${results[0].constituency_type}</h5>`;
+  popup.appendChild(constInfo);
   results.forEach((result) => {
+    console.log(result);
+    const partyCol = document.createElement('div');
+    partyCol.classList.add('col', 'flip-card');
+
+    const flipCardInner = document.createElement('div');
+    flipCardInner.classList.add('flip-card-inner');
+
     const partyCard = document.createElement('div');
-    partyCard.classList.add('card', 'party-card');
+    partyCard.classList.add('flip-card-front', 'py-1', 'px-3', 'text-center', 'd-flex', 'flex-column', 'justify-content-center');
 
     const partyImg = document.createElement('img');
     partyImg.src = partyImage(result.party);
-    partyImg.classList.add('card-img-top');
+    partyImg.classList.add('logo');
 
-    const cardBody = document.createElement('div');
-    const partyTitle = document.createElement('h5');
+    const cardBody = document.createElement('p');
+    cardBody.classList.add('fw-bold');
+    const partyTitle = document.createElement('h6');
     partyTitle.innerText = result.party;
-    partyTitle.classList.add('card-title', 'text-center');
-    cardBody.classList.add('card-body', 'px-0');
+    partyTitle.classList.add('text-center', 'h6');
+    cardBody.classList.add('px-0');
+    const voteShare = Number(result.vote_percentage);
+    if (voteShare > 0.5) {
+      partyCard.classList.add('border', 'border-success');
+    } else {
+      partyCard.classList.add('border', 'border-danger');
+    }
+    cardBody.innerHTML = `${(voteShare * 100).toFixed(2)}%`;
 
+    const candidatesCard = document.createElement('div');
+    candidatesCard.classList.add('flip-card-back', 'd-flex', 'flex-column', 'justify-content-center');
     const candidatesList = document.createElement('ul');
     candidatesList.classList.add('list-group', 'text-center');
     result.candidates.split(' | ').forEach((candidate) => {
       const listItem = document.createElement('li');
-      listItem.classList.add('list-group-item');
-      listItem.innerHTML = `<span>${candidate}</span>`;
+      listItem.classList.add('list-group-item', 'p-1');
+      listItem.innerHTML = `${candidate}`;
       candidatesList.appendChild(listItem);
     });
-    cardBody.appendChild(candidatesList);
-    // cardBody.innerHTML += JSON.stringify(result.vote_percentage);
+    candidatesCard.appendChild(candidatesList);
 
     partyCard.appendChild(partyImg);
     partyCard.appendChild(partyTitle);
     partyCard.appendChild(cardBody);
-    resultsDiv.appendChild(partyCard);
+    flipCardInner.appendChild(partyCard);
+    flipCardInner.appendChild(candidatesCard);
+    partyCol.appendChild(flipCardInner);
+    resultsDiv.appendChild(partyCol);
   });
-
-  return resultsDiv;
+  popup.appendChild(resultsDiv);
+  return popup;
 }
 
 function partyImage(party) {
