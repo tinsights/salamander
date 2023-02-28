@@ -4,6 +4,13 @@ function initView() {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
+  // map.on('contextmenu', async (e) => {
+  //   await axios.get(`https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${e.latlng.lat},${e.latlng.lng}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk4NjksInVzZXJfaWQiOjk4NjksImVtYWlsIjoiYWoudGluYWVzQGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY3NzU4NjU5NiwiZXhwIjoxNjc4MDE4NTk2LCJuYmYiOjE2Nzc1ODY1OTYsImp0aSI6Ijc3ZjhkMmE5ZDNmZjE2MzEzMWY2ZjMwYmRjMTExZWVkIn0.2VJ2n7IrXIRdahXm7n23kJRaxAms_IsUbAayNVN1YWA&buffer=20&addressType=All&otherFeatures=N`).then((result) => {
+  //     if (result.data.GeocodeInfo) {
+  //       map.openTooltip(String(result.data.GeocodeInfo[0].POSTALCODE), e.latlng);
+  //     }
+  //   });
+  // });
   const view = {
     map,
     layers: {},
@@ -93,11 +100,7 @@ function createPopup(constituency) {
     partyTitle.classList.add('text-center', 'h6');
     cardBody.classList.add('px-0');
     const voteShare = Number(result.vote_percentage);
-    if (voteShare > 0.5) {
-      partyCard.classList.add('border', 'border-success');
-    } else {
-      partyCard.classList.add('border', 'border-danger');
-    }
+
     cardBody.innerHTML = `${(voteShare * 100).toFixed(2)}%`;
 
     const candidatesCard = document.createElement('div');
@@ -110,7 +113,31 @@ function createPopup(constituency) {
       listItem.innerHTML = `${candidate}`;
       candidatesList.appendChild(listItem);
     });
+
+    if (voteShare > 0.5) {
+      partyCard.classList.add('border', 'border-success');
+      candidatesCard.classList.add('border', 'border-success');
+      cardBody.classList.add('text-success');
+    } else {
+      partyCard.classList.add('border', 'border-danger');
+      candidatesCard.classList.add('border', 'border-danger');
+      cardBody.classList.add('text-danger');
+    }
     candidatesCard.appendChild(candidatesList);
+
+    partyCard.addEventListener('click', () => {
+      partyCard.classList.remove('flip-back', 'flip-forward');
+      candidatesCard.classList.remove('flip-back', 'flip-forward');
+      partyCard.classList.add('flip-back');
+      candidatesCard.classList.add('flip-forward');
+    });
+
+    candidatesCard.addEventListener('click', () => {
+      partyCard.classList.remove('flip-back', 'flip-forward');
+      candidatesCard.classList.remove('flip-back', 'flip-forward');
+      partyCard.classList.add('flip-forward');
+      candidatesCard.classList.add('flip-back');
+    });
 
     partyCard.appendChild(partyImg);
     partyCard.appendChild(partyTitle);
@@ -126,10 +153,12 @@ function createPopup(constituency) {
 
 function partyImage(party) {
   switch (party) {
+    case 'INDP':
+    case 'Independent':
+      return 'assets/INDP_logo.png';
     case 'SUP':
     case 'PSP':
     case 'DPP':
-    case 'INDP':
       return `assets/${party}_logo.png`;
     default:
       return `assets/${party}_logo.svg`;
