@@ -40,15 +40,21 @@ function setView(constituencies, option = 'defaultStyle') {
 }
 function createLayer(model, year) {
   const yearLayer = L.featureGroup();
-  Object.values(model[year].CONSTITUENCIES).forEach((constituency) => {
-    const geo = L.geoJSON(constituency.boundaries, {
+  Object.entries(model[year].CONSTITUENCIES).forEach(([constituencyName, constituencyData]) => {
+    const geo = L.geoJSON(constituencyData.boundaries, {
       onEachFeature: (feature, layer) => {
-        layer.bindPopup(createPopup(constituency), {
+        layer.bindPopup(createPopup(constituencyData), {
           maxWidth: 'max-content',
         });
+        console.log(constituencyData);
+        layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
+          sticky: true,
+        });
+        // layer.on('mouseover', () => layer.openToolTip());
+        // layer.on('click', () => layer.closeToolTip());
       },
     });
-    constituency.feature = geo;
+    constituencyData.feature = geo;
     geo.addTo(yearLayer);
   });
   view.layers[year] = yearLayer;

@@ -22,7 +22,7 @@ body {
 
 .logo {
   width: 100%;
-  height: 50px;
+  height: 80px;
   object-fit: contain;
 }
 
@@ -81,4 +81,8 @@ body {
 /* Style the back side */
 .flip-card-back {
   transform: rotateY(180deg);
+}
+
+.leaflet-interactive:focus {
+  outline: none;
 }
