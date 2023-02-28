@@ -79,18 +79,19 @@ async function addPostalSearchEvent(model, view) {
     const addressMarker = L.marker([point.lat, point.lng]);
     const { layers } = view;
     const history = getHistory(layers, point);
-    addressMarker.bindPopup(JSON.stringify(history));
+    addressMarker.bindPopup(history);
     addressMarker.addTo(view.map);
     view.map.flyTo([point.lat, point.lng], 15);
+    addressMarker.openPopup();
   });
 
   function getHistory(mapLayers, point) {
-    const constituencyHistory = [];
+    const constituencyHistory = document.createElement('div');
     Object.entries(mapLayers).forEach(([year, yearLayer]) => yearLayer.eachLayer((geojsonLayer) => {
       geojsonLayer.eachLayer((polygon) => {
         if (polygon.contains(point)) {
-          console.log(year, polygon.feature.properties);
-          constituencyHistory.push(polygon.feature.properties);
+          console.log(year);
+          constituencyHistory.innerHTML += `<p>${year}: ${polygon.feature.properties.ED_DESC}</p>`;
         }
       });
     }));

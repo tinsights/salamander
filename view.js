@@ -40,19 +40,12 @@ function setView(constituencies, option = 'defaultStyle') {
 }
 function createLayer(model, year) {
   const yearLayer = L.featureGroup();
-  console.log(model);
-  console.log(Object.values(model[year].CONSTITUENCIES));
   Object.values(model[year].CONSTITUENCIES).forEach((constituency) => {
     const geo = L.geoJSON(constituency.boundaries, {
       onEachFeature: (feature, layer) => {
-        const resultsDiv = document.createElement('div');
-        resultsDiv.innerHTML = JSON.stringify(constituency.results);
-        const boundaryDiv = document.createElement('div');
-        boundaryDiv.innerHTML = JSON.stringify(feature.properties);
-        const popup = document.createElement('div');
-        popup.appendChild(boundaryDiv);
-        popup.appendChild(resultsDiv);
-        layer.bindPopup(popup);
+        layer.bindPopup(createPopup(constituency), {
+          minWidth: 500,
+        });
       },
     });
     constituency.feature = geo;
@@ -60,4 +53,57 @@ function createLayer(model, year) {
   });
   view.layers[year] = yearLayer;
   return yearLayer;
+}
+
+function createPopup(constituency) {
+  const popup = document.createElement('div');
+  popup.className = 'container';
+  const { results } = constituency;
+  const resultsDiv = document.createElement('div');
+  resultsDiv.classList = 'row';
+  const cardColSz = 12 / results.length;
+  results.forEach((result) => {
+    const partyCard = document.createElement('div');
+    partyCard.classList.add('card', `col-${cardColSz}`, 'party-card');
+
+    const partyImg = document.createElement('img');
+    partyImg.src = partyImage(result.party);
+    partyImg.classList.add('card-img-top');
+
+    const cardBody = document.createElement('div');
+    const partyTitle = document.createElement('h5');
+    partyTitle.innerText = result.party;
+    partyTitle.classList.add('card-title', 'text-center');
+    cardBody.classList.add('card-body');
+
+    const candidatesList = document.createElement('ul');
+    candidatesList.classList.add('px-1');
+    result.candidates.split(' | ').forEach((candidate) => {
+      const listItem = document.createElement('li');
+      listItem.innerText = `${candidate}`;
+      candidatesList.appendChild(listItem);
+    });
+    cardBody.appendChild(candidatesList);
+    // cardBody.innerHTML += JSON.stringify(result.vote_percentage);
+
+    partyCard.appendChild(partyImg);
+    partyCard.appendChild(partyTitle);
+    partyCard.appendChild(cardBody);
+    resultsDiv.appendChild(partyCard);
+  });
+
+  popup.appendChild(resultsDiv);
+  return popup;
+}
+
+function partyImage(party) {
+  switch (party) {
+    case 'SUP':
+    case 'PSP':
+    case 'DPP':
+    case 'INDP':
+      return `assets/${party}_logo.png`;
+    default:
+      return `assets/${party}_logo.svg`;
+  }
 }

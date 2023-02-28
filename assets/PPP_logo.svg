@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="37.349342mm"
+   height="44.605942mm"
+   viewBox="0 0 37.349342 44.605942"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="PPP logo variation.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.0299728"
+     inkscape:cx="70.581437"
+     inkscape:cy="84.294696"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-global="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-9.7213182,-107.01947)">
+    <path
+       style="display:inline;opacity:1;fill:#f17c47;fill-opacity:1;stroke:none;stroke-width:0.41453931px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 22.999219,145.73669 c -7.004543,-3.58954 -9.701782,-9.66714 -10.055591,-15.11044 -0.436527,-6.71592 7.55541,-12.77188 6.645283,-18.79108 4.489716,1.15238 4.688795,7.81003 4.623484,9.04651 -0.284876,5.39327 -1.415214,8.74602 0.412683,14.31089 -0.05169,-0.27567 -0.97804,-4.43582 1.932072,-11.88541 1.931269,-4.94385 3.076416,-12.82718 -1.8202,-16.28769 13.168179,0.20021 11.873711,14.16455 8.205277,21.86661 -3.319783,6.97005 -1.904577,14.53442 -0.01823,15.74812 -7.235318,1.04429 -11.429985,-5.12413 -14.867378,-13.08887 -0.406278,9.47546 3.037576,10.05579 4.942595,14.19136 z"
+       id="path173"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscscscscccc" />
+    <path
+       style="display:inline;fill:#9a55a3;fill-opacity:1;stroke-width:0.57529682"
+       d="M 9.7213182,146.63071 H 47.070662 v 4.9947 H 9.7213182 Z"
+       id="rect165"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:1;fill:#f17c47;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:30;stroke-opacity:1"
+       d="m 41.804421,119.33258 c 3.840361,3.92819 3.851221,9.11059 2.164022,12.75862 -1.538672,3.32689 -5.833362,6.60579 -7.81009,10.15974 -6.068872,-10.65133 5.540544,-16.25067 5.646068,-22.91836 z"
+       id="rect921"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc" />
+  </g>
+</svg>
