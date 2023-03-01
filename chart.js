@@ -37,6 +37,9 @@ function createChart(model) {
           display: true,
           text: "Election Results 2006-2020",
         },
+        legend: {
+          display: false,
+        },
       },
       responsive: true,
       maintainAspectRatio: false,
@@ -49,6 +52,9 @@ function createChart(model) {
         },
         y: {
           stacked: true,
+          ticks: {
+            display: false,
+          },
         },
       },
     },

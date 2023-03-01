@@ -1,5 +1,8 @@
 function initView() {
-  const map = L.map("map").setView([1.3521, 103.8198], 11);
+  const initialHeight = window.innerWidth > 768 ? 11 : 10;
+  console.log(window.innerWidth);
+  console.log(initialHeight);
+  const map = L.map("map").setView([1.3521, 103.8198], initialHeight);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',

@@ -3,7 +3,7 @@ body {
 }
 
 #map-container {
-  height: 100vh;
+  height: 60vh;
 }
 
 #map {
@@ -18,7 +18,7 @@ body {
 }
 
 #chart-container {
-  height: 80vh;
+  height: 40vh;
 }
 
 .logo {
