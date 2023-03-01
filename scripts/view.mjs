@@ -7,6 +7,13 @@ export function initView() {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
+  // map.on('contextmenu', async (e) => {
+  //   await axios.get(`https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${e.latlng.lat},${e.latlng.lng}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk4NjksInVzZXJfaWQiOjk4NjksImVtYWlsIjoiYWoudGluYWVzQGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY3NzU4NjU5NiwiZXhwIjoxNjc4MDE4NTk2LCJuYmYiOjE2Nzc1ODY1OTYsImp0aSI6Ijc3ZjhkMmE5ZDNmZjE2MzEzMWY2ZjMwYmRjMTExZWVkIn0.2VJ2n7IrXIRdahXm7n23kJRaxAms_IsUbAayNVN1YWA&buffer=20&addressType=All&otherFeatures=N`).then((result) => {
+  //     if (result.data.GeocodeInfo) {
+  //       map.openTooltip(String(result.data.GeocodeInfo[0].POSTALCODE), e.latlng);
+  //     }
+  //   });
+  // });
   const view = {
     map,
     layers: {},
