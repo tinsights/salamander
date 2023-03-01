@@ -3,7 +3,7 @@ body {
 }
 
 #map-container {
-  height: 60vh;
+  height: 80vh;
 }
 
 #map {
@@ -20,6 +20,9 @@ body {
 #chart-container {
   height: 40vh;
 }
+#donut-container {
+  height: 40vh;
+}
 
 .logo {
   width: 100%;
@@ -30,16 +33,7 @@ body {
 .party-card {
   box-sizing: border-box;
 }
-/* .popup {
-  display: flex;
-  min-width: ;
-} */
 
-/* .leaflet-popup-content {
-  min-width: max-content;
-} */
-
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   width: 150px;
   height: 200px;
@@ -56,12 +50,6 @@ body {
   transform-style: preserve-3d;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
-/* .flip-card:hover .flip-card-inner,
-.flip-card:active .flip-card-inner {
-  transform: rotateY(180deg);
-} */
-
 /* Position the front and back side */
 .flip-card-front,
 .flip-card-back {
@@ -71,13 +59,6 @@ body {
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  color: black;
-}
-
-/* Style the back side */
 .flip-card-back {
   transform: rotateY(180deg);
 }
