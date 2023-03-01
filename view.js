@@ -52,13 +52,15 @@ function createLayer(model, view, year) {
     const geo = L.geoJSON(constituencyData.boundaries, {
       onEachFeature: (feature, layer) => {
         layer.bindPopup(createPopup(constituencyData), {
-          maxWidth: "max-content",
+          maxWidth: "fit-content",
         });
-        layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
-          sticky: true,
-        });
-        // layer.on('mouseover', () => layer.openToolTip());
-        // layer.on('click', () => layer.closeToolTip());
+        console.log(window.innerWidth);
+        if (window.innerWidth > 768) {
+          layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
+            sticky: true,
+          });
+        }
+        layer.on("click", () => layer.closeToolTip());
       },
     });
     constituencyData.feature = geo;
@@ -133,17 +135,25 @@ function createPopup(constituency) {
     candidatesCard.appendChild(candidatesList);
 
     partyCard.addEventListener("click", () => {
-      partyCard.classList.remove("flip-back", "flip-forward");
-      candidatesCard.classList.remove("flip-back", "flip-forward");
-      partyCard.classList.add("flip-back");
-      candidatesCard.classList.add("flip-forward");
+      partyCard.classList.add("flip-backwards");
+      candidatesCard.classList.add("flip-forwards");
+      setTimeout(() => {
+        partyCard.classList.add("flip-card-back");
+        partyCard.classList.remove("flip-card-front", "flip-backwards");
+        candidatesCard.classList.add("flip-card-front");
+        candidatesCard.classList.remove("flip-card-back", "flip-forwards");
+      }, 1000);
     });
 
     candidatesCard.addEventListener("click", () => {
-      partyCard.classList.remove("flip-back", "flip-forward");
-      candidatesCard.classList.remove("flip-back", "flip-forward");
-      partyCard.classList.add("flip-forward");
-      candidatesCard.classList.add("flip-back");
+      partyCard.classList.add("flip-forwards");
+      candidatesCard.classList.add("flip-backwards");
+      setTimeout(() => {
+        candidatesCard.classList.add("flip-card-back");
+        candidatesCard.classList.remove("flip-card-front", "flip-backwards");
+        partyCard.classList.add("flip-card-front");
+        partyCard.classList.remove("flip-card-back", "flip-forwards");
+      }, 1000);
     });
 
     partyCard.appendChild(partyImg);

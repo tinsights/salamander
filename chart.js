@@ -35,7 +35,7 @@ function createChart(model) {
       plugins: {
         title: {
           display: true,
-          text: "Chart.js Bar Chart - Stacked",
+          text: "Election Results 2006-2020",
         },
       },
       responsive: true,

@@ -41,7 +41,7 @@ body {
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
-  width: 200px;
+  width: 150px;
   height: 200px;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
@@ -104,12 +104,12 @@ body {
   }
 }
 
-.flip-back {
+.flip-backwards {
   animation: flipping-back 1s linear;
   animation-fill-mode: forwards;
 }
 
-.flip-forward {
+.flip-forwards {
   animation: flipping-forward 1s linear;
   animation-fill-mode: forwards;
 }
