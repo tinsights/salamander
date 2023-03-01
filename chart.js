@@ -39,7 +39,7 @@ function createChart(model) {
         },
       },
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       interaction: {
         intersect: false,
       },
