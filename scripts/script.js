@@ -1,7 +1,7 @@
-import createChart from './chart.mjs';
-import { addToggleButton, addPostalSearchEvent } from './controllers.mjs';
-import { initView, addLayersToMap } from './view.mjs';
-import generateModel from './model.mjs';
+import createChart from './chart.js';
+import { addToggleButton, addPostalSearchEvent } from './controllers.js';
+import { initView, addLayersToMap } from './view.js';
+import generateModel from './model.js';
 
 window.addEventListener('DOMContentLoaded', async () => {
   const view = initView();
