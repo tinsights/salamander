@@ -133,7 +133,6 @@ async function getElectionBoundaries(year) {
 
 function blueShades(winpct) {
   const level = Math.floor((winpct - 0.5) * 10);
-  console.log(level);
   const shades = ['rgb(147 197 253)',
     'rgb(96 165 250)',
     'rgb(59 130 246)',
