@@ -1,27 +1,26 @@
 // CHART
 
-function createChart(model) {
+export default function createChart(model) {
   const labels = Object.keys(model);
 
   const parties = {};
   labels.forEach((year, idx) => {
     Object.entries(model[year].RESULTS).forEach(([party, votes]) => {
-      party = party === "Independent" ? "INDP" : party;
+      party = party === 'Independent' ? 'INDP' : party;
       if (!parties[party]) {
         parties[party] = {
           label: party,
           data: Array(4).fill(0),
-          stack: "Stack 0",
+          stack: 'Stack 0',
         };
       }
       parties[party].data[idx] = votes.totalVotes;
-      if (party === "PAP") {
-        parties[party].stack = "Stack 1";
+      if (party === 'PAP') {
+        parties[party].stack = 'Stack 1';
       }
     });
   });
   const datasets = Object.values(parties);
-  console.log(parties);
 
   const data = {
     labels,
@@ -29,13 +28,13 @@ function createChart(model) {
   };
 
   const config = {
-    type: "bar",
+    type: 'bar',
     data,
     options: {
       plugins: {
         title: {
           display: true,
-          text: "Election Results 2006-2020",
+          text: 'Election Results 2006-2020',
         },
         legend: {
           display: false,
@@ -60,7 +59,7 @@ function createChart(model) {
     },
   };
 
-  const ctx = document.getElementById("myChart");
+  const ctx = document.getElementById('myChart');
 
   const chart = new Chart(ctx, config);
 }

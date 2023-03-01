@@ -4,7 +4,7 @@
  * creates an object with year as keys, Leaflet layer element as value.
  *
  */
-async function generateModel(yrs) {
+export default async function generateModel(yrs) {
   const model = {};
   const pastelColorIter = pastelColorGenerator();
   yrs.forEach((yr) => {
@@ -16,11 +16,11 @@ async function generateModel(yrs) {
   const oldYearDataReqs = yrs.map((yr) => Promise.all([getElectionResults(yr), getElectionBoundaries(yr)]));
   return Promise.all(oldYearDataReqs)
     .then((yearResults) => {
-      yearResults.forEach((yearData) => newCreateModel(yearData));
+      yearResults.forEach((yearData) => createModel(yearData));
       return model;
     });
 
-  function newCreateModel([yearResults, yearBoundaries]) {
+  function createModel([yearResults, yearBoundaries]) {
     const { year } = yearResults[0];
     yearBoundaries.features.forEach((feature) => {
       const currConstituency = feature.properties.ED_DESC;
@@ -66,7 +66,6 @@ async function generateModel(yrs) {
   }
 }
 function generateConstituencyStyle(constituencyResults) {
-  // console.log(constituencyResults);
   let winner = {};
   if (constituencyResults.length > 1) {
     constituencyResults.forEach((result) => {
@@ -96,10 +95,6 @@ function generateConstituencyStyle(constituencyResults) {
     };
   }
 }
-function boundaryColorGenerator() {
-  return CSS_COLOR_NAMES.splice(1, 1)[0];
-}
-
 function* pastelColorGenerator() {
   let hue = 0;
   let counter = 0;
