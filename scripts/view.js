@@ -1,7 +1,6 @@
 export function initView() {
+  addLoadingScreen();
   const initialHeight = window.innerWidth > 768 ? 11 : 10;
-  console.log(window.innerWidth);
-  console.log(initialHeight);
   const map = L.map('map').setView([1.3521, 103.8198], initialHeight);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -13,6 +12,20 @@ export function initView() {
     currentStyle: 'defaultStyle',
   };
   return view;
+}
+
+function addLoadingScreen() {
+  const mapContainer = document.getElementById('map');
+  let el = document.createElement('div');
+  el.innerHTML = `<div id="loading" style="width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: absolute;z-index: 10000;" class="d-flex justify-content-center align-items-center"><div class="spinner-border text-light" role="status" style="
+    margin: auto;
+"></div></div>`;
+  el = el.firstChild;
+  mapContainer.insertBefore(el, mapContainer.firstChild);
+}
+export function removeLoadingScreen() {
+  const el = document.getElementById('loading');
+  el.remove();
 }
 
 export function addLayersToMap(model, view) {
@@ -49,6 +62,7 @@ function createLayer(model, view, year) {
       onEachFeature: (feature, layer) => {
         layer.bindPopup(createPopup(constituencyData), {
           maxWidth: 'fit-content',
+          autoPanPadding: L.point(20, 20),
         });
         if (window.innerWidth > 768) {
           layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
@@ -119,12 +133,12 @@ function createPopup(constituency) {
     });
 
     if (voteShare > 0.5) {
-      partyCard.classList.add('border', 'border-success');
-      candidatesCard.classList.add('border', 'border-success');
+      partyCard.classList.add('border', 'border-success', 'rounded-3', 'border-3');
+      candidatesCard.classList.add('border', 'border-success', 'rounded-3', 'border-3');
       cardBody.classList.add('text-success');
     } else {
-      partyCard.classList.add('border', 'border-danger');
-      candidatesCard.classList.add('border', 'border-danger');
+      partyCard.classList.add('border', 'border-danger', 'rounded-3', 'border-3');
+      candidatesCard.classList.add('border', 'border-danger', 'rounded-3', 'border-3');
       cardBody.classList.add('text-danger');
     }
     candidatesCard.appendChild(candidatesList);
