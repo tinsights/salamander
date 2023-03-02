@@ -1,3 +1,5 @@
+import { setView } from './view';
+
 export function addToggleButton(model, view) {
   const toggleBtn = document.getElementById('toggleBtn');
 

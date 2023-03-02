@@ -37,7 +37,7 @@ function timelineFunction({ label, model, view }) {
 
   setView(constituencies, view.currentStyle);
 }
-function setView(constituencies, option = 'defaultStyle') {
+export function setView(constituencies, option = 'defaultStyle') {
   Object.values(constituencies).forEach((constituency) => {
     constituency.feature.setStyle(constituency.style[option]);
   });
