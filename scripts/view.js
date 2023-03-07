@@ -5,29 +5,34 @@ export function initView() {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
-	    text: 'Show coordinates',
-	    callback: showCoordinates,
+      text: 'Show coordinates',
+      callback: showCoordinates,
     }, {
-	    text: 'Center map here',
-	    callback: centerMap,
+      text: 'Center map here',
+      callback: centerMap,
     }, '-', {
-	    text: 'Zoom in',
-	    icon: 'images/zoom-in.png',
-	    callback: zoomIn,
+      text: 'Zoom in',
+      icon: 'images/zoom-in.png',
+      callback: zoomIn,
     }, {
-	    text: 'Zoom out',
-	    icon: 'images/zoom-out.png',
-	    callback: zoomOut,
+      text: 'Zoom out',
+      icon: 'images/zoom-out.png',
+      callback: zoomOut,
     }],
-  }).setView([1.3521, 103.8198], initialHeight);
-  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-  }).addTo(map);
-  // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //   maxZoom: 19,
-  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  // }).addTo(map);
+  });
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // dark mode
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    }).addTo(map);
+  } else {
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    }).addTo(map);
+  }
+  map.setView([1.3521, 103.8198], initialHeight);
   const view = {
     map,
     layers: {},
