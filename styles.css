@@ -1,5 +1,6 @@
 body {
-  background-color: snow;
+  padding: 0;
+  margin: 0;
 }
 
 #map-container {
