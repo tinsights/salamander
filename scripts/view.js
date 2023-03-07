@@ -1,17 +1,56 @@
 export function initView() {
   addLoadingScreen();
   const initialHeight = window.innerWidth > 768 ? 11 : 10;
-  const map = L.map('map').setView([1.3521, 103.8198], initialHeight);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  const map = L.map('map', {
+    contextmenu: true,
+    contextmenuWidth: 140,
+    contextmenuItems: [{
+	    text: 'Show coordinates',
+	    callback: showCoordinates,
+    }, {
+	    text: 'Center map here',
+	    callback: centerMap,
+    }, '-', {
+	    text: 'Zoom in',
+	    icon: 'images/zoom-in.png',
+	    callback: zoomIn,
+    }, {
+	    text: 'Zoom out',
+	    icon: 'images/zoom-out.png',
+	    callback: zoomOut,
+    }],
+  }).setView([1.3521, 103.8198], initialHeight);
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
   }).addTo(map);
+  // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //   maxZoom: 19,
+  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  // }).addTo(map);
   const view = {
     map,
     layers: {},
     currentStyle: 'defaultStyle',
   };
+
   return view;
+
+  function showCoordinates(e) {
+    alert(e.latlng);
+  }
+
+  function centerMap(e) {
+    map.panTo(e.latlng);
+  }
+
+  function zoomIn(e) {
+    map.zoomIn();
+  }
+
+  function zoomOut(e) {
+    map.zoomOut();
+  }
 }
 
 function addLoadingScreen() {
