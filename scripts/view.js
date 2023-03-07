@@ -5,8 +5,8 @@ export function initView() {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
-      text: 'Show coordinates',
-      callback: showCoordinates,
+      text: 'Add Marker',
+      callback: addMarker,
     }, {
       text: 'Center map here',
       callback: centerMap,
@@ -41,8 +41,27 @@ export function initView() {
 
   return view;
 
-  function showCoordinates(e) {
-    alert(e.latlng);
+  async function addMarker(e) {
+    console.log(e.latlng);
+    const addressMarker = L.marker(e.latlng);
+    const { layers } = view;
+    const history = getHistory(layers, e.latlng);
+    addressMarker.bindPopup(history);
+    addressMarker.addTo(view.map);
+    view.map.flyTo(e.latlng);
+    addressMarker.openPopup();
+
+    function getHistory(mapLayers, point) {
+      const constituencyHistory = document.createElement('div');
+      Object.entries(mapLayers).forEach(([year, yearLayer]) => yearLayer.eachLayer((geojsonLayer) => {
+        geojsonLayer.eachLayer((polygon) => {
+          if (polygon.contains(point)) {
+            constituencyHistory.innerHTML += `<p>${year}: ${polygon.feature.properties.ED_DESC}</p>`;
+          }
+        });
+      }));
+      return constituencyHistory;
+    }
   }
 
   function centerMap(e) {

@@ -14,7 +14,7 @@ export function addToggleButton(model, view) {
   toggleBtn.addEventListener('click', toggleView);
 }
 
-export async function addPostalSearchEvent(model, view) {
+export async function addPostalSearchEvent(view) {
   const postalCodeBtn = document.getElementById('postalCodeBtn');
   postalCodeBtn.addEventListener('click', async () => {
     const address = await axios.get(
