@@ -36,6 +36,7 @@ export function initView() {
       // attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
     }).addTo(map);
   }
+
   map.setView([1.38, 103.8198], initialHeight);
   const markers = L.layerGroup().addTo(map);
   const view = {
@@ -254,4 +255,10 @@ function partyImage(party) {
     default:
       return `assets/${party}_logo.svg`;
   }
+}
+
+export function showControls() {
+  document.querySelector('#mobile-menu-container').classList.remove('d-none');
+  const timecontrols = document.querySelector('.control_container');
+  timecontrols.style.display = 'inline-block';
 }

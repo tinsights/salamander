@@ -23,7 +23,9 @@ h1 {
   position: absolute;
   top: 130px;
 }
-
+.control_container {
+  display: none;
+}
 #mobile-menu-container {
   position: absolute;
   width: 225px;
