@@ -14,7 +14,7 @@ export function addToggleButton(model, view) {
   toggleBtn.addEventListener('click', toggleView);
 }
 
-export async function addPostalSearchEvent(view) {
+export async function addPostalSearchEvent(model, view) {
   const postalCodeBtn = document.getElementById('postalCodeBtn');
   postalCodeBtn.addEventListener('click', async () => {
     const address = await axios.get(
@@ -47,4 +47,26 @@ export async function addPostalSearchEvent(view) {
     console.log(constituencyHistory);
     return constituencyHistory;
   }
+}
+
+export function darkmodeWatcher(view) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+    const colorScheme = event.matches ? 'dark' : 'light';
+    switch (colorScheme) {
+      case 'dark':
+        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+          maxZoom: 20,
+          // attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        }).addTo(view.map);
+        break;
+
+      case 'light':
+      default:
+        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+          maxZoom: 20,
+          // attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        }).addTo(view.map);
+        break;
+    }
+  });
 }

@@ -8,14 +8,30 @@ body {
 }
 
 #map {
-  height: 80%;
+  height: 100%;
   position: relative;
 }
-#toggleBtn {
+#page-header {
+  left: auto;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 313412;
+}
+h1 {
+  color: rgba(0, 0, 0, 0.65);
+}
+.leaflet-control-zoom {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  top: 100px;
+}
+
+#mobile-menu-container {
+  position: absolute;
+  width: 225px;
+  bottom: 90px;
+  right: 40px;
   z-index: 31412;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
 }
 
 #chart-container {
@@ -56,12 +72,6 @@ body {
   transform-style: preserve-3d;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
-/* .flip-card:hover .flip-card-inner,
-.flip-card:active .flip-card-inner {
-  transform: rotateY(180deg);
-} */
-
 /* Position the front and back side */
 .flip-card-front,
 .flip-card-back {
@@ -72,12 +82,6 @@ body {
   backface-visibility: hidden;
 }
 
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  color: black;
-}
-
-/* Style the back side */
 .flip-card-back {
   transform: rotateY(180deg);
 }
@@ -112,4 +116,17 @@ body {
 .flip-forwards {
   animation: flipping-forward 1s linear;
   animation-fill-mode: forwards;
+}
+@media (prefers-color-scheme: dark) {
+  #page-header {
+    left: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 313412;
+  }
+  h1 {
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+@media screen and (min-width: 768px) {
 }

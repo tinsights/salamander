@@ -100,7 +100,7 @@ export function addLayersToMap(model, view) {
       timelineItems: years,
       extraChangeMapParams: { model, view },
       changeMap: timelineFunction,
-      position: 'bottomleft',
+      position: 'bottomright',
     })
     .addTo(view.map);
   return null;
