@@ -21,7 +21,7 @@ h1 {
 }
 .leaflet-control-zoom {
   position: absolute;
-  top: 100px;
+  top: 130px;
 }
 
 #mobile-menu-container {
@@ -37,9 +37,14 @@ h1 {
 #chart-container {
   height: 40vh;
 }
-
 .logo {
   height: 50px;
+  object-fit: contain;
+}
+
+#postalCodeBtn {
+  height: 30px;
+  width: 30px;
   object-fit: contain;
 }
 
@@ -51,8 +56,8 @@ h1 {
   min-width: ;
 } */
 
-.leaflet-popup-content {
-  margin: 0;
+.year-history-card {
+  width: 200px;
 }
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */

@@ -1,22 +1,26 @@
+import { getHistory } from './controllers.js';
+
 export function initView() {
   addLoadingScreen();
-  const initialHeight = window.innerWidth > 768 ? 11 : 10;
+  const initialHeight = window.innerWidth > 768 ? 12 : 11;
   const map = L.map('map', {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
-      text: 'Add Marker',
+      text: 'Inspect History',
+      icon: 'assets/question-square.svg',
       callback: addMarker,
     }, {
       text: 'Center map here',
+      icon: 'assets/bounding-box-circles.svg',
       callback: centerMap,
     }, '-', {
       text: 'Zoom in',
-      icon: 'images/zoom-in.png',
+      icon: 'assets/zoom-in.svg',
       callback: zoomIn,
     }, {
       text: 'Zoom out',
-      icon: 'images/zoom-out.png',
+      icon: 'assets/zoom-out.svg',
       callback: zoomOut,
     }],
   });
@@ -32,38 +36,36 @@ export function initView() {
       // attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
     }).addTo(map);
   }
-  map.setView([1.3521, 103.8198], initialHeight);
+  map.setView([1.38, 103.8198], 12);
+  const markers = L.layerGroup().addTo(map);
   const view = {
     map,
     layers: {},
+    markers,
     currentStyle: 'defaultStyle',
   };
 
   return view;
 
   async function addMarker(e) {
-    console.log(e.latlng);
+    const { latlng } = e;
+    console.log(latlng);
+    const address = axios.get(`https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk4NjksInVzZXJfaWQiOjk4NjksImVtYWlsIjoiYWoudGluYWVzQGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY3ODE4NTQyNSwiZXhwIjoxNjc4NjE3NDI1LCJuYmYiOjE2NzgxODU0MjUsImp0aSI6IjczM2MxNjMyZDdiYThkYzE0ZGNhNTcxY2RjMmJjM2QyIn0.I1imXlYscNqHyYXCG3IXXUVRpHEfWVfGQaxT6cVH5Wg&buffer=500&addressType=All&otherFeatures=N`);
     const addressMarker = L.marker(e.latlng);
     const { layers } = view;
     const history = getHistory(layers, e.latlng);
     addressMarker.bindPopup(history);
-    addressMarker.addTo(view.map);
+    addressMarker.addTo(view.markers);
     view.map.flyTo(e.latlng);
+    await (address).then((result) => {
+      const title = document.createElement('h5');
+      title.classList.add('lead', 'text-center');
+      console.log(result.data.GeocodeInfo[0]);
+      title.innerHTML = result.data.GeocodeInfo[0].ROAD;
+      history.insertBefore(title, history.firstChild);
+    });
     addressMarker.openPopup();
-
-    function getHistory(mapLayers, point) {
-      const constituencyHistory = document.createElement('div');
-      Object.entries(mapLayers).forEach(([year, yearLayer]) => yearLayer.eachLayer((geojsonLayer) => {
-        geojsonLayer.eachLayer((polygon) => {
-          if (polygon.contains(point)) {
-            constituencyHistory.innerHTML += `<p>${year}: ${polygon.feature.properties.ED_DESC}</p>`;
-          }
-        });
-      }));
-      return constituencyHistory;
-    }
   }
-
   function centerMap(e) {
     map.panTo(e.latlng);
   }
@@ -125,7 +127,7 @@ function createLayer(model, view, year) {
       onEachFeature: (feature, layer) => {
         layer.bindPopup(createPopup(constituencyData), {
           maxWidth: 'fit-content',
-          autoPanPadding: L.point(20, 20),
+          autoPanPadding: L.point(50, 50),
         });
         if (window.innerWidth > 768) {
           layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
@@ -150,7 +152,7 @@ function createPopup(constituency) {
   resultsDiv.classList.add('row', 'gx-3', 'flex-nowrap');
   const constInfo = document.createElement('div');
   constInfo.classList.add('container', 'text-center');
-  constInfo.innerHTML = `<h5 class="h5">${results[0].constituency} ${results[0].constituency_type}</h5>`;
+  constInfo.innerHTML = `<h6 class="display-6">${results[0].constituency} ${results[0].constituency_type}</h6>`;
   popup.appendChild(constInfo);
   results.forEach((result) => {
     const partyCol = document.createElement('div');

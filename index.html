@@ -30,7 +30,7 @@
   <!-- TODO: rename divs to semantic HTML -->
   <body>
     <main class="container-fluid p-0">
-      <div id="map-container" class="container-lg p-0">
+      <div id="map-container" class="container-xl p-0">
         <div id="map">
           <div id="page-header" class="container-fluid position-absolute d-block">
             <h1 class="my-3 text-center display-1"><strong>Salamander</strong></h1>
@@ -48,14 +48,17 @@
                     />
                   </div>
                   <div class="col-2">
-                    <button id="postalCodeBtn" class="btn btn-light btn-outline-dark p-1">
-                      <img src="assets/singapore-pin.png" style="height: 30px" class="pb-1" />
-                    </button>
+                    <input
+                      type="image"
+                      id="postalCodeBtn"
+                      src="assets/singapore-pin.png"
+                      class="btn btn-light btn-outline-dark p-1"
+                    />
                   </div>
                 </div>
               </div>
               <div class="col-12 text-end">
-                <button id="resetBtn" class="btn btn-light btn-outline-dark w-100">Reset Markers</button>
+                <button id="clearBtn" class="btn btn-light btn-outline-dark w-100">Clear Markers</button>
               </div>
               <div class="col-12 text-end">
                 <button id="toggleBtn" class="btn btn-light btn-outline-dark w-100">Toggle Colors</button>
@@ -64,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="container-lg my-3" id="chart-container">
+      <div class="container-xl my-3" id="chart-container">
         <canvas id="myChart"></canvas>
       </div>
     </main>
@@ -89,6 +92,8 @@
     <script src="./scripts/leaflet-timeline-slider.min.js"></script>
     <!-- LEAFLET CONTEXTMENU  -->
     <script src="./scripts/leaflet.contextmenu.min.js"></script>
+    <!-- LEAFLET MARKERCLUSTER -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/"></script>
     <!-- CHARTJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- BOOTSTRAP JS -->

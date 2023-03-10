@@ -14,12 +14,15 @@ export function addToggleButton(model, view) {
   toggleBtn.addEventListener('click', toggleView);
 }
 
-export async function addPostalSearchEvent(model, view) {
+export async function addPostalSearchEvent(view) {
   const postalCodeBtn = document.getElementById('postalCodeBtn');
   postalCodeBtn.addEventListener('click', async () => {
     const address = await axios.get(
       `https://developers.onemap.sg/commonapi/search?searchVal=${postalCodeSelector.value}&returnGeom=Y&getAddrDetails=N`,
     );
+    const title = document.createElement('h6');
+    title.classList.add('lead', 'text-center');
+    title.innerHTML = `${address.data.results[0].SEARCHVAL}`;
     const coordinates = address.data.results[0];
     const point = {
       lat: coordinates.LATITUDE,
@@ -28,25 +31,44 @@ export async function addPostalSearchEvent(model, view) {
     const addressMarker = L.marker([point.lat, point.lng]);
     const { layers } = view;
     const history = getHistory(layers, point);
-    addressMarker.bindPopup(history);
-    addressMarker.addTo(view.map);
+    history.insertBefore(title, history.firstChild);
+    addressMarker.bindPopup(history, { maxWidth: 'fit-content' });
+    addressMarker.addTo(view.markers);
     view.map.flyTo([point.lat, point.lng], 15);
     addressMarker.openPopup();
   });
+}
 
-  function getHistory(mapLayers, point) {
-    const constituencyHistory = document.createElement('div');
-    Object.entries(mapLayers).forEach(([year, yearLayer]) => yearLayer.eachLayer((geojsonLayer) => {
-      geojsonLayer.eachLayer((polygon) => {
-        if (polygon.contains(point)) {
-          console.log(year);
-          constituencyHistory.innerHTML += `<p>${year}: ${polygon.feature.properties.ED_DESC}</p>`;
-        }
-      });
-    }));
-    console.log(constituencyHistory);
-    return constituencyHistory;
-  }
+export function getHistory(mapLayers, point) {
+  const container = document.createElement('div');
+  container.classList.add('container', 'year-history-card');
+  Object.entries(mapLayers).forEach(([year, yearLayer]) => yearLayer.eachLayer((geojsonLayer) => {
+    geojsonLayer.eachLayer((polygon) => {
+      if (polygon.contains(point)) {
+        const row = document.createElement('div');
+        row.classList.add('row', 'my-1', 'gx-0', 'border', 'border-1', 'border-dark', 'rounded-3');
+        const yearCol = document.createElement('div');
+        yearCol.classList.add('col-4', 'text-center');
+        yearCol.innerHTML = `<p><strong>${year}: </strong></p>`;
+        const grcCol = document.createElement('div');
+        grcCol.classList.add('col-8', 'text-center');
+        grcCol.innerHTML = `<p>${polygon.feature.properties.ED_DESC}</p>`;
+        // constituencyHistory.innerHTML += `<p>${year}: ${polygon.feature.properties.ED_DESC}</p>`;
+        row.append(yearCol, grcCol);
+        container.append(row);
+      }
+    });
+  }));
+  return container;
+}
+
+export function clearMarkersButton(view) {
+  const clearButton = document.getElementById('clearBtn');
+  clearButton.addEventListener('click', () => {
+    console.log('HERE');
+    view.markers.clearLayers();
+    view.map.flyTo([1.38, 103.8198], 12);
+  });
 }
 
 export function darkmodeWatcher(view) {
