@@ -36,7 +36,7 @@ export function initView() {
       // attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
     }).addTo(map);
   }
-  map.setView([1.38, 103.8198], 12);
+  map.setView([1.38, 103.8198], initialHeight);
   const markers = L.layerGroup().addTo(map);
   const view = {
     map,
@@ -56,7 +56,7 @@ export function initView() {
     const history = getHistory(layers, e.latlng);
     addressMarker.bindPopup(history);
     addressMarker.addTo(view.markers);
-    view.map.flyTo(e.latlng);
+    view.map.flyTo([latlng.lat + 0.05, latlng.lng], 13);
     await (address).then((result) => {
       const title = document.createElement('h5');
       title.classList.add('lead', 'text-center');
