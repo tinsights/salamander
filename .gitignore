@@ -114,3 +114,6 @@ package-lock.json
 package.json
 
 *.txt
+
+.env
+config.json
