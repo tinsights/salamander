@@ -24,7 +24,7 @@ h1 {
 }
 .leaflet-control-zoom {
   position: absolute;
-  top: 130px;
+  top: 90px;
 }
 .control_container {
   display: none;
@@ -33,7 +33,7 @@ h1 {
   position: absolute;
   width: 225px;
   bottom: 90px;
-  right: 40px;
+  right: 10px;
   z-index: 31412;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 1rem;
@@ -150,4 +150,14 @@ h1 {
 }
 
 @media screen and (min-width: 768px) {
+  .leaflet-control-zoom {
+    position: absolute;
+    top: 110px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .leaflet-control-zoom {
+    position: absolute;
+    top: 130px;
+  }
 }
