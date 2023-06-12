@@ -30,23 +30,10 @@ h1 {
   border: 2px solid grey;
   border-radius: 10px;
 }
-#show-mobile-container {
-  display: inline-block;
-  height: 50px;
-  width: 50px;
-  position: absolute;
-  bottom: 110px;
-  right: 10px;
-  z-index: 31412;
-  background-color: rgba(255, 255, 255, 0.7);
-  border: 2px solid grey;
-  border-radius: 10px;
-}
 .bi-list {
   font-size: large;
 }
 #mobile-menu-container {
-  display: none;
   position: absolute;
   width: 225px;
   bottom: 110px;
@@ -55,6 +42,11 @@ h1 {
   background-color: rgba(255, 255, 255, 0.7);
   border: 2px solid grey;
   border-radius: 10px;
+}
+
+#clearBtn,
+#toggleBtn {
+  font-size: x-small;
 }
 
 #chart-container {
@@ -174,6 +166,10 @@ h1 {
   .leaflet-control-zoom {
     position: absolute;
     top: 110px;
+  }
+  #clearBtn,
+  #toggleBtn {
+    font-size: medium;
   }
 }
 @media screen and (min-width: 992px) {
