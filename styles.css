@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   padding: 0;
   margin: 0;
@@ -42,6 +45,7 @@ h1 {
 .logo {
   height: 50px;
   object-fit: contain;
+  margin: 1rem;
 }
 
 #postalCodeBtn {
@@ -53,10 +57,14 @@ h1 {
 .party-card {
   box-sizing: border-box;
 }
-/* .popup {
-  display: flex;
-  min-width: ;
-} */
+
+.leaflet-popup-content {
+  margin: 1rem;
+}
+
+.leaflet-popup-content p {
+  margin: 0;
+}
 
 .year-history-card {
   width: 200px;
@@ -65,7 +73,7 @@ h1 {
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   width: 150px;
-  height: 200px;
+  height: 150px;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
@@ -91,6 +99,9 @@ h1 {
 
 .flip-card-back {
   transform: rotateY(180deg);
+}
+.flip-card ul li {
+  font-size: xx-small;
 }
 
 .leaflet-interactive:focus {
