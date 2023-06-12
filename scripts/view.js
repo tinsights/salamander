@@ -167,7 +167,7 @@ function createPopup(constituency) {
   resultsDiv.classList.add("row", "gx-3", "flex-nowrap");
   const constInfo = document.createElement("div");
   constInfo.classList.add("text-center");
-  constInfo.innerHTML = `<h6 class="display-6">${results[0].constituency} ${results[0].constituency_type}</h6>`;
+  constInfo.innerHTML = `<h3 class="grc-name">${results[0].constituency} ${results[0].constituency_type}</h3>`;
   popup.appendChild(constInfo);
   results.forEach((result) => {
     const partyCol = document.createElement("div");
