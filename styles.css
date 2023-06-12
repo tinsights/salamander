@@ -27,16 +27,34 @@ h1 {
   top: 90px;
 }
 .control_container {
-  display: none;
+  border: 2px solid grey;
+  border-radius: 10px;
 }
-#mobile-menu-container {
+#show-mobile-container {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
   position: absolute;
-  width: 225px;
-  bottom: 90px;
+  bottom: 110px;
   right: 10px;
   z-index: 31412;
   background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 1rem;
+  border: 2px solid grey;
+  border-radius: 10px;
+}
+.bi-list {
+  font-size: large;
+}
+#mobile-menu-container {
+  display: none;
+  position: absolute;
+  width: 225px;
+  bottom: 110px;
+  right: 10px;
+  z-index: 31412;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 2px solid grey;
+  border-radius: 10px;
 }
 
 #chart-container {
@@ -150,6 +168,9 @@ h1 {
 }
 
 @media screen and (min-width: 768px) {
+  #mobile-menu-container {
+    display: flex;
+  }
   .leaflet-control-zoom {
     position: absolute;
     top: 110px;
