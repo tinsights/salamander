@@ -63,8 +63,9 @@ export function initView() {
   async function addMarker(e) {
     const { latlng } = e;
     console.log(latlng);
+    const token = await axios.get("https://psychic-couscous.onrender.com/token");
     const address = axios.get(
-      `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk4NjksInVzZXJfaWQiOjk4NjksImVtYWlsIjoiYWoudGluYWVzQGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTY3ODE4NTQyNSwiZXhwIjoxNjc4NjE3NDI1LCJuYmYiOjE2NzgxODU0MjUsImp0aSI6IjczM2MxNjMyZDdiYThkYzE0ZGNhNTcxY2RjMmJjM2QyIn0.I1imXlYscNqHyYXCG3IXXUVRpHEfWVfGQaxT6cVH5Wg&buffer=500&addressType=All&otherFeatures=N`
+      `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=${token.data}&buffer=500&addressType=All&otherFeatures=N`
     );
     const addressMarker = L.marker(e.latlng);
     const { layers } = view;
@@ -73,11 +74,13 @@ export function initView() {
     addressMarker.addTo(view.markers);
     view.map.flyTo([latlng.lat + 0.05, latlng.lng], 13);
     await address.then((result) => {
-      const title = document.createElement("h5");
-      title.classList.add("lead", "text-center");
-      console.log(result.data.GeocodeInfo[0]);
-      title.innerHTML = result.data.GeocodeInfo[0].ROAD;
-      history.insertBefore(title, history.firstChild);
+      const place = result.data.GeocodeInfo[0];
+      console.log(place);
+      const titleEl = document.createElement("h3");
+      titleEl.classList.add("lead", "text-center");
+      const name = place.ROAD === "NIL" ? place.BUILDINGNAME : place.ROAD;
+      titleEl.innerHTML = name;
+      history.insertBefore(titleEl, history.firstChild);
     });
     addressMarker.openPopup();
   }
