@@ -63,7 +63,7 @@ export function initView() {
   async function addMarker(e) {
     const { latlng } = e;
     console.log(latlng);
-    const token = await axios.get("https://psychic-couscous.onrender.com/token");
+    const token = await axios.get("https://psychic-couscous.onrender.com/onemaptoken");
     const address = axios.get(
       `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=${token.data}&buffer=500&addressType=All&otherFeatures=N`
     );
@@ -74,11 +74,14 @@ export function initView() {
     addressMarker.addTo(view.markers);
     view.map.flyTo([latlng.lat + 0.05, latlng.lng], 13);
     await address.then((result) => {
-      const place = result.data.GeocodeInfo[0];
-      console.log(place);
       const titleEl = document.createElement("h3");
+      let name = "Address Not Found";
+      if (result.data.GeocodeInfo.length) {
+        const place = result.data.GeocodeInfo[0];
+        console.log(place);
+        name = place.ROAD === "NIL" ? place.BUILDINGNAME : place.ROAD;
+      }
       titleEl.classList.add("lead", "text-center");
-      const name = place.ROAD === "NIL" ? place.BUILDINGNAME : place.ROAD;
       titleEl.innerHTML = name;
       history.insertBefore(titleEl, history.firstChild);
     });
