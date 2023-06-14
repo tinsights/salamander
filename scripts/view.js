@@ -2,7 +2,7 @@ import { getHistory } from "./controllers.js";
 
 export function initView() {
   addLoadingScreen();
-  const initialHeight = window.innerWidth > 768 ? 12 : 11;
+  const initialHeight = window.innerWidth > 768 ? 11 : 10;
   const map = L.map("map", {
     contextmenu: true,
     contextmenuWidth: 140,
@@ -49,7 +49,7 @@ export function initView() {
     ).addTo(map);
   }
 
-  map.setView([1.38, 103.8198], initialHeight);
+  map.setView([1.38, 103.85], initialHeight);
   const markers = L.layerGroup().addTo(map);
   const view = {
     map,

@@ -33,6 +33,12 @@ h1 {
 .bi-list {
   font-size: large;
 }
+.range-labels li {
+  width: 65px;
+}
+.range-labels li::before {
+  height: 10px;
+}
 #mobile-menu-container {
   position: absolute;
   width: 225px;
@@ -47,6 +53,10 @@ h1 {
 #clearBtn,
 #toggleBtn {
   font-size: x-small;
+}
+
+input {
+  font-size: 16px;
 }
 
 #chart-container {
