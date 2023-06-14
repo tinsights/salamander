@@ -33,11 +33,17 @@ h1 {
 .bi-list {
   font-size: large;
 }
+.range {
+  top: -2px !important;
+}
+.range input {
+  top: 3px !important;
+}
 .range-labels li {
   width: 65px;
 }
 .range-labels li::before {
-  height: 10px;
+  top: -22px !important;
 }
 #mobile-menu-container {
   position: absolute;
