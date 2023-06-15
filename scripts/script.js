@@ -13,46 +13,95 @@ window.addEventListener("DOMContentLoaded", async () => {
     addToggleButton(model, view);
     clearMarkersButton(view);
     darkmodeWatcher(view);
-    // bsTour();
+    bsTour();
   });
 });
 
-// function bsTour() {
-//   const tour = new Shepherd.Tour({
-//     defaultStepOptions: {
-//       cancelIcon: {
-//         enabled: true,
-//       },
-//       classes: "class-1 class-2",
-//       scrollTo: { behavior: "smooth", block: "center" },
-//     },
-//   });
+// create a onboarding tour using the shephard js libary
+function bsTour() {
+  const tour = new Shepherd.Tour({
+    defaultStepOptions: {
+      classes: "shadow-md bg-purple-dark",
+      scrollTo: true,
+    },
+  });
+  const defaultTourButtons = [
+    {
+      action: tour.back,
+      classes: "shepherd-button-secondary",
+      text: "Back",
+    },
+    {
+      action: tour.next,
+      text: "Next",
+    },
+  ];
 
-//   tour.addStep({
-//     title: "Creating a Shepherd Tour",
-//     text: `Creating a Shepherd tour is easy. too!\
-//   Just create a \`Tour\` instance, and add as many steps as you want.`,
-//     attachTo: {
-//       element: "#map",
-//       on: "bottom",
-//     },
-//     buttons: [
-//       {
-//         action() {
-//           return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//       },
-//       {
-//         action() {
-//           return this.next();
-//         },
-//         text: "Next",
-//       },
-//     ],
-//     id: "creating",
-//   });
+  tour.addStep({
+    title: "Welcome to Salamander!",
+    text: "This web app allows you to explore Singapore's parliamentary electoral history from 2006 to 2020. Click/tap on the Next button to continue.",
+    buttons: [
+      {
+        action: tour.cancel,
+        classes: "shepherd-button-secondary",
+        text: "Exit",
+      },
+      {
+        action: tour.next,
+        text: "Next",
+      },
+    ],
+  });
 
-//   tour.start();
-// }
+  tour.addStep({
+    title: "Postal Code Search",
+    text: "Search for a postal code to view a location's constituency history",
+    attachTo: {
+      element: "#mobile-menu-container",
+      on: "top",
+    },
+    buttons: defaultTourButtons,
+  });
+  tour.addStep({
+    title: "Change Colour Scheme",
+    text: "Toggle between the Constituency or Results colour schemes.",
+    attachTo: {
+      element: "#toggleBtn",
+      on: "top-start",
+    },
+    buttons: defaultTourButtons,
+  });
+  tour.addStep({
+    title: "Change Years",
+    text: "Change between the different election years.",
+    attachTo: {
+      element: ".control_container",
+      on: "top-start",
+    },
+    buttons: defaultTourButtons,
+  });
+
+  tour.addStep({
+    title: "See Election Results",
+    text: "Click into a constituency to see the election results. Click on the party card to see the candidates for that party.",
+    attachTo: {
+      element:
+        "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(11)",
+      on: "top-start",
+    },
+    buttons: [
+      {
+        action: tour.back,
+        classes: "shepherd-button-secondary",
+        text: "Back",
+      },
+      {
+        action: tour.cancel,
+        text: "Exit",
+      },
+    ],
+  });
+
+  //start the tour
+  tour.start();
+}

@@ -68,7 +68,6 @@ export function getHistory(mapLayers, point) {
 export function clearMarkersButton(view) {
   const clearButton = document.getElementById("clearBtn");
   clearButton.addEventListener("click", () => {
-    console.log("HERE");
     view.markers.clearLayers();
     view.map.flyTo([1.38, 103.8198], 10);
   });

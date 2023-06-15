@@ -219,12 +219,12 @@ function createPopup(constituency) {
     });
 
     if (voteShare > 0.5) {
-      partyCard.classList.add("border", "border-success", "rounded-3", "border-3");
-      candidatesCard.classList.add("border", "border-success", "rounded-3", "border-3");
+      partyCard.classList.add("winner-card-border");
+      candidatesCard.classList.add("winner-card-border");
       cardBody.classList.add("text-success");
     } else {
-      partyCard.classList.add("border", "border-danger", "rounded-3", "border-3");
-      candidatesCard.classList.add("border", "border-danger", "rounded-3", "border-3");
+      partyCard.classList.add("loser-card-border");
+      candidatesCard.classList.add("loser-card-border");
       cardBody.classList.add("text-danger");
     }
     candidatesCard.appendChild(candidatesList);

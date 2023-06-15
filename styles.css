@@ -133,7 +133,10 @@ input[type="number"] {
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
-
+.flip-card-front:hover,
+.flip-card-back:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
 .flip-card-back {
   transform: rotateY(180deg);
 }
@@ -142,6 +145,17 @@ input[type="number"] {
 }
 .grc-name {
   font-weight: 200;
+}
+
+.winner-card-border {
+  /* background-color: rgb(230, 250, 230); */
+  border-radius: 10px;
+  border: 3px solid lightgreen;
+}
+.loser-card-border {
+  /* background-color: rgb(255, 225, 225); */
+  border-radius: 10px;
+  border: 3px solid lightcoral;
 }
 
 .leaflet-interactive:focus {
@@ -175,6 +189,17 @@ input[type="number"] {
   animation: flipping-forward 1s linear;
   animation-fill-mode: forwards;
 }
+
+.shepherd-element {
+  max-width: 200px;
+  z-index: 100000;
+  border: 1px solid black;
+}
+.shepherd-arrow:before {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
 @media (prefers-color-scheme: dark) {
   #page-header {
     left: auto;
@@ -198,10 +223,16 @@ input[type="number"] {
   #toggleBtn {
     font-size: medium;
   }
+  .shepherd-element {
+    max-width: 300px;
+  }
 }
 @media screen and (min-width: 992px) {
   .leaflet-control-zoom {
     position: absolute;
     top: 130px;
+  }
+  .shepherd-element {
+    max-width: 400px;
   }
 }
