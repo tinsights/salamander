@@ -46,14 +46,13 @@ h1 {
   top: -22px !important;
 }
 #mobile-menu-container {
-  position: absolute;
+  position: relative;
   width: 225px;
-  bottom: 110px;
-  right: 10px;
   z-index: 313412;
   background-color: rgba(255, 255, 255, 0.7);
   border: 2px solid grey;
   border-radius: 10px;
+  padding: 0px 10px;
 }
 
 #clearBtn,
@@ -225,6 +224,10 @@ input[type="number"] {
   }
   .shepherd-element {
     max-width: 300px;
+  }
+  #map-container {
+    height: 100svh;
+    max-width: 1320px;
   }
 }
 @media screen and (min-width: 992px) {

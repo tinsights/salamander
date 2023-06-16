@@ -50,7 +50,11 @@ export function initView() {
       }
     ).addTo(map);
   }
-
+  document
+    .querySelector(
+      "#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.leaflet-control-attribution.leaflet-control"
+    )
+    .remove();
   map.setView([1.38, 103.85], initialHeight);
   const markers = L.layerGroup().addTo(map);
   const view = {
