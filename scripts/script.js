@@ -38,7 +38,7 @@ function bsTour() {
   ];
 
   tour.addStep({
-    title: "Welcom!",
+    title: "Welcome!",
     text: "Salamander allows you to explore Singapore's parliamentary electoral history from 2006 to 2020.",
     buttons: [
       {
