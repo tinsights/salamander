@@ -5,6 +5,12 @@ body {
   padding: 0;
   margin: 0;
 }
+h1 a:hover {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 5px;
+}
 
 #map-container {
   height: 100svh;
@@ -19,8 +25,8 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 313412;
 }
-h1 {
-  color: rgba(0, 0, 0, 0.65);
+h1 a {
+  color: rgba(0, 0, 0, 0.65) !important;
 }
 .leaflet-control-zoom {
   position: absolute;
@@ -249,4 +255,7 @@ input[type="number"] {
   .shepherd-element {
     max-width: 400px;
   }
+}
+.leaflet-container a {
+  all: inherit;
 }
