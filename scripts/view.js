@@ -174,8 +174,12 @@ function createLayer(model, view, year) {
           });
         }
         layer.on("popupopen", (e) => {
+          const lat = e.popup.getLatLng().lat;
+          const lng = e.popup.getLatLng().lng;
           if (view.map.getZoom() < 12) {
-            view.map.flyTo(e.popup.getLatLng(), 12, {});
+            view.map.flyTo([lat + 0.02, lng], 12, {});
+          } else {
+            view.map.flyTo([lat + 0.02, lng], view.map.getZoom(), {});
           }
         });
       },
