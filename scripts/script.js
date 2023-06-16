@@ -73,7 +73,7 @@ function bsTour(tour) {
   });
   tour.addStep({
     title: "Map Features",
-    text: "See a location of interest? Right click or long-press to get the address. Tap a constituency to view results. Flip the party card to view candidates.",
+    text: "Tap a constituency to view results. Flip the party card to view candidates. See a location of interest? Right click or long-press to get the address.",
     attachTo: {
       element:
         "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(14)",

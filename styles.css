@@ -191,7 +191,7 @@ input[type="number"] {
 }
 
 .shepherd-element {
-  max-width: 200px;
+  max-width: 250px;
   z-index: 313415;
   border: 1px solid black;
 }
