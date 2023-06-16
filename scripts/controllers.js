@@ -69,7 +69,7 @@ export function clearMarkersButton(view) {
   const clearButton = document.getElementById("clearBtn");
   clearButton.addEventListener("click", () => {
     view.markers.clearLayers();
-    view.map.flyTo([1.38, 103.8198], 10);
+    view.map.flyTo([1.38, 103.85], 10);
   });
 }
 
