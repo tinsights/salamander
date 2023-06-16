@@ -38,8 +38,8 @@ function bsTour() {
   ];
 
   tour.addStep({
-    title: "Welcome to Salamander!",
-    text: "This web app allows you to explore Singapore's parliamentary electoral history from 2006 to 2020.",
+    title: "Welcom!",
+    text: "Salamander allows you to explore Singapore's parliamentary electoral history from 2006 to 2020.",
     buttons: [
       {
         action: tour.cancel,
