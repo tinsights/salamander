@@ -280,6 +280,11 @@ function partyImage(party) {
 }
 
 export function showControls() {
+  document
+    .querySelector(
+      "#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(4)"
+    )
+    .click();
   document.querySelector("#mobile-menu-container").classList.remove("d-none");
   const timecontrols = document.querySelector(".control_container");
   timecontrols.style.display = "inline-block";
