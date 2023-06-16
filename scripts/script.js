@@ -82,7 +82,7 @@ function bsTour(tour) {
     buttons: [
       {
         action: tour.back,
-        classes: "shepherd-button-secondary",
+        classes: "shepherd-button-secondary border border-dark",
         text: "Back",
       },
       {
