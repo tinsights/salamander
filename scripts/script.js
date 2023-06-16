@@ -30,21 +30,22 @@ function bsTour(tour) {
   const defaultTourButtons = [
     {
       action: tour.back,
-      classes: "shepherd-button-secondary border border-dark",
+      classes: "btn btn-secondary border border-dark w-50",
       text: "Back",
     },
     {
       action: tour.next,
+      classes: "btn btn-primary border border-dark w-50",
       text: "Next",
     },
   ];
 
   tour.addStep({
     title: "Welcome!",
-    text: "Salamander allows you to explore Singapore's parliamentary electoral history from 2006 to 2020.",
+    text: "<p>Salamander allows you to explore Singapore's parliamentary electoral history from 2006 to 2020.</p>",
     buttons: [
       {
-        classes: "shepherd-button-secondary border border-dark",
+        classes: "btn btn-secondary border border-dark w-50",
         text: "Exit",
         action: () => {
           tour.cancel();
@@ -61,13 +62,14 @@ function bsTour(tour) {
           } catch (error) {}
         },
         text: "Next",
+        classes: "btn btn-primary border border-dark w-50",
       },
     ],
   });
 
   tour.addStep({
     title: "Controls",
-    text: "Search via postal code,<br>toggle colour schemes,<br>or change years here.",
+    text: "<p>Search via postal code,<br>toggle colour schemes,<br>or change years here.</p>",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
@@ -79,7 +81,7 @@ function bsTour(tour) {
   });
   tour.addStep({
     title: "Map Features",
-    text: `<strong>Tap</strong> a constituency to view results. <strong>Flip</strong> the party card to view candidates. <br> See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to get the address.`,
+    text: `<p><strong>Tap</strong> a constituency to view results. <strong>Flip</strong> the party card to view candidates.<br>See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to get the address.</p>`,
     attachTo: {
       element:
         "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(2)",
@@ -88,12 +90,13 @@ function bsTour(tour) {
     buttons: [
       {
         action: tour.back,
-        classes: "shepherd-button-secondary border border-dark",
+        classes: "btn btn-secondary border border-dark w-50",
         text: "Back",
       },
       {
         action: tour.cancel,
         text: "Exit",
+        classes: "btn btn-primary border border-dark w-50",
       },
     ],
     cancelIcon: {

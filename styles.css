@@ -199,7 +199,7 @@ input[type="number"] {
   border-bottom: 1px solid black;
 }
 .shepherd-footer {
-  justify-content: space-between;
+  justify-content: space-around;
 }
 @media (prefers-color-scheme: dark) {
   #page-header {
