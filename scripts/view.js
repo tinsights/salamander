@@ -74,7 +74,7 @@ export function initView() {
     const history = getHistory(layers, e.latlng);
     addressMarker.bindPopup(history);
     addressMarker.addTo(view.markers);
-    view.map.flyTo([latlng.lat + 0.05, latlng.lng], 13);
+    view.map.flyTo([latlng.lat + 0.02, latlng.lng], 13);
     await address.then((result) => {
       const titleEl = document.createElement("h3");
       let name = "Address Not Found";
