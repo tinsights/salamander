@@ -105,7 +105,7 @@ export function initView() {
 function addLoadingScreen() {
   const mapContainer = document.getElementById("map");
   let el = document.createElement("div");
-  el.innerHTML = `<div id="loading" style="width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: absolute;z-index: 10000;" class="d-flex justify-content-center align-items-center"><div class="spinner-border text-light" role="status" style="
+  el.innerHTML = `<div id="loading" style="width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: absolute;z-index: 313413;" class="d-flex justify-content-center align-items-center"><div class="spinner-border text-light" role="status" style="
     margin: auto;
 "></div></div>`;
   el = el.firstChild;
