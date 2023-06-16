@@ -1,5 +1,7 @@
 import { getHistory } from "./controllers.js";
 
+const tokenPromise = axios.get("https://psychic-couscous.onrender.com/onemaptoken");
+
 export function initView() {
   addLoadingScreen();
   const initialHeight = window.innerWidth > 768 ? 11 : 10;
@@ -63,7 +65,7 @@ export function initView() {
   async function addMarker(e) {
     const { latlng } = e;
     console.log(latlng);
-    const token = await axios.get("https://psychic-couscous.onrender.com/onemaptoken");
+    const token = await tokenPromise;
     const address = axios.get(
       `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=${token.data}&buffer=500&addressType=All&otherFeatures=N`
     );
