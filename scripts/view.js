@@ -156,12 +156,28 @@ function createLayer(model, view, year) {
           maxWidth: "fit-content",
           autoPanPadding: L.point(50, 50),
         });
+
         if (window.innerWidth > 768) {
           layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
             sticky: true,
           });
+        } else {
+          view.map.on("zoomend", function (ev) {
+            if (view.map.getZoom() > 12) {
+              layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
+                sticky: false,
+                permanent: true,
+              });
+            } else {
+              layer.closeTooltip();
+            }
+          });
         }
-        // layer.on('click', () => layer.closeToolTip());
+        layer.on("popupopen", (e) => {
+          if (view.map.getZoom() < 12) {
+            view.map.flyTo(e.popup.getLatLng(), 12, {});
+          }
+        });
       },
     });
     constituencyData.feature = geo;

@@ -19,9 +19,14 @@ window.addEventListener("DOMContentLoaded", async () => {
     addToggleButton(model, view);
     clearMarkersButton(view);
     darkmodeWatcher(view);
+
+    // TO BE REFACTORED:
+    // 1) moving controls into leaflet-bottom-right
     const el = document.querySelector("#mobile-menu-container");
     const parent = document.querySelector("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right");
     parent.prepend(el);
+
+    // 2) tooltips for mobile to open if zoomed-in sufficiently
   });
 });
 
