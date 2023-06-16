@@ -67,16 +67,19 @@ function bsTour(tour) {
 
   tour.addStep({
     title: "Controls",
-    text: "Search via postal code, toggle colour schemes, or change years here.",
+    text: "Search via postal code,<br>toggle colour schemes,<br>or change years here.",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
     },
     buttons: defaultTourButtons,
+    cancelIcon: {
+      enabled: true,
+    },
   });
   tour.addStep({
     title: "Map Features",
-    text: "Tap a constituency to view results. Flip the party card to view candidates. See a location of interest? Right click or long-press to get the address.",
+    text: `<strong>Tap</strong> a constituency to view results. <strong>Flip</strong> the party card to view candidates. <br> See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to get the address.`,
     attachTo: {
       element:
         "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(2)",
@@ -93,6 +96,9 @@ function bsTour(tour) {
         text: "Exit",
       },
     ],
+    cancelIcon: {
+      enabled: true,
+    },
   });
   //start the tour
   tour.start();
