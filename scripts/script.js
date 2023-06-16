@@ -55,7 +55,7 @@ function bsTour() {
 
   tour.addStep({
     title: "Postal Code Search",
-    text: "Search for a postal code to view a it's constituency history",
+    text: "Search for a postal code to view it's constituency history",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
