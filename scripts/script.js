@@ -55,7 +55,7 @@ function bsTour() {
 
   tour.addStep({
     title: "Postal Code Search",
-    text: "Search for a postal code to view a location's constituency history",
+    text: "Search for a postal code to view a it's constituency history",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
@@ -76,6 +76,16 @@ function bsTour() {
     text: "Change between the different election years.",
     attachTo: {
       element: ".control_container",
+      on: "top-start",
+    },
+    buttons: defaultTourButtons,
+  });
+  tour.addStep({
+    title: "Get Address",
+    text: "See a location of interest? Right click or long-press to get the address.",
+    attachTo: {
+      element:
+        "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(14)",
       on: "top-start",
     },
     buttons: defaultTourButtons,
