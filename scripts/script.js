@@ -74,7 +74,7 @@ function bsTour(tour) {
 
   tour.addStep({
     title: "Controls",
-    text: "<p>Search via postal code,<br>toggle colour schemes,<br>or change years here.</p>",
+    text: "<p>Search via postal code, toggle colour schemes, or change years here.</p>",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
