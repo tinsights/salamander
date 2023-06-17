@@ -256,6 +256,6 @@ input[type="number"] {
     max-width: 350px;
   }
 }
-.leaflet-container a {
+.leaflet-container h1 a {
   all: inherit;
 }
