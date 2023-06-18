@@ -34,8 +34,8 @@ export async function addPostalSearchEvent(view) {
     history.insertBefore(title, history.firstChild);
     addressMarker.bindPopup(history, { maxWidth: "fit-content" });
     addressMarker.addTo(view.markers);
-    const flyLat = +point.lat + 0.02;
-    view.map.flyTo([flyLat, point.lng], 13);
+    const flyLat = +point.lat + 0.015;
+    view.map.flyTo([flyLat, point.lng], 12);
     addressMarker.openPopup();
   });
 }
