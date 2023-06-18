@@ -10,9 +10,15 @@ window.addEventListener("DOMContentLoaded", async () => {
       scrollTo: true,
     },
   });
-  bsTour(tour);
-
+  // check if previous visited cookie exists
+  const visited = document.cookie.match("visited");
+  if (!visited) {
+    bsTour(tour);
+    // set visited cookie to true
+    document.cookie = "visited=true";
+  }
   generateModel([2006, 2011, 2015, 2020]).then((model) => {
+    if (visited) removeLoadingScreen();
     addPostalSearchEvent(view);
     addLayersToMap(model, view);
     showControls();
