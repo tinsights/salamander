@@ -31,6 +31,57 @@ h1:hover {
 h1 {
   color: rgba(0, 0, 0, 0.65);
 }
+/* animate page-header to slide up and out of screen */
+.slide-up-fade-out {
+  animation: slide-up-fade-out 1s ease-in-out forwards;
+}
+@keyframes slide-up-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+}
+.slide-down-fade-in {
+  animation: slide-down-fade-in 1s ease-in-out forwards;
+}
+@keyframes slide-down-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-out {
+  animation: fade-out 1s ease-in-out forwards;
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: fade-in 1s ease-in-out forwards;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .leaflet-control-zoom {
   position: absolute;
   top: 90px;

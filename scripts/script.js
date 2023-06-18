@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       scrollTo: true,
     },
   });
-  bsTour(tour);
 
   generateModel([2006, 2011, 2015, 2020]).then((model) => {
     addPostalSearchEvent(view);
@@ -26,8 +25,32 @@ window.addEventListener("DOMContentLoaded", async () => {
     const parent = document.querySelector("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right");
     parent.prepend(el);
 
-    // 2) tooltips for mobile to open if zoomed-in sufficiently
+    // 2) tooltips for mobile to open if zoomed-in sufficiently [DONE IN VIEW.JS]
   });
+  // 3) Header to slide up if zoomed-in sufficiently
+
+  const map = view.map;
+  const zoomControls = document.querySelector(".leaflet-control-zoom");
+  zoomControls.classList.add("fade-in");
+
+  map.on("zoomend", () => {
+    const zoom = map.getZoom();
+    const header = document.querySelector("#page-header");
+
+    if (zoom > 12) {
+      header.classList.remove("slide-down-fade-in");
+      header.classList.add("slide-up-fade-out");
+      zoomControls.classList.remove("fade-in");
+
+      zoomControls.classList.add("fade-out");
+    } else {
+      header.classList.remove("slide-up-fade-out");
+      header.classList.add("slide-down-fade-in");
+      zoomControls.classList.remove("fade-out");
+      zoomControls.classList.add("fade-in");
+    }
+  });
+  bsTour(tour);
 });
 
 // create a onboarding tour using the shephard js libary
