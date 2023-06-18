@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       const zoom = map.getZoom();
       const header = document.querySelector("#page-header");
 
-      if (zoom > 12) {
+      if (zoom >= 12) {
         header.classList.remove("slide-down-fade-in");
         header.classList.add("slide-up-fade-out");
         zoomControls.classList.remove("fade-in");
