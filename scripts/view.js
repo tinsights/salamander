@@ -134,14 +134,13 @@ export function addLayersToMap(model, view) {
     .addTo(view.map);
   return null;
 }
-function timelineFunction({ label, model, view }) {
-  // console.log(label, model, view);
+export function timelineFunction({ label, model, view }) {
   Object.values(view.layers).forEach((layer) => view.map.removeLayer(layer));
   view.layers[label].addTo(view.map);
   const constituencies = model[label].CONSTITUENCIES;
-
   setView(constituencies, view.currentStyle);
 }
+
 export function setView(constituencies, option = "defaultStyle") {
   Object.values(constituencies).forEach((constituency) => {
     constituency.feature.setStyle(constituency.style[option]);
@@ -311,11 +310,6 @@ function partyImage(party) {
 }
 
 export function showControls() {
-  document
-    .querySelector(
-      "#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(4)"
-    )
-    .click();
   document.querySelector("#mobile-menu-container").classList.remove("d-none");
   const timecontrols = document.querySelector(".control_container");
   timecontrols.style.display = "inline-block";

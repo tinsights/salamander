@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       scrollTo: true,
     },
   });
+  bsTour(tour);
 
   generateModel([2006, 2011, 2015, 2020]).then((model) => {
     addPostalSearchEvent(view);
@@ -51,8 +52,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     });
   }
-
-  bsTour(tour);
 });
 
 // create a onboarding tour using the shephard js libary
@@ -86,10 +85,23 @@ function bsTour(tour) {
       },
       {
         action: () => {
-          tour.next();
           try {
             removeLoadingScreen();
-          } catch (error) {}
+            for (let i = 1; i < 4; i++) {
+              setTimeout(() => {
+                document
+                  .querySelector(
+                    `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
+                      i + 1
+                    })`
+                  )
+                  .click();
+              }, 1000 * i);
+            }
+          } catch (error) {
+          } finally {
+            tour.next();
+          }
         },
         text: "Next",
         classes: "btn btn-primary border border-dark w-50",
