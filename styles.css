@@ -140,11 +140,9 @@ input[type="number"] {
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
-}
-.flip-card-front:hover,
-.flip-card-back:hover {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
+
 .flip-card-back {
   transform: rotateY(180deg);
 }
@@ -248,6 +246,14 @@ input[type="number"] {
   #map-container {
     height: 100svh;
     max-width: 1320px;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    box-shadow: none;
+  }
+  .flip-card-front:hover,
+  .flip-card-back:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 }
 @media screen and (min-width: 992px) {
