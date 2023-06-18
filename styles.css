@@ -8,7 +8,7 @@ body {
 .leaflet-container h1 a {
   all: inherit;
 }
-h1 a:hover {
+h1:hover {
   cursor: help;
   text-decoration: underline;
   text-decoration-style: dotted;
