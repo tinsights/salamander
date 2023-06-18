@@ -27,29 +27,31 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     // 2) tooltips for mobile to open if zoomed-in sufficiently [DONE IN VIEW.JS]
   });
-  // 3) Header to slide up if zoomed-in sufficiently
+  // 3) Header to slide up if zoomed-in sufficiently only on mobile
+  if (window.innerWidth < 768) {
+    const map = view.map;
+    const zoomControls = document.querySelector(".leaflet-control-zoom");
+    zoomControls.classList.add("fade-in");
 
-  const map = view.map;
-  const zoomControls = document.querySelector(".leaflet-control-zoom");
-  zoomControls.classList.add("fade-in");
+    map.on("zoomend", () => {
+      const zoom = map.getZoom();
+      const header = document.querySelector("#page-header");
 
-  map.on("zoomend", () => {
-    const zoom = map.getZoom();
-    const header = document.querySelector("#page-header");
+      if (zoom > 12) {
+        header.classList.remove("slide-down-fade-in");
+        header.classList.add("slide-up-fade-out");
+        zoomControls.classList.remove("fade-in");
 
-    if (zoom > 12) {
-      header.classList.remove("slide-down-fade-in");
-      header.classList.add("slide-up-fade-out");
-      zoomControls.classList.remove("fade-in");
+        zoomControls.classList.add("fade-out");
+      } else {
+        header.classList.remove("slide-up-fade-out");
+        header.classList.add("slide-down-fade-in");
+        zoomControls.classList.remove("fade-out");
+        zoomControls.classList.add("fade-in");
+      }
+    });
+  }
 
-      zoomControls.classList.add("fade-out");
-    } else {
-      header.classList.remove("slide-up-fade-out");
-      header.classList.add("slide-down-fade-in");
-      zoomControls.classList.remove("fade-out");
-      zoomControls.classList.add("fade-in");
-    }
-  });
   bsTour(tour);
 });
 
