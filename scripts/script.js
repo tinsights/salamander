@@ -10,8 +10,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       scrollTo: true,
     },
   });
-  // check if previous visited cookie exists
-  const visited = document.cookie.match("visited");
+  // check if previous visited cookie exists and is set true
+  const visited = document.cookie.match("visited=true");
   if (!visited) {
     bsTour(tour);
     // set visited cookie to true
