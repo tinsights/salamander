@@ -67,9 +67,11 @@ export function getHistory(mapLayers, point) {
 
 export function clearMarkersButton(view) {
   const clearButton = document.getElementById("clearBtn");
+  const initialHeight = window.innerWidth > 768 ? 11 : 10;
+
   clearButton.addEventListener("click", () => {
     view.markers.clearLayers();
-    view.map.flyTo([1.38, 103.85], 10);
+    view.map.flyTo([1.38, 103.85], initialHeight);
   });
 }
 
