@@ -5,6 +5,9 @@ body {
   padding: 0;
   margin: 0;
 }
+.leaflet-container h1 a {
+  all: inherit;
+}
 h1 a:hover {
   cursor: help;
   text-decoration: underline;
@@ -255,7 +258,4 @@ input[type="number"] {
   .shepherd-element {
     max-width: 350px;
   }
-}
-.leaflet-container a {
-  all: inherit;
 }
