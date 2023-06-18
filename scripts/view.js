@@ -162,6 +162,8 @@ function createLayer(model, view, year) {
             sticky: true,
           });
         } else {
+          // add event on layer change
+
           view.map.on("zoomend", function (ev) {
             if (view.map.getZoom() > 12) {
               layer.bindTooltip(`<h6 class="h6">${constituencyName}</h6>`, {
@@ -169,6 +171,11 @@ function createLayer(model, view, year) {
                 permanent: true,
               });
             } else {
+              layer.closeTooltip();
+            }
+          });
+          view.map.on("layeradd", function (ev) {
+            if (view.map.getZoom() <= 12) {
               layer.closeTooltip();
             }
           });
