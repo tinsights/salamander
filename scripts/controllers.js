@@ -43,6 +43,7 @@ export async function addPostalSearchEvent(view) {
 export function getHistory(mapLayers, point) {
   const container = document.createElement("div");
   container.classList.add("container", "year-history-card");
+  const constHist = [];
   Object.entries(mapLayers).forEach(([year, yearLayer]) =>
     yearLayer.eachLayer((geojsonLayer) => {
       geojsonLayer.eachLayer((polygon) => {
@@ -55,14 +56,35 @@ export function getHistory(mapLayers, point) {
           const grcCol = document.createElement("div");
           grcCol.classList.add("col-8", "text-center");
           grcCol.innerHTML = `<p>${polygon.feature.properties.ED_DESC}</p>`;
-          // constituencyHistory.innerHTML += `<p>${year}: ${polygon.feature.properties.ED_DESC}</p>`;
+          constHist.push(polygon.feature.properties.ED_DESC);
           row.append(yearCol, grcCol);
           container.append(row);
         }
       });
     })
   );
+  switch (calcChangesInHistory(constHist)) {
+    case 2:
+      score += 1;
+      break;
+    case 3:
+      score += 2;
+      break;
+    case 0:
+    default:
+      break;
+  }
   return container;
+}
+
+export function calcChangesInHistory(constHist) {
+  let changes = 0;
+  for (let i = 1; i < constHist.length; i++) {
+    if (constHist[i] !== constHist[i - 1]) {
+      changes += 1;
+    }
+  }
+  return changes;
 }
 
 export function clearMarkersButton(view) {
