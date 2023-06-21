@@ -10,23 +10,18 @@ window.addEventListener("DOMContentLoaded", async () => {
       scrollTo: true,
     },
   });
-  bsTour(tour);
 
   generateModel([2006, 2011, 2015, 2020]).then((model) => {
     addPostalSearchEvent(view);
     addLayersToMap(model, view);
-    showControls();
+    document.querySelector(".leaflet-bottom.leaflet-right").classList.add("d-none");
+    bsTour(tour);
+
     addToggleButton(model, view);
     clearMarkersButton(view);
     darkmodeWatcher(view);
 
     // TO BE REFACTORED:
-    // 1) moving controls into leaflet-bottom-right
-    const el = document.querySelector("#mobile-menu-container");
-    const parent = document.querySelector("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right");
-    parent.prepend(el);
-
-    // 2) tooltips for mobile to open if zoomed-in sufficiently [DONE IN VIEW.JS]
   });
   // 3) Header to slide up if zoomed-in sufficiently only on mobile
   if (window.innerWidth < 768) {
@@ -56,6 +51,24 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 // create a onboarding tour using the shephard js libary
 function bsTour(tour) {
+  let playback = false;
+  function autoplay(interval) {
+    console.log(playback);
+    if (!playback) {
+      playback = true;
+      for (let i = 1; i < 4; i++) {
+        setTimeout(() => {
+          document
+            .querySelector(
+              `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
+                i + 1
+              })`
+            )
+            .click();
+        }, interval * i);
+      }
+    }
+  }
   const defaultTourButtons = [
     {
       action: tour.back,
@@ -71,34 +84,29 @@ function bsTour(tour) {
 
   tour.addStep({
     title: "Welcome!",
-    text: "<p>Salamander allows you to explore Singapore's parliamentary electoral history from 2006 to 2020.</p>",
+    text: "<p>Explore Singapore's electoral consituency history from 2006 to 2020.</p>",
     buttons: [
       {
         classes: "btn btn-secondary border border-dark w-50",
         text: "Exit",
         action: () => {
-          tour.cancel();
           try {
+            showControls();
+            autoplay(500);
             removeLoadingScreen();
           } catch (error) {}
+          tour.cancel();
         },
       },
       {
         action: () => {
           try {
             removeLoadingScreen();
-            for (let i = 1; i < 4; i++) {
-              setTimeout(() => {
-                document
-                  .querySelector(
-                    `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
-                      i + 1
-                    })`
-                  )
-                  .click();
-              }, 1000 * i);
-            }
+
+            showControls();
+            autoplay(1000);
           } catch (error) {
+            console.log(error);
           } finally {
             tour.next();
           }
@@ -111,19 +119,16 @@ function bsTour(tour) {
 
   tour.addStep({
     title: "Controls",
-    text: "<p>Search via postal code, toggle colour schemes, or change years here.</p>",
+    text: "<p>Place a marker via postal code, or view changes in constituency boundaries over time.</p>",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
     },
     buttons: defaultTourButtons,
-    cancelIcon: {
-      enabled: true,
-    },
   });
   tour.addStep({
     title: "Map Features",
-    text: `<p><strong>Tap</strong> a constituency to view results. <strong>Flip</strong> the party card to view candidates.<br>See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to get the address.</p>`,
+    text: `<p>See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to get place down a marker and view its constituency history.</p>`,
     attachTo: {
       element:
         "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(2)",
@@ -141,9 +146,6 @@ function bsTour(tour) {
         classes: "btn btn-primary border border-dark w-50",
       },
     ],
-    cancelIcon: {
-      enabled: true,
-    },
   });
   //start the tour
   tour.start();

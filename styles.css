@@ -22,6 +22,7 @@ h1:hover {
 #map {
   height: 100%;
   position: relative;
+  user-select: none;
 }
 #page-header {
   left: auto;

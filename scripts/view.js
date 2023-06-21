@@ -70,6 +70,7 @@ export function initView() {
     const { latlng } = e;
     console.log(latlng);
     const token = await tokenPromise;
+    console.log(token.data);
     const address = axios.get(
       `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=${token.data}&buffer=500&addressType=All&otherFeatures=N`
     );
@@ -117,7 +118,7 @@ function addLoadingScreen() {
 }
 export function removeLoadingScreen() {
   const el = document.getElementById("loading");
-  el.remove();
+  if (el) el.remove();
 }
 
 export function addLayersToMap(model, view) {
@@ -310,7 +311,11 @@ function partyImage(party) {
 }
 
 export function showControls() {
-  document.querySelector("#mobile-menu-container").classList.remove("d-none");
+  const controls = document.querySelector("#mobile-menu-container");
+  const parent = document.querySelector("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right");
+  parent.prepend(controls);
+  parent.classList.remove("d-none");
+  controls.classList.remove("d-none");
   const timecontrols = document.querySelector(".control_container");
   timecontrols.style.display = "inline-block";
 }
