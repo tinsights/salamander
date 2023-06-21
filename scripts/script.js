@@ -94,7 +94,7 @@ function bsTour(tour) {
 
   tour.addStep({
     title: "Controls",
-    text: "<p>Place a marker via postal code, or view changes in constituency boundaries over time.</p>",
+    text: "<p>Search via postal code to view a location's constituency history.</p>",
     attachTo: {
       element: "#mobile-menu-container",
       on: "top",
@@ -103,7 +103,7 @@ function bsTour(tour) {
   });
   tour.addStep({
     title: "Map Features",
-    text: `<p>See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to get place down a marker and view its constituency history.</p>`,
+    text: `<p>See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to place down a marker and view its constituency history.</p>`,
     attachTo: {
       element:
         "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(2)",
