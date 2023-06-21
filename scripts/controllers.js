@@ -48,15 +48,18 @@ export function getHistory(mapLayers, point) {
     yearLayer.eachLayer((geojsonLayer) => {
       geojsonLayer.eachLayer((polygon) => {
         if (polygon.contains(point)) {
+          const constituency = polygon.feature.properties.ED_DESC;
           const row = document.createElement("div");
-          row.classList.add("row", "my-1", "gx-0", "border", "border-1", "border-dark", "rounded-3");
+          row.classList.add("row", "my-1", "gx-0", "border", "border-3", "rounded-3");
+          row.style.cssText += `border-color: ${allConstituencies[constituency].defaultStyle.fillColor} !important;`;
           const yearCol = document.createElement("div");
           yearCol.classList.add("col-4", "text-center");
           yearCol.innerHTML = `<p><strong>${year}: </strong></p>`;
           const grcCol = document.createElement("div");
           grcCol.classList.add("col-8", "text-center");
-          grcCol.innerHTML = `<p>${polygon.feature.properties.ED_DESC}</p>`;
-          constHist.push(polygon.feature.properties.ED_DESC);
+          grcCol.innerHTML = `<p>${constituency}</p>`;
+          constHist.push(constituency);
+          console.log(allConstituencies[constituency].defaultStyle.fillColor);
           row.append(yearCol, grcCol);
           container.append(row);
         }
