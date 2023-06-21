@@ -39,7 +39,7 @@ export async function addPostalSearchEvent(view) {
     addressMarker.openPopup();
   });
 }
-
+const currentGame = game();
 export function getHistory(mapLayers, point) {
   const container = document.createElement("div");
   container.classList.add("container", "year-history-card");
@@ -59,28 +59,41 @@ export function getHistory(mapLayers, point) {
           grcCol.classList.add("col-8", "text-center");
           grcCol.innerHTML = `<p>${constituency}</p>`;
           constHist.push(constituency);
-          console.log(allConstituencies[constituency].defaultStyle.fillColor);
           row.append(yearCol, grcCol);
           container.append(row);
         }
       });
     })
   );
-  switch (calcChangesInHistory(constHist)) {
-    case 2:
-      score += 1;
-      break;
-    case 3:
-      score += 2;
-      break;
-    case 0:
-    default:
-      break;
-  }
+  currentGame(constHist);
   return container;
 }
 
+function game() {
+  let score = 0;
+  const markersPlaced = {};
+  return (constHist) => {
+    if (!(constHist in markersPlaced)) {
+      console.log("new");
+      markersPlaced[constHist] = true;
+      switch (calcChangesInHistory(constHist)) {
+        case 2:
+          score += 1;
+          break;
+        case 3:
+          score += 2;
+          break;
+        default:
+          break;
+      }
+    }
+    console.log(markersPlaced);
+    console.log("Score: ", score);
+  };
+}
+
 export function calcChangesInHistory(constHist) {
+  console.log("calculating score");
   let changes = 0;
   for (let i = 1; i < constHist.length; i++) {
     if (constHist[i] !== constHist[i - 1]) {

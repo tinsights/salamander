@@ -85,7 +85,6 @@ export function initView() {
       let name = "Address Not Found";
       if (result.data.GeocodeInfo.length) {
         const place = result.data.GeocodeInfo[0];
-        console.log(place);
         name = place.ROAD === "NIL" ? place.BUILDINGNAME : place.ROAD;
       }
       titleEl.classList.add("lead", "text-center");
