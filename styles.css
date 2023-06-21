@@ -1,10 +1,10 @@
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 body {
   padding: 0;
   margin: 0;
-  user-select: none;
 }
 .leaflet-container h1 a {
   all: inherit;
