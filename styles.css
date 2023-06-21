@@ -112,14 +112,21 @@ h1 {
 .range-labels li::before {
   top: -10px !important;
 }
-#mobile-menu-container {
-  position: relative;
+#controlContainer {
   width: 225px;
   z-index: 313412;
+}
+#scoreContainer {
+  margin: 0 auto;
+}
+.display-container {
   background-color: rgba(255, 255, 255, 0.7);
   border: 2px solid grey;
   border-radius: 10px;
   padding: 0px 10px;
+}
+.score-box {
+  background-color: aliceblue;
 }
 
 #clearBtn,
@@ -287,9 +294,6 @@ input[type="number"] {
 }
 
 @media screen and (min-width: 768px) {
-  #mobile-menu-container {
-    display: flex;
-  }
   .leaflet-control-zoom {
     position: absolute;
     top: 110px;

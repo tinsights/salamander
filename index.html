@@ -45,38 +45,44 @@
               >
             </h1>
           </div>
-          <div id="mobile-menu-container" class="leaflet-control d-none">
-            <div class="row gy-2 py-3 px-1">
-              <div class="col-12 text-end">
-                <div class="row gx-1">
-                  <div class="col-10">
-                    <input
-                      type="number"
-                      id="postalCodeSelector"
-                      placeholder="Postcode"
-                      class="text-center w-100 h-100"
-                    />
-                  </div>
-                  <div class="col-2">
-                    <button id="postalCodeBtn" class="btn btn-sm btn-light border border-dark-subtle">
-                      <i class="bi bi-search"></i>
-                    </button>
+          <div
+            id="mobile-menu-container"
+            class="d-flex leaflet-control w-100 justify-contents-between align-items-center d-none"
+          >
+            <div id="scoreContainer" class="display-container h-75 d-flex flex-column">
+              <h6 class="m-1 text-center">Score</h6>
+              <div class="py-3 my-2 score-box text-center">0</div>
+            </div>
+            <div id="controlContainer" class="display-container">
+              <div class="row gy-2 py-3 px-1">
+                <div class="col-12 text-end">
+                  <div class="row gx-1">
+                    <div class="col-10">
+                      <input
+                        type="number"
+                        id="postalCodeSelector"
+                        placeholder="Postcode"
+                        class="text-center w-100 h-100"
+                      />
+                    </div>
+                    <div class="col-2">
+                      <button id="postalCodeBtn" class="btn btn-sm btn-light border border-dark-subtle">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-6 col-md-12 text-md-end">
-                <button id="clearBtn" class="btn btn-light btn-outline-dark w-100 p-2">Clear Markers</button>
-              </div>
-              <div class="col-6 col-md-12 text-md-end">
-                <button id="toggleBtn" class="btn btn-light btn-outline-dark w-100 p-2">Toggle Colors</button>
+                <div class="col-6 col-md-12 text-md-end">
+                  <button id="clearBtn" class="btn btn-light btn-outline-dark w-100 p-2">Clear Markers</button>
+                </div>
+                <div class="col-6 col-md-12 text-md-end">
+                  <button id="toggleBtn" class="btn btn-light btn-outline-dark w-100 p-2">Toggle Colors</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="container-fluid my-3" id="chart-container">
-        <canvas id="myChart"></canvas>
-      </div> -->
     </main>
     <!-- EXTERNAL SCRIPTS -->
     <!-- AXIOS CDN -->
