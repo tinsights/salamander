@@ -1,5 +1,5 @@
 import generateModel from "./model.js";
-import { initView, addLayersToMap, removeLoadingScreen, showControls } from "./view.js";
+import { initView, addLayersToMap, removeLoadingScreen, showControls, hideHeaderOnZoom } from "./view.js";
 import { addToggleButton, addPostalSearchEvent, darkmodeWatcher, clearMarkersButton } from "./controllers.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -20,40 +20,15 @@ window.addEventListener("DOMContentLoaded", async () => {
     addToggleButton(model, view);
     clearMarkersButton(view);
     darkmodeWatcher(view);
-
-    // TO BE REFACTORED:
+    hideHeaderOnZoom(view);
   });
   // 3) Header to slide up if zoomed-in sufficiently only on mobile
-  if (window.innerWidth < 768) {
-    const map = view.map;
-    const zoomControls = document.querySelector(".leaflet-control-zoom");
-    zoomControls.classList.add("fade-in");
-
-    map.on("zoomend", () => {
-      const zoom = map.getZoom();
-      const header = document.querySelector("#page-header");
-
-      if (zoom >= 12) {
-        header.classList.remove("slide-down-fade-in");
-        header.classList.add("slide-up-fade-out");
-        zoomControls.classList.remove("fade-in");
-
-        zoomControls.classList.add("fade-out");
-      } else {
-        header.classList.remove("slide-up-fade-out");
-        header.classList.add("slide-down-fade-in");
-        zoomControls.classList.remove("fade-out");
-        zoomControls.classList.add("fade-in");
-      }
-    });
-  }
 });
 
 // create a onboarding tour using the shephard js libary
 function bsTour(tour) {
   let playback = false;
   function autoplay(interval) {
-    console.log(playback);
     if (!playback) {
       playback = true;
       for (let i = 1; i < 4; i++) {
