@@ -71,6 +71,7 @@ export function getHistory(mapLayers, point) {
 
 function game() {
   let score = 0;
+  const scoreBox = document.getElementById("score");
   const markersPlaced = {};
   return (constHist) => {
     if (!(constHist in markersPlaced)) {
@@ -87,8 +88,7 @@ function game() {
           break;
       }
     }
-    console.log(markersPlaced);
-    console.log("Score: ", score);
+    scoreBox.innerHTML = score;
   };
 }
 
