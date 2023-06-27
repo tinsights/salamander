@@ -68,15 +68,27 @@ export function initView() {
 
   async function addMarker(e) {
     const { latlng } = e;
-    console.log(latlng);
     const token = await tokenPromise;
-    console.log(token.data);
     const address = axios.get(
       `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${latlng.lat}%2C${latlng.lng}&token=${token.data}&buffer=500&addressType=All&otherFeatures=N`
     );
     const addressMarker = L.marker(e.latlng);
     const { layers } = view;
     const history = getHistory(layers, e.latlng);
+    //get child nodes of history
+    history.childNodes.forEach((node, i) => {
+      if (node.classList.contains("const-hist")) {
+        node.addEventListener("click", () => {
+          document
+            .querySelector(
+              `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
+                i + 1
+              })`
+            )
+            .click();
+        });
+      }
+    });
     addressMarker.bindPopup(history);
     addressMarker.addTo(view.markers);
     view.map.flyTo([latlng.lat + 0.02, latlng.lng], 13);
@@ -85,7 +97,6 @@ export function initView() {
       let name = "Address Not Found";
       if (result.data.GeocodeInfo.length) {
         const place = result.data.GeocodeInfo[0];
-        console.log(place);
         name = place.ROAD === "NIL" ? place.BUILDINGNAME : place.ROAD;
       }
       titleEl.classList.add("lead", "text-center");
@@ -124,7 +135,6 @@ export function removeLoadingScreen() {
 export function addLayersToMap(model, view) {
   const years = Object.keys(model);
   years.forEach((year) => createLayer(model, view, year));
-  // console.log(view);
   L.control
     .timelineSlider({
       timelineItems: years,
