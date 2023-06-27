@@ -75,20 +75,6 @@ export function initView() {
     const addressMarker = L.marker(e.latlng);
     const { layers } = view;
     const history = getHistory(layers, e.latlng);
-    //get child nodes of history
-    history.childNodes.forEach((node, i) => {
-      if (node.classList.contains("const-hist")) {
-        node.addEventListener("click", () => {
-          document
-            .querySelector(
-              `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
-                i + 1
-              })`
-            )
-            .click();
-        });
-      }
-    });
     addressMarker.bindPopup(history);
     addressMarker.addTo(view.markers);
     view.map.flyTo([latlng.lat + 0.02, latlng.lng], 13);

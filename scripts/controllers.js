@@ -43,7 +43,7 @@ export function getHistory(mapLayers, point) {
   const container = document.createElement("div");
   container.classList.add("container", "year-history-card");
   const constHist = [];
-  Object.entries(mapLayers).forEach(([year, yearLayer]) =>
+  Object.entries(mapLayers).forEach(([year, yearLayer], idx) =>
     yearLayer.eachLayer((geojsonLayer) => {
       geojsonLayer.eachLayer((polygon) => {
         if (polygon.contains(point)) {
@@ -59,6 +59,15 @@ export function getHistory(mapLayers, point) {
           grcCol.innerHTML = `<p>${constituency}</p>`;
           constHist.push(constituency);
           row.append(yearCol, grcCol);
+          row.addEventListener("click", () => {
+            document
+              .querySelector(
+                `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
+                  idx + 1
+                })`
+              )
+              .click();
+          });
           container.append(row);
         }
       });
