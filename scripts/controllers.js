@@ -17,7 +17,7 @@ export async function addPostalSearchEvent(view) {
   const postalCodeBtn = document.getElementById("postalCodeBtn");
   postalCodeBtn.addEventListener("click", async () => {
     const address = await axios.get(
-      `https://www.onemap.gov.sg/api/common/elastic/search/searchVal=${postalCodeSelector.value}&returnGeom=Y&getAddrDetails=N`
+      `https://www.onemap.gov.sg/api/common/elastic/search?searchVal=${postalCodeSelector.value}&returnGeom=Y&getAddrDetails=N`
     );
     const title = document.createElement("h6");
     title.classList.add("lead", "text-center");

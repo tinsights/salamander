@@ -67,11 +67,17 @@ export function initView() {
   return view;
 
   async function addMarker(e) {
+    console.log("xx")
     const { latlng } = e;
-    const token = await tokenPromise;
-    console.log("xx token", token.data);
+    // const token = await tokenPromise;
+    // console.log("xx token", token.data);
     const address = axios.get(
-      `https://www.onemap.gov.sg/api/public/revgeocodexy?location=${latlng.lat}%2C${latlng.lng}&token=${eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMjYyZmU2YTU0MWEyNjkwZjAyOWYzMzkxNjA3OTI4YiIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzAwNjU2MjM0LCJleHAiOjE3MDA5MTU0MzQsIm5iZiI6MTcwMDY1NjIzNCwianRpIjoiNUVCWjYzeEFOaEN4bzRHUiIsInVzZXJfaWQiOjE2NzMsImZvcmV2ZXIiOmZhbHNlfQ.Pej7oeNh9GyDQ0AU7T3K5V_yOpTiNsgtpoiSHPe41Z0}&buffer=500&addressType=All&otherFeatures=N`
+      `https://www.onemap.gov.sg/api/public/revgeocodexy?location=${latlng.lat}%2C${latlng.lng}&buffer=500&addressType=All&otherFeatures=N`,
+      {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMjYyZmU2YTU0MWEyNjkwZjAyOWYzMzkxNjA3OTI4YiIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzAwNjU2MjM0LCJleHAiOjE3MDA5MTU0MzQsIm5iZiI6MTcwMDY1NjIzNCwianRpIjoiNUVCWjYzeEFOaEN4bzRHUiIsInVzZXJfaWQiOjE2NzMsImZvcmV2ZXIiOmZhbHNlfQ.Pej7oeNh9GyDQ0AU7T3K5V_yOpTiNsgtpoiSHPe41Z0`
+        }
+      }
     );
     const addressMarker = L.marker(e.latlng);
     const { layers } = view;
