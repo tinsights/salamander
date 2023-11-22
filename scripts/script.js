@@ -15,6 +15,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     addPostalSearchEvent(view);
     addLayersToMap(model, view);
     document.querySelector(".leaflet-bottom.leaflet-right").classList.add("d-none");
+    removeLoadingScreen();
+
     bsTour(tour);
 
     addToggleButton(model, view);
@@ -35,8 +37,7 @@ function bsTour(tour) {
         setTimeout(() => {
           document
             .querySelector(
-              `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${
-                i + 1
+              `#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.control_container.leaflet-control > ul > li:nth-child(${i + 1
               })`
             )
             .click();
@@ -69,7 +70,7 @@ function bsTour(tour) {
             showControls();
             autoplay(500);
             removeLoadingScreen();
-          } catch (error) {}
+          } catch (error) { }
           tour.cancel();
         },
       },

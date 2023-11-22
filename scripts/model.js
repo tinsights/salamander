@@ -15,6 +15,7 @@ export default async function generateModel(yrs) {
   });
   const oldYearDataReqs = yrs.map((yr) => Promise.all([getElectionResults(yr), getElectionBoundaries(yr)]));
   return Promise.all(oldYearDataReqs).then((yearResults) => {
+    console.log("xx yearResults", yearResults)
     yearResults.forEach((yearData) => createModel(yearData));
     return model;
   });
@@ -115,7 +116,7 @@ function* pastelColorGenerator() {
 
 async function getElectionResults(year) {
   const yearResultsResponse = await axios.get(
-    `https://data.gov.sg/api/action/datastore_search?resource_id=4706f2cb-a909-4cc0-bd3d-f366c34cf6af&q=${year}`
+    `https://data.gov.sg/api/action/datastore_search?resource_id=4706f2cb-a909-4cc0-bd3d-f366c34cf6af&filters={"year": ${year}}`
   );
   const yearResults = yearResultsResponse.data.result.records;
   return yearResults;
