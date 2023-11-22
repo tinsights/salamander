@@ -15,7 +15,6 @@ export default async function generateModel(yrs) {
   });
   const oldYearDataReqs = yrs.map((yr) => Promise.all([getElectionResults(yr), getElectionBoundaries(yr)]));
   return Promise.all(oldYearDataReqs).then((yearResults) => {
-    console.log("xx yearResults", yearResults)
     yearResults.forEach((yearData) => createModel(yearData));
     return model;
   });
