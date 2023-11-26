@@ -1,16 +1,22 @@
 * {
   box-sizing: border-box;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
+
 body {
   padding: 0;
   margin: 0;
 }
+
 .leaflet-container h1 a {
   all: inherit;
 }
+
 h1:hover {
   cursor: help;
   text-decoration: underline;
@@ -26,36 +32,44 @@ h1:hover {
   height: 100%;
   position: relative;
 }
+
 #page-header {
   left: auto;
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 313412;
 }
+
 h1 {
   color: rgba(0, 0, 0, 0.65);
 }
+
 /* animate page-header to slide up and out of screen */
 .slide-up-fade-out {
   animation: slide-up-fade-out 1s ease-in-out forwards;
 }
+
 @keyframes slide-up-fade-out {
   0% {
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(-100px);
   }
 }
+
 .slide-down-fade-in {
   animation: slide-down-fade-in 1s ease-in-out forwards;
 }
+
 @keyframes slide-down-fade-in {
   0% {
     opacity: 0;
     transform: translateY(-100px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -65,21 +79,26 @@ h1 {
 .fade-out {
   animation: fade-out 1s ease-in-out forwards;
 }
+
 @keyframes fade-out {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
 }
+
 .fade-in {
   animation: fade-in 1s ease-in-out forwards;
 }
+
 @keyframes fade-in {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -89,29 +108,37 @@ h1 {
   position: absolute;
   top: 90px;
 }
+
 .control_container {
   border: 2px solid grey;
   border-radius: 10px;
 }
+
 .bi-list {
   font-size: large;
 }
+
 .range {
   top: -3px !important;
 }
+
 .range input {
   top: 2px !important;
 }
+
 .range-labels {
   margin: 0 -37.75px !important;
 }
+
 .range-labels li {
   width: 65px;
   padding-top: 0.8rem;
 }
+
 .range-labels li::before {
   top: -10px !important;
 }
+
 #mobile-menu-container {
   position: relative;
   width: 225px;
@@ -130,6 +157,12 @@ h1 {
 input {
   font-size: 16px;
 }
+
+.is-invalid {
+  text-decoration: line-through;
+  outline: 2px solid #FF3333;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -145,6 +178,7 @@ input[type="number"] {
 #chart-container {
   height: 40vh;
 }
+
 .logo {
   height: 50px;
   object-fit: contain;
@@ -172,14 +206,17 @@ input[type="number"] {
 .year-history-card {
   width: 200px;
 }
+
 .const-hist {
   cursor: pointer;
 }
+
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   width: 150px;
   height: 150px;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  perspective: 1000px;
+  /* Remove this if you don't want the 3D effect */
 }
 
 /* This container is needed to position the front and back side */
@@ -198,7 +235,8 @@ input[type="number"] {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
+  /* Safari */
   backface-visibility: hidden;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
@@ -206,9 +244,11 @@ input[type="number"] {
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
 .flip-card ul li {
   font-size: xx-small;
 }
+
 .grc-name {
   font-weight: 200;
 }
@@ -218,6 +258,7 @@ input[type="number"] {
   border-radius: 10px;
   border: 3px solid lightgreen;
 }
+
 .loser-card-border {
   /* background-color: rgb(255, 225, 225); */
   border-radius: 10px;
@@ -232,6 +273,7 @@ input[type="number"] {
   from {
     transform: rotateY(0deg);
   }
+
   to {
     transform: rotateY(180deg);
   }
@@ -241,6 +283,7 @@ input[type="number"] {
   from {
     transform: rotateY(-180deg);
   }
+
   to {
     transform: rotateY(0deg);
   }
@@ -261,6 +304,7 @@ input[type="number"] {
   z-index: 313415;
   border: 1px solid black;
 }
+
 .shepherd-arrow:before {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
@@ -273,6 +317,7 @@ input[type="number"] {
 .shepherd-title {
   justify-content: center;
 }
+
 .shepherd-text p {
   text-align: center;
 }
@@ -283,6 +328,7 @@ input[type="number"] {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 313412;
   }
+
   h1 {
     color: rgba(255, 255, 255, 0.65);
   }
@@ -292,35 +338,43 @@ input[type="number"] {
   #mobile-menu-container {
     display: flex;
   }
+
   .leaflet-control-zoom {
     position: absolute;
     top: 110px;
   }
+
   #clearBtn,
   #toggleBtn {
     font-size: medium;
   }
+
   .shepherd-element {
     max-width: 300px;
   }
+
   #map-container {
     height: 100svh;
     max-width: 1320px;
   }
+
   .flip-card-front,
   .flip-card-back {
     box-shadow: none;
   }
+
   .flip-card-front:hover,
   .flip-card-back:hover {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 }
+
 @media screen and (min-width: 992px) {
   .leaflet-control-zoom {
     position: absolute;
     top: 130px;
   }
+
   .shepherd-element {
     max-width: 350px;
   }
