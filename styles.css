@@ -160,7 +160,9 @@ input {
 
 .is-invalid {
   text-decoration: line-through;
-  outline: 2px solid #FF3333;
+  outline: 1px solid #FF3333;
+  border: 1px solid #FF3333;
+  border-radius: 2px;
   color: grey
 }
 
