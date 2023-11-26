@@ -61,7 +61,7 @@ export function initView() {
     map,
     layers: {},
     markers,
-    currentStyle: "defaultStyle",
+    currentStyle: "resultStyle",
   };
 
   return view;
