@@ -161,6 +161,7 @@ input {
 .is-invalid {
   text-decoration: line-through;
   outline: 2px solid #FF3333;
+  color: grey
 }
 
 /* Chrome, Safari, Edge, Opera */

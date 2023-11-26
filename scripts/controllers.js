@@ -14,6 +14,12 @@ export function addToggleButton(model, view) {
 }
 
 async function postalSearch(view) {
+  if (postalCodeSelector.value.length !== 6) {
+    postalCodeSelector.classList.add("is-invalid");
+    postalCodeSelector.addEventListener("input", removeSearchInput);
+    postalCodeSelector.addEventListener("focus", removeSearchInput);
+    return;
+  }
   try {
     const address = await axios.get(
       `https://www.onemap.gov.sg/api/common/elastic/search?searchVal=${postalCodeSelector.value}&returnGeom=Y&getAddrDetails=N`
