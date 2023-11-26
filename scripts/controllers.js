@@ -13,9 +13,8 @@ export function addToggleButton(model, view) {
   toggleBtn.addEventListener("click", toggleView);
 }
 
-export async function addPostalSearchEvent(view) {
-  const postalCodeBtn = document.getElementById("postalCodeBtn");
-  postalCodeBtn.addEventListener("click", async () => {
+async function postalSearch(view) {
+  try {
     const address = await axios.get(
       `https://www.onemap.gov.sg/api/common/elastic/search?searchVal=${postalCodeSelector.value}&returnGeom=Y&getAddrDetails=N`
     );
@@ -36,6 +35,28 @@ export async function addPostalSearchEvent(view) {
     const flyLat = +point.lat + 0.015;
     view.map.flyTo([flyLat, point.lng], 12);
     addressMarker.openPopup();
+  } catch (error) {
+    postalCodeSelector.classList.add("is-invalid");
+    postalCodeSelector.addEventListener("input", removeSearchInput);
+    postalCodeSelector.addEventListener("focus", removeSearchInput);
+    console.log(error);
+  }
+}
+
+function removeSearchInput() {
+  postalCodeSelector.classList.remove("is-invalid");
+  postalCodeSelector.value = "";
+  postalCodeSelector.removeEventListener("input", removeSearchInput);
+  postalCodeSelector.removeEventListener("focus", removeSearchInput);
+}
+
+export async function addPostalSearchEvent(view) {
+  const postalCodeBtn = document.getElementById("postalCodeBtn");
+  postalCodeBtn.addEventListener("click", () => postalSearch(view));
+  postalCodeSelector.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      postalSearch(view);
+    }
   });
 }
 
