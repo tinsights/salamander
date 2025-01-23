@@ -84,6 +84,7 @@ export function initView() {
     addressMarker.addTo(view.markers);
     view.map.flyTo([latlng.lat + 0.02, latlng.lng], 13);
     await address.then((result) => {
+			console.log(result);
       const titleEl = document.createElement("h3");
       let name = "Address Not Found";
       if (result.data.GeocodeInfo.length) {
