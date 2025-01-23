@@ -111,7 +111,6 @@ function bsTour(tour) {
         action: () => {
 					setTimeout(() => document.querySelector("#toggleBtn").click(), 500);
 					setTimeout(() => document.querySelector("#toggleBtn").click(), 1500);
-					setTimeout(() => document.querySelector("#toggleBtn").click(), 3000);
 					tour.next();
         },
       },
