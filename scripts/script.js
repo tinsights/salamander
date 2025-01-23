@@ -103,7 +103,7 @@ function bsTour(tour) {
       {
         classes: "btn btn-secondary border border-dark w-50",
         text: "Back",
-        action: tour.back(),
+        action: tour.back,
       },
       {
 				text: "Next",
@@ -128,7 +128,7 @@ function bsTour(tour) {
 			{
 				text: "Back",
 				classes: "btn btn-secondary border border-dark w-50",
-				action: tour.back(),
+				action: tour.back,
 			},
 			{ text: "Next",
 				classes: "btn btn-primary border border-dark w-50",
@@ -162,12 +162,12 @@ function bsTour(tour) {
     },
     buttons: [
       {
-        action: tour.back(),
+        action: tour.back,
         classes: "btn btn-secondary border border-dark w-50",
         text: "Back",
       },
       {
-        action: tour.cancel(),
+        action: tour.cancel,
         text: "Exit",
         classes: "btn btn-primary border border-dark w-50",
       },
