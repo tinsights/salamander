@@ -60,7 +60,7 @@ function bsTour(tour) {
 
   tour.addStep({
     title: "Welcome!",
-    text: "<p>Explore Singapore's electoral consituency history from 2006 to 2020.</p>",
+    text: "<p>Explore Singapore's electoral constituency history from 2006 to 2020.</p>",
     buttons: [
       {
         classes: "btn btn-secondary border border-dark w-50",
@@ -75,22 +75,71 @@ function bsTour(tour) {
         },
       },
       {
+				text: "Next",
+        classes: "btn btn-primary border border-dark w-50",
         action: () => {
           try {
             removeLoadingScreen();
-
             showControls();
-            autoplay(1000);
+            autoplay(1500);
           } catch (error) {
             console.log(error);
           } finally {
             tour.next();
           }
         },
-        text: "Next",
-        classes: "btn btn-primary border border-dark w-50",
       },
     ],
+  });
+
+	tour.addStep({
+    title: "Controls",
+    text: "<p>View changes in constituency boundaries over the years.</p>",
+    attachTo: {
+      element: ".control_container.leaflet-control",
+      on: "top",
+    },
+		buttons: [
+      {
+        classes: "btn btn-secondary border border-dark w-50",
+        text: "Back",
+        action: tour.back(),
+      },
+      {
+				text: "Next",
+        classes: "btn btn-primary border border-dark w-50",
+        action: () => {
+					setTimeout(() => document.querySelector("#toggleBtn").click(), 500);
+					setTimeout(() => document.querySelector("#toggleBtn").click(), 1500);
+					setTimeout(() => document.querySelector("#toggleBtn").click(), 3000);
+					tour.next();
+        },
+      },
+    ],
+  });
+
+	tour.addStep({
+    title: "Controls",
+    text: "<p>Toggle between election results and constituency colours.</p>",
+    attachTo: {
+      element: "#toggleBtn",
+      on: "top",
+    },
+    buttons: [
+			{
+				text: "Back",
+				classes: "btn btn-secondary border border-dark w-50",
+				action: tour.back,
+			},
+			{ text: "Next",
+				classes: "btn btn-primary border border-dark w-50",
+				action: () => {
+					document.querySelector("#postalCodeSelector").value = "307516"
+					setTimeout(() => document.querySelector("#postalCodeBtn").click(), 1000);
+					tour.next();
+				},
+			},
+		],
   });
 
   tour.addStep({
@@ -100,8 +149,20 @@ function bsTour(tour) {
       element: "#mobile-menu-container",
       on: "top",
     },
+		buttons: defaultTourButtons,
+  });
+
+	tour.addStep({
+    title: "Controls",
+    text: "<p>Search via postal code to view a location's constituency history.</p>",
+    attachTo: {
+      element: "#mobile-menu-container",
+      on: "top",
+    },
     buttons: defaultTourButtons,
   });
+	
+	 
   tour.addStep({
     title: "Map Features",
     text: `<p>See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to place down a marker and view its constituency history.</p>`,

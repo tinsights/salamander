@@ -13,6 +13,7 @@ export default async function generateModel(yrs) {
       RESULTS: {},
     };
   });
+	
   const oldYearDataReqs = yrs.map((yr) => Promise.all([getElectionResults(yr), getElectionBoundaries(yr)]));
   return Promise.all(oldYearDataReqs).then((yearResults) => {
     yearResults.forEach((yearData) => createModel(yearData));
@@ -64,6 +65,7 @@ export default async function generateModel(yrs) {
     });
   }
 }
+
 function generateConstituencyStyle(constituencyResults) {
   let winner = {};
   if (constituencyResults.length > 1) {
@@ -94,6 +96,7 @@ function generateConstituencyStyle(constituencyResults) {
       };
   }
 }
+
 function* pastelColorGenerator() {
   let hue = 0;
   let counter = 0;
