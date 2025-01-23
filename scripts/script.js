@@ -151,16 +151,6 @@ function bsTour(tour) {
     },
 		buttons: defaultTourButtons,
   });
-
-	tour.addStep({
-    title: "Controls",
-    text: "<p>Search via postal code to view a location's constituency history.</p>",
-    attachTo: {
-      element: "#mobile-menu-container",
-      on: "top",
-    },
-    buttons: defaultTourButtons,
-  });
 	
 	 
   tour.addStep({
