@@ -150,33 +150,10 @@ function bsTour(tour) {
     },
 		buttons: defaultTourButtons,
   });
-	
-	 
-	tour.addStep({
-			title: "Map Features",
-			text: `<p>Click or tap on a constituency to view the results for that year.</p>`,
-			attachTo: {
-				element:
-					"#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(3)",
-				on: "top-start",
-			},
-			buttons: [
-				{
-					action: tour.back,
-					classes: "btn btn-secondary border border-dark w-50",
-					text: "Back",
-				},
-				{
-					action: tour.cancel,
-					text: "Exit",
-					classes: "btn btn-primary border border-dark w-50",
-				},
-			],
-		});
 
   tour.addStep({
     title: "Map Features",
-    text: `<p>Tap on a constituency to view results for that year. See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to place down a marker and view its constituency history.</p>`,
+    text: `<p>Click on a constituency to view results for that year. See a location of interest? <strong>Right click</strong> or <strong>long-tap</strong> to place down a marker and view its constituency history.</p>`,
     attachTo: {
       element:
         "#map > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-overlay-pane > svg > g > path:nth-child(2)",
