@@ -1,7 +1,10 @@
 # Salamander (working title)
 https://tinsights.github.io/salamander/
+
+https://github.com/user-attachments/assets/d1e4e6ce-b994-44ca-9119-53fadf34e998
+
 ## This web-app aims to show you changes in Singapore's electoral boundaries over time.
-Users will be able to time travel to past elections and view which Constituency they would have been grouped into by entering their postal code.
+Users will be able to explore Constituency boundaries and election results through time and space, either visually or by searching via postal code.
 
 ## Aims of the project:
 
